@@ -1,7 +1,6 @@
 <template>
   <div>
     <v-toolbar
-      fixed
       color="orange lighten-1"
       dark
       ><v-toolbar-title>Laboratorio IUE</v-toolbar-title>
