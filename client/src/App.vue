@@ -3,7 +3,7 @@
     <v-app>
       <page-header/>
         <main>
-          <v-container fluid>
+          <v-container>
             <router-view></router-view>
           </v-container>
         </main>
@@ -28,5 +28,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+.input-group--text-fiel input{
+  border-bottom: 1px solid black;
 }
 </style>
