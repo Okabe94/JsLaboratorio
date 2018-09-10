@@ -1,6 +1,6 @@
 <template>
   <div>
-    HOMEEEEEE
+    LEEEEEND
   </div>
 
 </template>

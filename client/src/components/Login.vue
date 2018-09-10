@@ -23,11 +23,11 @@
                 <v-btn
                   class="green darken-1"
                   dark
-                  @click="register">
+                  @click="login">
                   Acceder
                 </v-btn>
               </div>
-              
+
             </div>
         </v-flex>
       </v-layout>
@@ -44,7 +44,7 @@ export default {
     }
   },
   methods: {
-    async register () {
+    async login () {
       const response = await AuthenticationServices.register({
         user: this.email,
         password: this.password
