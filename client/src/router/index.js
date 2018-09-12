@@ -4,8 +4,8 @@ import Login from '@/components/Login'
 import Home from '@/components/Home'
 import Lend from '@/components/Lend'
 import Logout from '@/components/Logout'
-import Schedule from '@/components/Schedule'
 import Returns from '@/components/Returns'
+import Schedule from '@/components/Schedule'
 
 Vue.use(Router)
 
@@ -27,12 +27,12 @@ export default new Router({
       component: Lend
     },
     {
-      path: '/returns',
+      path: '/return',
       name: 'returns',
       component: Returns
     },
     {
-      path: '/shcedule',
+      path: '/schedule',
       name: 'schedule',
       component: Schedule
     },

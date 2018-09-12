@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     async login () {
-      const response = await AuthenticationServices.register({
+      const response = await AuthenticationServices.login({
         user: this.email,
         password: this.password
       })
