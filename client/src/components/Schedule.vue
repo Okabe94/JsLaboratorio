@@ -1,6 +1,6 @@
 <template>
   <div>
-    HOMEEEEEE
+    SCHEDULEEEEE
   </div>
 
 </template>
