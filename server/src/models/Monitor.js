@@ -43,9 +43,7 @@ module.exports = (sequelize, DataTypes) => {
   {
     tableName: 'Monitor',
     freezeTableName: true,
-    timestamps: false
-  },
-  {
+    timestamps: false,
     hooks: {
       beforeCreate: hashPassword,
       beforeUpdate: hashPassword,

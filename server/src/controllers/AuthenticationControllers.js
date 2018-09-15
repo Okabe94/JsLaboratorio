@@ -30,13 +30,13 @@ module.exports = {
       })
       if (!monitor) {
         return res.status(403).send({
-          error: 'La información de ingreso es incorrecta'
+          error: 'La información de ingreso es incorrecta user'
         })
       }
       const isPasswordValid = await monitor.comparePassword(Pass)
       if (!isPasswordValid) {
         return res.status(403).send({
-          error: 'La información de ingreso es incorrecta'
+          error: 'La información de ingreso es incorrecta pass'
         })
       }
       const monitorJson = monitor.toJSON()
