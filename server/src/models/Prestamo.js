@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) =>
       type: DataTypes.INTEGER,
       allowNull: false
     },
+    Comantario: {
+      type: DataTypes.TEXT
+    },
     Entregado: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
@@ -21,7 +24,6 @@ module.exports = (sequelize, DataTypes) =>
   },
   {
     tableName: 'Prestamo',
-    timestamps: true,
     deleteAt: false,
     createAt: 'FechaPedido',
     updateAt: 'FechaEntrega'
