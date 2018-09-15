@@ -58,13 +58,13 @@ export default {
     async create () {
       try {
         this.Nombre = this.Nombre.trim()
-        await CreationServices.create({
+        const response = await CreationServices.create({
           Nombre: this.Nombre,
           Carnet: this.Carnet,
           Pass: this.Pass
         })
-      this.$store.dispatch('setToken', response.data.token)
-      this.$store.dispatch('setMonitor', response.data.monitor)
+        this.$store.dispatch('setToken', response.data.token)
+        this.$store.dispatch('setMonitor', response.data.monitor)
       } catch (error) {
         this.error = error.response.data.error
       }

@@ -12,5 +12,6 @@ module.exports = (sequelize, DataTypes) =>
   },
   {
     tableName: 'Rango',
+    freezeTableName: true,
     timestamps: false
   })

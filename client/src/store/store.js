@@ -10,7 +10,7 @@ export default new Vuex.Store({
     monitor: null,
     isMonitorLoggedIn: false
   },
-  mutations:{
+  mutations: {
     setToken (state, token) {
       state.token = token
       if (token) {
@@ -32,4 +32,3 @@ export default new Vuex.Store({
     }
   }
 })
-

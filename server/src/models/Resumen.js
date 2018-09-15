@@ -24,5 +24,6 @@ module.exports = (sequelize, DataTypes) =>
   },
   {
     tableName: 'Resumen',
+    freezeTableName: true,
     timestamps: false
   })

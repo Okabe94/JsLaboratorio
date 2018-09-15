@@ -7,6 +7,7 @@ function hashPassword (monitor, options) {
   if (!monitor.changed('Pass')) {
     return
   }
+
   return bcrypt
     .genSaltAsync(SALT_FACTOR)
     .then(salt => bcrypt.hashAsync(monitor.Pass, salt, null))
@@ -49,6 +50,7 @@ module.exports = (sequelize, DataTypes) => {
   },
   {
     tableName: 'Monitor',
+    freezeTableName: true,
     timestamps: false
   })
   Monitor.prototype.comparePassword = function (Pass) {
