@@ -31,7 +31,7 @@
             <v-btn
               class="green darken-1"
               dark
-              @click="create">
+              @click="register">
               Registrar
             </v-btn>
           </div>
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import CreationServices from '@/services/AuthenticationService'
+import AuthenticationService from '@/services/AuthenticationService'
 export default {
   data () {
     return {
@@ -55,10 +55,10 @@ export default {
     }
   },
   methods: {
-    async create () {
+    async register () {
       try {
         this.Nombre = this.Nombre.trim()
-        await CreationServices.create({
+        await AuthenticationService.register({
           Nombre: this.Nombre,
           Carnet: this.Carnet,
           Pass: this.Pass
