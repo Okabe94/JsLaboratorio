@@ -63,6 +63,8 @@ export default {
           Carnet: this.Carnet,
           Pass: this.Pass
         })
+      this.$store.dispatch('setToken', response.data.token)
+      this.$store.dispatch('setMonitor', response.data.monitor)
       } catch (error) {
         this.error = error.response.data.error
       }

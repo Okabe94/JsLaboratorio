@@ -51,7 +51,8 @@ export default {
         Carnet: this.Carnet,
         Pass: this.Pass
       })
-      console.log(response.data)
+      this.$store.dispatch('setToken', response.data.token)
+      this.$store.dispatch('setMonitor', response.data.monitor)
     }
   }
 }

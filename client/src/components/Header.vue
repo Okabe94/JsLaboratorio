@@ -26,7 +26,7 @@
           Horarios
         </v-btn>
         <v-divider vertical></v-divider>
-        <v-btn flat
+        <v-btn flat v-if="!$store.state.isUserLoggedIn"
         @click="navigateTo({name: 'login'})">
           Ingresar
         </v-btn>
