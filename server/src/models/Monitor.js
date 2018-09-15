@@ -27,18 +27,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    Carnet: {
-      type: DataTypes.INTEGER,
-      unique: true,
-      allowNull: false
-    },
     Pass: {
       type: DataTypes.STRING,
       allowNull: false
     },
     FKRango: {
-      type: DataTypes.INTEGER,
-      defaultValue: 2
+      type: DataTypes.INTEGER
     }
   },
   {

@@ -6,7 +6,6 @@ import Lend from '@/components/Lend'
 import Logout from '@/components/Logout'
 import Returns from '@/components/Returns'
 import Schedule from '@/components/Schedule'
-import Register from '@/components/Register'
 
 Vue.use(Router)
 
@@ -41,11 +40,6 @@ export default new Router({
       path: '/logout',
       name: 'logout',
       component: Logout
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: Register
     }
   ]
 })

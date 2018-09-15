@@ -18,8 +18,7 @@ module.exports = (sequelize, DataTypes) =>
     },
     Entregado: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
+      allowNull: false
     }
   },
   {
