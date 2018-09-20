@@ -28,6 +28,12 @@
               type="password"
             ></v-text-field>
             <br>
+            <v-select
+              v-model="FKRango"
+              :items="items"
+              label="Cargo"
+            ></v-select>
+            <br>
             <v-btn
               class="green darken-1"
               dark
@@ -51,21 +57,34 @@ export default {
       Nombre: '',
       Carnet: '',
       Pass: '',
-      error: null
+      FKRango: '',
+      error: null,
+      items: ['Monitor', 'Administrador']
     }
   },
   methods: {
     async register () {
       try {
         this.Nombre = this.Nombre.trim()
+        switch (this.FKRango) {
+          case 'Monitor':
+            this.FKRango = 2
+            break
+          case 'Administrador':
+            this.FKRango = 1
+            break
+          default:
+            this.FKRango = 2
+        }
         const response = await AuthenticationService.register({
           Nombre: this.Nombre,
           Carnet: this.Carnet,
-          Pass: this.Pass
+          Pass: this.Pass,
+          FKRango: this.FKRango
         })
         this.$store.dispatch('setToken', response.data.token)
-        this.$store.dispatch('setCarnet', response.data.monitor.Carnet)
-        this.$store.dispatch('setRango', response.data.monitor.FKRango)
+        this.$store.dispatch('setCarnet', response.data.Carnet)
+        this.$store.dispatch('setRango', response.data.FKRango)
       } catch (error) {
         this.error = error.response.data.error
       }

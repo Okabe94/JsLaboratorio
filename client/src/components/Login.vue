@@ -53,6 +53,7 @@ export default {
           Carnet: this.Carnet,
           Pass: this.Pass
         })
+        console.log(response)
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setCarnet', response.data.monitor.Carnet)
         this.$store.dispatch('setRango', response.data.monitor.FKRango)
