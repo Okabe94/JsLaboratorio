@@ -76,15 +76,15 @@ export default {
           default:
             this.FKRango = 2
         }
-        const response = await AuthenticationService.register({
+        await AuthenticationService.register({
           Nombre: this.Nombre,
           Carnet: this.Carnet,
           Pass: this.Pass,
           FKRango: this.FKRango
         })
-        this.$store.dispatch('setToken', response.data.token)
-        this.$store.dispatch('setCarnet', response.data.Carnet)
-        this.$store.dispatch('setRango', response.data.FKRango)
+        // this.$store.dispatch('setToken', response.data.token)
+        // this.$store.dispatch('setCarnet', response.data.Carnet)
+        // this.$store.dispatch('setRango', response.data.FKRango)
       } catch (error) {
         this.error = error.response.data.error
       }

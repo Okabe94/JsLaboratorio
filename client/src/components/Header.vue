@@ -12,11 +12,13 @@
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-btn flat
+        v-if="$store.state.isLoggedIn"
         @click="navigateTo({name: 'lend'})">
           Préstamos
         </v-btn>
         <v-divider vertical></v-divider>
         <v-btn flat
+        v-if="$store.state.isLoggedIn"
         @click="navigateTo({name: 'returns'})">
           Entregas
         </v-btn>
@@ -27,13 +29,20 @@
         </v-btn>
         <v-divider vertical></v-divider>
         <v-btn flat
+        v-if="$store.state.isAdmin"
+        @click="navigateTo({name: 'register'})">
+          Registrar
+        </v-btn>
+        <v-divider vertical></v-divider>
+        <v-btn flat
+        v-if="!$store.state.isLoggedIn"
         @click="navigateTo({name: 'login'})">
           Ingresar
         </v-btn>
         <v-btn flat
-        v-if="$store.state.isAdmin"
-        @click="navigateTo({name: 'register'})">
-          Registrar
+        v-if="$store.state.isLoggedIn"
+        @click="logOut({name: 'home'})">
+          Cerrar Sesion
         </v-btn>
         <v-divider vertical></v-divider>
       </v-toolbar-items>
@@ -46,6 +55,12 @@
 export default{
   methods: {
     navigateTo (route) {
+      this.$router.push(route)
+    },
+    logOut (route) {
+      this.$store.dispatch('setToken', null)
+      this.$store.dispatch('setCarnet', null)
+      this.$store.dispatch('setRango', null)
       this.$router.push(route)
     }
   }

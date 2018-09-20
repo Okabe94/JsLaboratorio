@@ -9,11 +9,17 @@ export default new Vuex.Store({
     token: null,
     carnet: null,
     rango: null,
-    isAdmin: false
+    isAdmin: false,
+    isLoggedIn: false
   },
   mutations: {
     setToken (state, token) {
       state.token = token
+      if (token) {
+        state.isLoggedIn = true
+      } else {
+        state.isLoggedIn = false
+      }
     },
     setCarnet (state, carnet) {
       state.carnet = carnet
