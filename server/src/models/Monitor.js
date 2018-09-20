@@ -43,13 +43,10 @@ module.exports = (sequelize, DataTypes) => {
   {
     tableName: 'Monitor',
     freezeTableName: true,
-    timestamps: false
-  },
-  {
+    timestamps: false,
     hooks: {
-      beforeCreate: hashPassword,
-      beforeUpdate: hashPassword,
-      beforeSave: hashPassword
+      beforeSave: hashPassword,
+      beforeUpdate: hashPassword
     }
   })
   Monitor.prototype.comparePassword = function (Pass) {
