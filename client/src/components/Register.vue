@@ -1,94 +1,91 @@
 <template>
   <div>
-    <v-layout align-center column fill-height >
-      <v-flex>
-        <v-toolbar flat dense dark class="green darken-1">
-          <v-toolbar-title>Creación de Monitores</v-toolbar-title>
-        </v-toolbar>
-        <div class="white elevation-4">
+    <panel title='Registrar Usuarios'>
 
-          <div class="pl-4 pr-4 pt-2 pb-2">
-            <v-text-field
-              label="Nombre"
-              v-model="Nombre"
-              autofocus
-            ></v-text-field>
-            <br>
-            <v-text-field
-              label="Carnet"
-              v-model="Carnet"
-              type="number"
-              min="0"
-              autofocus
-            ></v-text-field>
-            <br>
-            <v-text-field
-              label="Contraseña"
-              v-model="Pass"
-              type="password"
-            ></v-text-field>
-            <br>
-            <v-select
-              v-model="FKRango"
-              :items="items"
-              label="Cargo"
-            ></v-select>
-            <br>
-            <v-btn
-              class="green darken-1"
-              dark
-              @click="register">
-              Registrar
-            </v-btn>
-          </div>
+      <div class="pl-4 pr-4 pt-2 pb-2">
+        <v-text-field
+          required
+          :rules="[required]"
+          label="Nombre"
+          v-model="monitor.Nombre"
+          autofocus
+        ></v-text-field>
+        <br>
+        <v-text-field
+          required
+          :rules="[required]"
+          label="Carnet"
+          v-model="monitor.Carnet"
+          type="number"
+          min="0"
+        ></v-text-field>
+        <br>
+        <v-text-field
+          required
+          :rules="[required]"
+          label="Contraseña"
+          v-model="monitor.Pass"
+          type="password"
+        ></v-text-field>
+        <br>
+        <v-select
+          v-model="monitor.FKRango"
+          :items="items"
+          label="Cargo"
+        ></v-select>
+        <br>
+        <v-btn
+          class="green darken-1"
+          dark
+          @click="register">
+          Registrar
+        </v-btn>
+      </div>
 
-        </div>
-      </v-flex>
-      <div class="error" margin="auto" v-html="error" />
-    </v-layout>
+    </panel>
   </div>
 </template>
 
 <script>
 import AuthenticationService from '@/services/AuthenticationService'
+import Panel from '@/components/Panel'
+
 export default {
   data () {
     return {
-      Nombre: '',
-      Carnet: '',
-      Pass: '',
-      FKRango: '',
+      monitor: {
+        Nombre: '',
+        Carnet: '',
+        Pass: '',
+        FKRango: ''
+      },
       error: null,
-      items: ['Monitor', 'Administrador']
+      items: ['Monitor', 'Administrador'],
+      required: (value) => !!value || 'Requerido.'
     }
   },
   methods: {
     async register () {
       try {
-        this.Nombre = this.Nombre.trim()
-        switch (this.FKRango) {
+        this.monitor.Nombre = this.monitor.Nombre.trim()
+        switch (this.monitor.FKRango) {
           case 'Monitor':
-            this.FKRango = 2
+            this.monitor.FKRango = 2
             break
           case 'Administrador':
-            this.FKRango = 1
+            this.monitor.FKRango = 1
             break
           default:
-            this.FKRango = 2
+            this.monitor.FKRango = 2
         }
-        await AuthenticationService.register({
-          Nombre: this.Nombre,
-          Carnet: this.Carnet,
-          Pass: this.Pass,
-          FKRango: this.FKRango
-        })
-        // this.$store.dispatch('setToken', response.data.token)
-        // this.$store.dispatch('setCarnet', response.data.Carnet)
-        // this.$store.dispatch('setRango', response.data.FKRango)
+        await AuthenticationService.register(this.monitor)
       } catch (error) {
         this.error = error.response.data.error
       }
     }
+  },
+  components: {
+    Panel
   }
 }
 </script>
