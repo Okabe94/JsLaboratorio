@@ -30,6 +30,11 @@
         @click="navigateTo({name: 'login'})">
           Ingresar
         </v-btn>
+        <v-btn flat
+        v-if="$store.state.isAdmin"
+        @click="navigateTo({name: 'register'})">
+          Registrar
+        </v-btn>
         <v-divider vertical></v-divider>
       </v-toolbar-items>
       <v-toolbar-side-icon></v-toolbar-side-icon>

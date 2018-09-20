@@ -8,7 +8,8 @@ export default new Vuex.Store({
   state: {
     token: null,
     carnet: null,
-    iscarnetLoggedIn: false
+    rango: null,
+    isAdmin: false
   },
   mutations: {
     setToken (state, token) {
@@ -16,6 +17,14 @@ export default new Vuex.Store({
     },
     setCarnet (state, carnet) {
       state.carnet = carnet
+    },
+    setRango (state, rango) {
+      state.rango = rango
+      if (rango === 1) {
+        state.isAdmin = true
+      } else {
+        state.isAdmin = false
+      }
     }
   },
   actions: {
@@ -24,6 +33,9 @@ export default new Vuex.Store({
     },
     setCarnet ({ commit }, carnet) {
       commit('setCarnet', carnet)
+    },
+    setRango ({ commit }, rango) {
+      commit('setRango', rango)
     }
   }
 })

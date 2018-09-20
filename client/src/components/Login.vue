@@ -55,6 +55,7 @@ export default {
         })
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setCarnet', response.data.monitor.Carnet)
+        this.$store.dispatch('setRango', response.data.monitor.FKRango)
       } catch (error) {
         this.error = error.response.data.error
       }

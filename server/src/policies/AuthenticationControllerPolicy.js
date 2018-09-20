@@ -7,7 +7,8 @@ module.exports = {
       Carnet: Joi.number().integer(),
       Pass: Joi.string().regex(
         new RegExp('^[a-zA-Z0-9]{8,32}$')
-      )
+      ),
+      FKRango: Joi.number().integer().max(2)
     }
     const { error } = Joi.validate(req.body, schema)
     if (error) {
@@ -28,6 +29,11 @@ module.exports = {
               1. La contraseña solo debe contener números y letras. 
               <br>
               2. Debe contener entre 8 y 32 caracteres`
+          })
+          break
+        case 'FKRango':
+          res.status(400).send({
+            error: 'Información de registro erronea, intente de nuevo'
           })
           break
         default:
