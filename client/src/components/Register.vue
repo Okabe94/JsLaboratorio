@@ -58,11 +58,13 @@ export default {
     async register () {
       try {
         this.Nombre = this.Nombre.trim()
-        await AuthenticationService.register({
+        const response = await AuthenticationService.register({
           Nombre: this.Nombre,
           Carnet: this.Carnet,
           Pass: this.Pass
         })
+        this.$store.dispatch('setToken', response.data.token)
+        this.$store.dispatch('setCarnet', response.data.carnet)
       } catch (error) {
         this.error = error.response.data.error
       }

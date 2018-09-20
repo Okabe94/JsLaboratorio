@@ -42,16 +42,22 @@ export default {
   data () {
     return {
       Carnet: '',
-      Pass: ''
+      Pass: '',
+      error: null
     }
   },
   methods: {
     async login () {
-      const response = await AuthenticationServices.login({
-        Carnet: this.Carnet,
-        Pass: this.Pass
-      })
-      console.log(response.data)
+      try {
+        const response = await AuthenticationServices.login({
+          Carnet: this.Carnet,
+          Pass: this.Pass
+        })
+        this.$store.dispatch('setToken', response.data.token)
+        this.$store.dispatch('setCarnet', response.data.monitor.Carnet)
+      } catch (error) {
+        this.error = error.response.data.error
+      }
     }
   }
 }
