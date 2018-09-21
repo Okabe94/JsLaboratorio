@@ -43,9 +43,23 @@
       </div>
 
     </panel>
-  <div v-if="error" class="danger-red">
+  <v-alert
+    :value="error"
+    type="error"
+    dismissible
+    transition="scale-transition"
+    time=0.2
+  >{{ error }}</v-alert>
+  <v-alert
+    :value="success"
+    type="success"
+    dismissible
+    transition="scale-transition"
+    time=0.5
+  >{{ success }}</v-alert>
+  <!-- <div v-if="error" class="danger-red">
     {{ error }}
-  </div>
+  </div> -->
   </div>
 </template>
 
@@ -63,28 +77,31 @@ export default {
         FKRango: ''
       },
       error: null,
+      success: null,
       items: ['Monitor', 'Administrador'],
       required: (value) => !!value || 'Requerido.'
     }
   },
   methods: {
     async register () {
+      this.monitor.Nombre = this.monitor.Nombre.trim()
+      switch (this.monitor.FKRango) {
+        case 'Monitor':
+          this.monitor.FKRango = 2
+          break
+        case 'Administrador':
+          this.monitor.FKRango = 1
+          break
+        default:
+          this.monitor.FKRango = 2
+      }
       try {
-        this.monitor.Nombre = this.monitor.Nombre.trim()
-        switch (this.monitor.FKRango) {
-          case 'Monitor':
-            this.monitor.FKRango = 2
-            break
-          case 'Administrador':
-            this.monitor.FKRango = 1
-            break
-          default:
-            this.monitor.FKRango = 2
-        }
         await AuthenticationService.register(this.monitor)
         this.error = null
+        this.success = 'Registro creado exitosamente'
       } catch (error) {
         this.error = error.response.data.error
+        this.success = null
       }
     }
   },

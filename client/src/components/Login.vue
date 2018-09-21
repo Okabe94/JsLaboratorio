@@ -30,9 +30,9 @@
       </div>
 
     </panel>
-  <div v-if="error" class="danger-red">
+  <v-alert :value="error" type="error" dismissible transition="scale-transition" time=0.2>
     {{ error }}
-  </div>
+  </v-alert>
   </div>
 </template>
 

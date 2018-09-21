@@ -8,7 +8,7 @@
         </v-btn>
       </v-toolbar-items>
       <v-divider class="mx-3" inset vertical></v-divider>
-      <span class="subheading">{{ page }}</span>
+      <span class="subheading">{{ monitor }}</span>
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-btn flat
@@ -54,7 +54,7 @@
 <script>
 export default {
   props: [
-    'page'
+    'monitor'
   ],
   methods: {
     navigateTo (route) {

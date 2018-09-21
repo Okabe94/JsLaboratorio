@@ -12,8 +12,12 @@ function jwtSignMonitor (monitor) {
 module.exports = {
   async register (req, res) {
     try {
-      const monitor = await Monitor.create(req.body)
-      res.send(monitor.toJSON())
+      // const monitor =
+      await Monitor.create(req.body)
+      // monitor.toJSON()
+      res.send({
+        register: true
+      })
     } catch (err) {
       res.status(400).send({
         error: 'Este monitor ya existe'
