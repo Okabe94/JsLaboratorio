@@ -8,7 +8,7 @@
         </v-btn>
       </v-toolbar-items>
       <v-divider class="mx-3" inset vertical></v-divider>
-      <span class="subheading">Préstamos</span>
+      <span class="subheading">{{ page }}</span>
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-btn flat
@@ -52,7 +52,10 @@
 </template>
 
 <script>
-export default{
+export default {
+  props: [
+    'page'
+  ],
   methods: {
     navigateTo (route) {
       this.$router.push(route)

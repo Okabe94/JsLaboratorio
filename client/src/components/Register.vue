@@ -43,6 +43,9 @@
       </div>
 
     </panel>
+  <div v-if="error" class="danger-red">
+    {{ error }}
+  </div>
   </div>
 </template>
 
@@ -79,6 +82,7 @@ export default {
             this.monitor.FKRango = 2
         }
         await AuthenticationService.register(this.monitor)
+        this.error = null
       } catch (error) {
         this.error = error.response.data.error
       }

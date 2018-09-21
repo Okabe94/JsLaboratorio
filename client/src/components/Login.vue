@@ -30,12 +30,16 @@
       </div>
 
     </panel>
+  <div v-if="error" class="danger-red">
+    {{ error }}
+  </div>
   </div>
 </template>
 
 <script>
 import AuthenticationServices from '@/services/AuthenticationService'
 import Panel from '@/components/Panel'
+
 export default {
   data () {
     return {
@@ -56,6 +60,7 @@ export default {
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setCarnet', response.data.monitor.Carnet)
         this.$store.dispatch('setRango', response.data.monitor.FKRango)
+        this.error = null
       } catch (error) {
         this.error = error.response.data.error
       }
