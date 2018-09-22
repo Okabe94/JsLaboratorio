@@ -7,6 +7,7 @@ export default new Vuex.Store({
   strict: true,
   state: {
     token: null,
+    nombre: 'Visitante',
     carnet: null,
     rango: null,
     isAdmin: false,
@@ -21,8 +22,9 @@ export default new Vuex.Store({
         state.isLoggedIn = false
       }
     },
-    setCarnet (state, carnet) {
+    setIdentity (state, nombre, carnet) {
       state.carnet = carnet
+      state.nombre = nombre
     },
     setRango (state, rango) {
       state.rango = rango
@@ -37,8 +39,8 @@ export default new Vuex.Store({
     setToken ({ commit }, token) {
       commit('setToken', token)
     },
-    setCarnet ({ commit }, carnet) {
-      commit('setCarnet', carnet)
+    setIdentity ({ commit }, nombre, carnet) {
+      commit('setIdentity', nombre, carnet)
     },
     setRango ({ commit }, rango) {
       commit('setRango', rango)

@@ -8,7 +8,7 @@
         </v-btn>
       </v-toolbar-items>
       <v-divider class="mx-3" inset vertical></v-divider>
-      <span class="subheading">{{ monitor }}</span>
+      <span class="subheading">{{ $store.state.nombre }}</span>
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-btn flat
@@ -62,7 +62,7 @@ export default {
     },
     logOut (route) {
       this.$store.dispatch('setToken', null)
-      this.$store.dispatch('setCarnet', null)
+      this.$store.dispatch('setIdentity', 'Visitante', null)
       this.$store.dispatch('setRango', null)
       this.$router.push(route)
     }

@@ -25,9 +25,8 @@ module.exports = {
           break
         case 'Pass':
           res.status(400).send({
-            error: `Se deben cumplir la siguientes reglas: <br>
+            error: `Se deben cumplir la siguientes reglas:
               1. La contraseña solo debe contener números y letras. 
-              <br>
               2. Debe contener entre 8 y 32 caracteres`
           })
           break
