@@ -25,6 +25,6 @@ module.exports = (sequelize, DataTypes) =>
   {
     tableName: 'Prestamo',
     deleteAt: false,
-    createAt: 'FechaPedido',
-    updateAt: 'FechaEntrega'
+    createdAt: 'FechaPedido',
+    updatedAt: 'FechaEntrega'
   })

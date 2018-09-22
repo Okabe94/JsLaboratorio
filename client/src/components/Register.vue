@@ -58,9 +58,9 @@
       time=0.5
     >{{ success }}</v-alert>
     </div>
+
     <div v-else>
-      <panel title='No tienes permiso para ver la página'/>
-      <v-btn @click="navigateTo">Regresar</v-btn>
+      <noAuth/>
     </div>
   </div>
 </template>
@@ -68,6 +68,7 @@
 <script>
 import AuthenticationService from '@/services/AuthenticationService'
 import Panel from '@/components/Panel'
+import noAuth from '@/components/Auth'
 
 export default {
   data () {
@@ -115,13 +116,11 @@ export default {
         this.error = error.response.data.error
         this.success = null
       }
-    },
-    navigateTo (route) {
-        this.$router.push({ name: 'home' })
     }
   },
   components: {
-    Panel
+    Panel,
+    noAuth
   }
 }
 </script>
