@@ -39,23 +39,43 @@
         @click="navigateTo({name: 'login'})">
           Ingresar
         </v-btn>
-        <v-btn flat
-        v-if="$store.state.isLoggedIn"
-        @click="logOut({name: 'home'})">
-          Cerrar Sesion
-        </v-btn>
         <v-divider vertical></v-divider>
       </v-toolbar-items>
-      <v-toolbar-side-icon></v-toolbar-side-icon>
+
+      <v-menu
+        offset-y
+        origin="center center"
+        transition="scale-transition">
+        <v-toolbar-side-icon
+          slot="activator">
+        </v-toolbar-side-icon>
+        <v-list light>
+          <v-list-tile
+            v-for="(item, index) in items"
+            :key="index"
+            @click="menu(item)"
+          >
+            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
+
     </v-toolbar>
   </div>
 </template>
 
 <script>
 export default {
-  props: [
-    'monitor'
-  ],
+  data () {
+    return {
+      items: [
+        { title: 'Registrar', value: { name: 'register' } },
+        { title: 'Cambiar de Usuario', value: { name: 'login' } },
+        { title: 'Cambiar Contraseña', value: { name: 'lend' } },
+        { title: 'Cerrar Sesión', value: { name: 'home' } }
+      ]
+    }
+  },
   methods: {
     navigateTo (route) {
       this.$router.push(route)
@@ -65,6 +85,13 @@ export default {
       this.$store.dispatch('setIdentity', 'Visitante', null)
       this.$store.dispatch('setRango', null)
       this.$router.push(route)
+    },
+    menu (item) {
+      if (item.title === 'Cerrar Sesión') {
+        this.logOut(item.value)
+      } else {
+        this.navigateTo(item.value)
+      }
     }
   }
 }

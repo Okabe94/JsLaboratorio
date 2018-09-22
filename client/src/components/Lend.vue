@@ -48,9 +48,15 @@
             <v-card-text>Peek-a-boo!</v-card-text>
           </v-card>
         </template>
+
         <v-alert slot="no-results" :value="true" color="error">
           La busqueda de "{{ search }}" no entregó resultados.
         </v-alert>
+
+        <template slot="pageText" slot-scope="props">
+          Lignes {{ props.pageStart }} - {{ props.pageStop }} de {{ props.itemsLength }}
+        </template>
+
         </v-data-table>
       </v-card>
     </panel>
@@ -77,7 +83,7 @@ export default {
         {
           value: false,
           prestamos: 13,
-          nombre: 'Juan',
+          nombre: 'Carlos',
           carnet: 201510003010,
           planAcademico: 'Ingeniería de sistemas',
           bloque: 10,
@@ -87,57 +93,57 @@ export default {
         },
         {
           value: false,
-          prestamos: 13,
-          nombre: 'Juan',
+          prestamos: 1,
+          nombre: 'Juanes',
           carnet: 201510003011,
-          planAcademico: 'Ingeniería de sistemas',
+          planAcademico: 'Ingeniería de Electronica',
           bloque: 10,
           salon: 101,
-          modulo: 1,
-          monitor: 'Luis Felipe'
+          modulo: 6,
+          monitor: 'Julian'
         },
         {
           value: false,
-          prestamos: 13,
-          nombre: 'Juan',
+          prestamos: 15,
+          nombre: 'Carlos',
           carnet: 201510003012,
-          planAcademico: 'Ingeniería de sistemas',
+          planAcademico: 'Ingeniería de Electronica',
           bloque: 10,
           salon: 101,
           modulo: 1,
-          monitor: 'Luis Felipe'
+          monitor: 'Julian'
         },
         {
           value: false,
-          prestamos: 13,
-          nombre: 'Juan',
+          prestamos: 8,
+          nombre: 'Maria',
           carnet: 201510003014,
-          planAcademico: 'Ingeniería de sistemas',
+          planAcademico: 'Derecho',
           bloque: 10,
           salon: 101,
-          modulo: 1,
-          monitor: 'Luis Felipe'
+          modulo: 3,
+          monitor: 'Camilo'
         },
         {
           value: false,
-          prestamos: 13,
+          prestamos: 2,
           nombre: 'Juan',
           carnet: 201510003015,
-          planAcademico: 'Ingeniería de sistemas',
+          planAcademico: 'Derecho',
           bloque: 10,
-          salon: 101,
-          modulo: 1,
-          monitor: 'Luis Felipe'
+          salon: 102,
+          modulo: 2,
+          monitor: 'Camilo'
         },
         {
           value: false,
-          prestamos: 13,
-          nombre: 'Juan',
+          prestamos: 2,
+          nombre: 'Esteban',
           carnet: 201510003013,
           planAcademico: 'Ingeniería de sistemas',
           bloque: 10,
-          salon: 101,
-          modulo: 1,
+          salon: 0,
+          modulo: 0,
           monitor: 'Luis Felipe'
         }
       ]

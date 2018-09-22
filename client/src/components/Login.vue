@@ -58,7 +58,10 @@ export default {
         })
         console.log(response)
         this.$store.dispatch('setToken', response.data.token)
-        this.$store.dispatch('setIdentity', response.data.monitor.Nombre, response.data.monitor.Carnet)
+        this.$store.dispatch('setIdentity', {
+          Nombre: response.data.monitor.Nombre,
+          Carnet: response.data.monitor.Carnet
+        })
         this.$store.dispatch('setRango', response.data.monitor.FKRango)
         this.error = null
         this.$router.push({ name: 'home' })
