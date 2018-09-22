@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import PageHeader from '@/components/Header.vue'
+import PageHeader from '@/components/Header'
 export default {
   name: 'App',
   components: {
@@ -31,5 +31,8 @@ export default {
 }
 .input-group--text-fiel input{
   border-bottom: 1px solid black;
+}
+.danger-red{
+  color: red;
 }
 </style>
