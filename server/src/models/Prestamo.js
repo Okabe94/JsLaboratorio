@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) =>
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    Comantario: {
+    Comentario: {
       type: DataTypes.TEXT
     },
     Entregado: {
