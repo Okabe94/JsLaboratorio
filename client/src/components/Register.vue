@@ -2,7 +2,6 @@
   <div>
     <div v-if="$store.state.isAdmin">
       <panel title='Registrar Usuarios'>
-
         <v-form ref="form">
           <div class="pl-4 pr-4 pt-2 pb-2">
             <v-text-field
