@@ -7,6 +7,7 @@ import Logout from '@/components/Logout'
 import Returns from '@/components/Returns'
 import Schedule from '@/components/Schedule'
 import Register from '@/components/Register'
+import Equip from '@/components/Equip'
 
 Vue.use(Router)
 
@@ -46,6 +47,11 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path: '/equip',
+      name: 'equip',
+      component: Equip
     }
   ]
 })
