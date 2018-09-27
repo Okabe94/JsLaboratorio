@@ -2,6 +2,7 @@ const AuthenticationController = require('./controllers/AuthenticationController
 const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
 const EquipRegisterController = require('./controllers/EquipRegisterControllers')
 const StudentRegisterController = require('./controllers/StudentRegisterControllers')
+const MainTableController = require('./controllers/MainTableControllers')
 
 module.exports = (app) => {
   app.post('/login', AuthenticationController.login)
@@ -10,4 +11,6 @@ module.exports = (app) => {
   app.post('/register-Student', StudentRegisterController.register)
 
   app.post('/register-Equip', EquipRegisterController.register)
+
+  app.get('/mainTable', MainTableController.index)
 }

@@ -8,7 +8,6 @@
             :rules="[required]"
             label="Nombre"
             v-model="monitor.Nombre"
-            autofocus
           ></v-text-field>
           <br>
           <v-text-field
