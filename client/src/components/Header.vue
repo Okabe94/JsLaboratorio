@@ -29,7 +29,7 @@
         </v-btn>
         <v-divider vertical></v-divider>
         <v-btn flat
-        v-if="$store.state.isAdmin"
+        v-if="$store.state.isLoggedIn"
         @click="navigateTo({name: 'register'})">
           Registrar
         </v-btn>
@@ -69,7 +69,6 @@ export default {
   data () {
     return {
       items: [
-        { title: 'Registrar', value: { name: 'register' } },
         { title: 'Cambiar de Usuario', value: { name: 'login' } },
         { title: 'Cambiar Contraseña', value: { name: 'lend' } },
         { title: 'Cerrar Sesión', value: { name: 'home' } }

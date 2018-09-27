@@ -1,13 +1,13 @@
 const AuthenticationController = require('./controllers/AuthenticationControllers')
 const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
-const LendController = require('./controllers/LendControllers')
 const EquipRegisterController = require('./controllers/EquipRegisterControllers')
+const StudentRegisterController = require('./controllers/StudentRegisterControllers')
 
 module.exports = (app) => {
   app.post('/login', AuthenticationController.login)
-  app.post('/register', AuthenticationControllerPolicy.register, AuthenticationController.register)
+  app.post('/register-User', AuthenticationControllerPolicy.register, AuthenticationController.register)
 
-  app.get('/lend', LendController.index)
+  app.post('/register-Student', StudentRegisterController.register)
 
-  app.post('/equip', EquipRegisterController.register)
+  app.post('/register-Equip', EquipRegisterController.register)
 }

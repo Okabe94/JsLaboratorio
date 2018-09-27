@@ -1,4 +1,6 @@
+const Sequelize = require('sequelize')
 const { Equipo } = require('../models')
+const Op = Sequelize.Op
 
 module.exports = {
   async register (req, res) {
@@ -6,7 +8,12 @@ module.exports = {
       const cod = req.body.CodBarras
       const equipo = await Equipo.findOne({
         where: {
-          CodBarras: cod
+          CodBarras: {
+            [Op.and]: {
+              [Op.eq]: cod,
+              [Op.ne]: 0
+            }
+          }
         }
       })
       if (equipo) {
@@ -21,7 +28,7 @@ module.exports = {
       }
     } catch (err) {
       res.status(400).send({
-        error: 'Ha ocurrido un error al ingresar el equipo'
+        error: 'Ha ocurrido un error al crear el equipo'
       })
     }
   }

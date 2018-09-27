@@ -30,7 +30,11 @@
       </div>
 
     </panel>
-  <v-alert :value="error" type="error" transition="scale-transition" time=0.2>
+  <v-alert
+   :value="error"
+   type="error"
+   transition="scale-transition"
+   time=0.2>
     {{ error }}
   </v-alert>
   </div>

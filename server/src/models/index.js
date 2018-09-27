@@ -22,22 +22,22 @@ fs
 
 //  Foreign keys
 db['Rango'].hasMany(db['Monitor'], { foreignKey: 'FKRango' })
-db['Monitor'].belongsTo(db['Rango'], { foreignKey: 'FKRango' })
+// db['Monitor'].belongsTo(db['Rango'], { foreignKey: 'FKRango' })
 
 db['Salon'].hasMany(db['Modulo'], { foreignKey: 'FKSalon' })
-db['Modulo'].belongsTo(db['Salon'], { foreignKey: 'FKSalon' })
+// db['Modulo'].belongsTo(db['Salon'], { foreignKey: 'FKSalon' })
 
 db['Estudiante'].hasMany(db['Resumen'], { foreignKey: 'FKEstudiante' })
-db['Resumen'].belongsTo(db['Estudiante'], { foreignKey: 'FKEstudiante' })
+// db['Resumen'].belongsTo(db['Estudiante'], { foreignKey: 'FKEstudiante' })
 db['Monitor'].hasMany(db['Resumen'], { foreignKey: 'FKMonitor' })
-db['Resumen'].belongsTo(db['Monitor'], { foreignKey: 'FKMonitor' })
+// db['Resumen'].belongsTo(db['Monitor'], { foreignKey: 'FKMonitor' })
 db['Equipo'].hasMany(db['Resumen'], { foreignKey: 'FKEquipo' })
-db['Resumen'].belongsTo(db['Equipo'], { foreignKey: 'FKEquipo' })
+// db['Resumen'].belongsTo(db['Equipo'], { foreignKey: 'FKEquipo' })
 
 db['Modulo'].hasMany(db['Prestamo'], { foreignKey: 'FKModulo' })
-db['Prestamo'].belongsTo(db['Modulo'], { foreignKey: 'FKModulo' })
+// db['Prestamo'].belongsTo(db['Modulo'], { foreignKey: 'FKModulo' })
 db['Resumen'].hasMany(db['Prestamo'], { foreignKey: 'FKResumen' })
-db['Prestamo'].belongsTo(db['Resumen'], { foreignKey: 'FKResumen' })
+// db['Prestamo'].belongsTo(db['Resumen'], { foreignKey: 'FKResumen' })
 
 db.sequelize = sequelize
 db.Sequelize = Sequelize

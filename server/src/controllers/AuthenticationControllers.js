@@ -48,7 +48,7 @@ module.exports = {
       })
     } catch (err) {
       res.status(500).send({
-        error: 'Un error ha ocurrido al intentar inicial sesión'
+        error: 'Un error ha ocurrido al intentar iniciar sesión'
       })
     }
   }
