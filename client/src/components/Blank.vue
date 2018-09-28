@@ -1,6 +1,5 @@
 <template>
   <div>
-    HOOOOOMEEEE
   </div>
 </template>
 <script>

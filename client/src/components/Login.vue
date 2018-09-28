@@ -60,7 +60,6 @@ export default {
           Carnet: this.Carnet,
           Pass: this.Pass
         })
-        console.log(response)
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setIdentity', {
           Nombre: response.data.monitor.Nombre,

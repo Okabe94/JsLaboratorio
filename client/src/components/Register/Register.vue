@@ -2,12 +2,9 @@
   <div>
     <v-container fluid grid-list-xl>
       <v-layout row justify-space-around>
-        <student v-if="$store.state.isLoggedIn">
-        </student>
-        <user v-if="$store.state.isAdmin">
-        </user>
-        <equip v-if="$store.state.isAdmin">
-        </equip>
+        <student v-if="$store.state.isLoggedIn" />
+        <user v-if="$store.state.isAdmin" />
+        <equip v-if="$store.state.isAdmin" />
       </v-layout>
     </v-container>
     <noAuth v-if="!$store.state.isLoggedIn"/>
@@ -32,20 +29,3 @@ export default {
 
 <style scoped>
 </style>
-
-  <!-- <div>
-    <div v-if="$store.state.isAdmin">
-      <v-container fluid grid-list-xl>
-        <v-layout row justify-space-around>
-          <user>
-          </user>
-          <equip>
-          </equip>
-        </v-layout>
-      </v-container>
-    </div>
-
-    <div v-else>
-      <noAuth/>
-    </div>
-  </div> -->
