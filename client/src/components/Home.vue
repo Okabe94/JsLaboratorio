@@ -1,10 +1,8 @@
 <template>
   <div>
-    HOMEEEEEE
+    HOOOOOMEEEE
   </div>
-
 </template>
-
 <script>
 
 </script>

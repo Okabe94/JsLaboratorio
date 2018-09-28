@@ -1,10 +1,7 @@
 <template>
   <div>
-    LOGOUTTTTTT
   </div>
-
 </template>
-
 <script>
 
 </script>

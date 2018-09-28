@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) =>
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    Comantario: {
+    Comentario: {
       type: DataTypes.TEXT
     },
     Entregado: {
@@ -25,6 +25,6 @@ module.exports = (sequelize, DataTypes) =>
   {
     tableName: 'Prestamo',
     deleteAt: false,
-    createAt: 'FechaPedido',
-    updateAt: 'FechaEntrega'
+    createdAt: 'FechaPedido',
+    updatedAt: 'FechaEntrega'
   })

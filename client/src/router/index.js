@@ -3,10 +3,9 @@ import Router from 'vue-router'
 import Login from '@/components/Login'
 import Home from '@/components/Home'
 import Lend from '@/components/Lend'
-import Logout from '@/components/Logout'
-import Returns from '@/components/Returns'
+import Stock from '@/components/Stock/MainView'
 import Schedule from '@/components/Schedule'
-import Register from '@/components/Register'
+import Register from '@/components/Register/Register'
 
 Vue.use(Router)
 
@@ -28,19 +27,14 @@ export default new Router({
       component: Lend
     },
     {
-      path: '/return',
-      name: 'returns',
-      component: Returns
+      path: '/stock',
+      name: 'stock',
+      component: Stock
     },
     {
       path: '/schedule',
       name: 'schedule',
       component: Schedule
-    },
-    {
-      path: '/logout',
-      name: 'logout',
-      component: Logout
     },
     {
       path: '/register',

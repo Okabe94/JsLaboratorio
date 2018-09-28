@@ -15,24 +15,22 @@ module.exports = {
       switch (error.details[0].context.key) {
         case 'Nombre':
           res.status(400).send({
-            error: 'Ingrese un nombre de máximo 100 caracteres'
+            error: 'Nombres de máximo 100 caracteres'
           })
           break
         case 'Carnet':
           res.status(400).send({
-            error: 'El carnet debe ser un número entre 10 y 15 caracteres'
+            error: 'El carnet tener mínimo 10 numeros'
           })
           break
         case 'Pass':
           res.status(400).send({
-            error: `Se deben cumplir la siguientes reglas:
-              1. La contraseña solo debe contener números y letras. 
-              2. Debe contener entre 8 y 32 caracteres`
+            error: `Se aceptan contraseñas de letras y numeros entre 8 y 32 caracteres`
           })
           break
         case 'FKRango':
           res.status(400).send({
-            error: 'Información de registro erronea, intente de nuevo'
+            error: 'Seleccione permisos para el nuevo usuario'
           })
           break
         default:

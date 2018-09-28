@@ -30,7 +30,11 @@
       </div>
 
     </panel>
-  <v-alert :value="error" type="error" transition="scale-transition" time=0.2>
+  <v-alert
+   :value="error"
+   type="error"
+   transition="scale-transition"
+   time=0.2>
     {{ error }}
   </v-alert>
   </div>
@@ -56,9 +60,11 @@ export default {
           Carnet: this.Carnet,
           Pass: this.Pass
         })
-        console.log(response)
         this.$store.dispatch('setToken', response.data.token)
-        this.$store.dispatch('setIdentity', response.data.monitor.Nombre, response.data.monitor.Carnet)
+        this.$store.dispatch('setIdentity', {
+          Nombre: response.data.monitor.Nombre,
+          Carnet: response.data.monitor.Carnet
+        })
         this.$store.dispatch('setRango', response.data.monitor.FKRango)
         this.error = null
         this.$router.push({ name: 'home' })
