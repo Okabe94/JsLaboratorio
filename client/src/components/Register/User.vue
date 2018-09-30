@@ -61,7 +61,7 @@
 
 <script>
 import Panel from '@/components/Panel'
-import AuthenticationService from '@/services/AuthenticationService'
+import UserService from '@/services/UserService'
 
 export default {
   data () {
@@ -74,7 +74,9 @@ export default {
       },
       error: null,
       success: null,
-      items: ['Monitor', 'Administrador'],
+      items: [
+        { text: 'Monitor', value: 2 },
+        { text: 'Administrador', value: 1 }],
       required: (value) => !!value || 'Requerido.'
     }
   },
@@ -84,18 +86,9 @@ export default {
         return
       }
       this.monitor.Nombre = this.monitor.Nombre.trim()
-      switch (this.monitor.FKRango) {
-        case 'Monitor':
-          this.monitor.FKRango = 2
-          break
-        case 'Administrador':
-          this.monitor.FKRango = 1
-          break
-        default:
-          this.monitor.FKRango = 2
-      }
+      this.monitor.Nombre = this.monitor.Nombre.charAt(0).toUpperCase() + this.monitor.Nombre.slice(1)
       try {
-        const resp = await AuthenticationService.registerUser(this.monitor)
+        const resp = await UserService.registerUser(this.monitor)
         this.error = null
         if (resp.data.register) {
           this.success = 'Usuario creado exitosamente'

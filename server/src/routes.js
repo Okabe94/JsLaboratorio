@@ -1,16 +1,17 @@
-const AuthenticationController = require('./controllers/AuthenticationControllers')
+const UserController = require('./controllers/UserControllers')
 const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
-const EquipRegisterController = require('./controllers/EquipRegisterControllers')
-const StudentRegisterController = require('./controllers/StudentRegisterControllers')
-const MainTableController = require('./controllers/MainTableControllers')
+const StudentController = require('./controllers/StudentControllers')
+const EquipController = require('./controllers/EquipControllers')
 
 module.exports = (app) => {
-  app.post('/login', AuthenticationController.login)
-  app.post('/register-User', AuthenticationControllerPolicy.register, AuthenticationController.register)
+  // User
+  app.post('/login', UserController.login)
+  app.post('/register-User', AuthenticationControllerPolicy.register, UserController.register)
 
-  app.post('/register-Student', StudentRegisterController.register)
+  // Student
+  app.post('/register-Student', StudentController.register)
 
-  app.post('/register-Equip', EquipRegisterController.register)
-
-  app.get('/mainTable', MainTableController.index)
+  // Equip
+  app.post('/register-Equip', EquipController.register)
+  app.get('/indexEquip', EquipController.index)
 }

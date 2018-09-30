@@ -8,7 +8,6 @@
             :rules="[required]"
             label="Nombre"
             v-model="estudiante.Nombre"
-            autofocus
           ></v-text-field>
           <br>
           <v-text-field
@@ -20,12 +19,13 @@
             min="0"
           ></v-text-field>
           <br>
-          <v-text-field
+          <v-autocomplete
             required
             :rules="[required]"
+            :items="items"
             label="Plan Academico"
-            v-model="estudiante.Pass"
-          ></v-text-field>
+            v-model="estudiante.PlanAcademico"
+          ></v-autocomplete>
           <br>
           <v-btn
             class="green darken-1"
@@ -55,15 +55,30 @@
 
 <script>
 import Panel from '@/components/Panel'
-import StudentRegisterService from '@/services/StudentRegisterService'
+import StudentService from '@/services/StudentService'
 
 export default {
   data () {
     return {
+      items: [
+        'Ingeniería Electrónica',
+        'Ingeniería de Sistemas',
+        'Ingeniería Industrial',
+        'Tecnología en Desarrollo de Sistemas de Información',
+        'Tecnología en Gestión de Redes',
+        'Derecho',
+        'Seguridad y Salud en el Trabajo',
+        'Técnico Profesional en Tránsito, Transporte y Seguridad Vial',
+        'Contaduría Pública',
+        'Administración de Negocios Internacionales',
+        'Administración Financiera',
+        'Mercadeo',
+        'Psicología'
+      ],
       estudiante: {
         Nombre: '',
         Carnet: '',
-        Plan: ''
+        PlanAcademico: ''
       },
       error: null,
       success: null,
@@ -76,14 +91,14 @@ export default {
         return
       }
       this.estudiante.Nombre = this.estudiante.Nombre.trim()
-      this.estudiante.Plan = this.estudiante.Plan.trim()
-
+      this.estudiante.Nombre = this.estudiante.Nombre.charAt(0).toUpperCase() + this.estudiante.Nombre.slice(1)
+      console.log(this.estudiante)
       try {
-        const resp = await StudentRegisterService.registerUser(this.estudiante)
+        const resp = await StudentService.registerStudent(this.estudiante)
         this.error = null
         if (resp.data.register) {
           this.success = 'Estudiante creado exitosamente'
-          this.$refs.user.reset()
+          this.$refs.student.reset()
         }
       } catch (error) {
         this.error = error.response.data.error

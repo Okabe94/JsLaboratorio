@@ -3,9 +3,9 @@ import Router from 'vue-router'
 import Login from '@/components/Login'
 import Home from '@/components/Home'
 import Lend from '@/components/Lend'
-import Stock from '@/components/Stock/MainView'
+import Stock from '@/components/Stock/MainViewStock'
 import Schedule from '@/components/Schedule'
-import Register from '@/components/Register/Register'
+import Register from '@/components/Register/MainViewRegister'
 
 Vue.use(Router)
 

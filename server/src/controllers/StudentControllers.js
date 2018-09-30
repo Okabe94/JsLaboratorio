@@ -14,6 +14,7 @@ module.exports = {
           error: 'Este estudiante ya existe'
         })
       } else {
+        console.log(req.body)
         Estudiante.create(req.body)
         res.send({
           register: true

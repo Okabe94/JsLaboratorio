@@ -47,7 +47,7 @@
 
 <script>
 import Panel from '@/components/Panel'
-import EquipRegisterService from '@/services/EquipRegisterService'
+import EquipmentService from '@/services/EquipmentService'
 
 export default {
   data () {
@@ -67,8 +67,9 @@ export default {
         return
       }
       this.equipo.Nombre = this.equipo.Nombre.trim()
+      this.equipo.Nombre = this.equipo.Nombre.charAt(0).toUpperCase() + this.equipo.Nombre.slice(1)
       try {
-        await EquipRegisterService.registerEquip(this.equipo)
+        await EquipmentService.registerEquip(this.equipo)
         this.error = null
         this.success = 'Equipo creado exitosamente'
         this.$refs.equip.reset()

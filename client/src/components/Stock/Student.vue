@@ -52,7 +52,7 @@
   </div>
 </template>
 <script>
-import EquipmentService from '@/services/EquipmentService'
+import StudentService from '@/services/StudentService'
 import Panel from '@/components/Panel'
 
 export default {
@@ -67,7 +67,7 @@ export default {
     }
   },
   async mounted () {
-    const data = (await EquipmentService.indexEquip()).data
+    const data = (await StudentService.indexEquipment()).data
     for (let i = 0; i < data.equipInfo.length; i++) {
       this.items.push(data.equipInfo[i])
     }

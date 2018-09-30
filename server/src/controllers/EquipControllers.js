@@ -1,8 +1,20 @@
-const Sequelize = require('sequelize')
+const sequelize = require('sequelize')
 const { Equipo } = require('../models')
-const Op = Sequelize.Op
+const Op = sequelize.Op
 
 module.exports = {
+  async index (req, res) {
+    try {
+      const equipInfo = await Equipo.sequelize.query('SELECT * FROM Equipo', { type: sequelize.QueryTypes.SELECT })
+      res.send({
+        equipInfo
+      })
+    } catch (err) {
+      res.status(400).send({
+        error: 'Ha ocurrido un error al obtener la información'
+      })
+    }
+  },
   async register (req, res) {
     try {
       const cod = req.body.CodBarras
