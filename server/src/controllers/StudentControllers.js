@@ -25,5 +25,17 @@ module.exports = {
         error: 'Ha ocurrido un error al crear el estudiante'
       })
     }
+  },
+  async index (req, res) {
+    try {
+      const studentInfo = await Estudiante.findAll()
+      res.send({
+        studentInfo
+      })
+    } catch (err) {
+      res.status(400).send({
+        error: 'Ha ocurrido un error al obtener la información'
+      })
+    }
   }
 }

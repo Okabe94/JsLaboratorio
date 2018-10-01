@@ -92,7 +92,6 @@ export default {
       }
       this.estudiante.Nombre = this.estudiante.Nombre.trim()
       this.estudiante.Nombre = this.estudiante.Nombre.charAt(0).toUpperCase() + this.estudiante.Nombre.slice(1)
-      console.log(this.estudiante)
       try {
         const resp = await StudentService.registerStudent(this.estudiante)
         this.error = null

@@ -2,6 +2,7 @@ const UserController = require('./controllers/UserControllers')
 const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
 const StudentController = require('./controllers/StudentControllers')
 const EquipController = require('./controllers/EquipControllers')
+const HomeController = require('./controllers/HomeControllers')
 
 module.exports = (app) => {
   // User
@@ -10,8 +11,13 @@ module.exports = (app) => {
 
   // Student
   app.post('/register-Student', StudentController.register)
+  app.get('/indexStudent', StudentController.index)
 
   // Equip
   app.post('/register-Equip', EquipController.register)
   app.get('/indexEquip', EquipController.index)
+
+  // Home
+  app.get('/indexHome', HomeController.index)
+  app.get('/indexDetail/:Carnet', HomeController.indexDetail)
 }

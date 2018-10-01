@@ -1,6 +1,6 @@
 <template>
   <div>
-    <panel title="Equipos">
+    <panel title="Estudiantes">
     <v-card>
       <v-card-title>
         <v-text-field
@@ -16,25 +16,23 @@
         <v-data-table
           :headers="headers"
           :items="items"
-          :search="search"
-          item-key="CodBarras"
-          >
+          :search="search">
 
         <template slot="headers" slot-scope="props">
           <tr>
             <th
               v-for="header in props.headers"
-              :key="header.text"
-              >
+              :key="header.text">
               <strong> {{ header.text }} </strong>
             </th>
           </tr>
         </template>
 
         <template slot="items" slot-scope="props">
-          <tr @click="props.expanded = !props.expanded">
-            <td>{{ props.item.CodBarras }}</td>
+          <tr>
             <td>{{ props.item.Nombre }}</td>
+            <td>{{ props.item.Carnet }}</td>
+            <td>{{ props.item.PlanAcademico }}</td>
           </tr>
         </template>
 
@@ -61,15 +59,16 @@ export default {
       items: [],
       search: '',
       headers: [
-        { text: 'Código de Barras', value: 'CodBarras' },
-        { text: 'Nombre', value: 'Nombre' }
+        { text: 'Nombre', value: 'Nombre' },
+        { text: 'Carnet', value: 'Carnet' },
+        { text: 'Plan Academico', value: 'PlanAcademico' }
       ]
     }
   },
   async mounted () {
-    const data = (await StudentService.indexEquipment()).data
-    for (let i = 0; i < data.equipInfo.length; i++) {
-      this.items.push(data.equipInfo[i])
+    const data = (await StudentService.indexStudent()).data
+    for (let i = 0; i < data.studentInfo.length; i++) {
+      this.items.push(data.studentInfo[i])
     }
   },
   components: {

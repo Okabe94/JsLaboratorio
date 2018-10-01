@@ -1,17 +1,16 @@
 <template>
   <div>
-    <v-container fluid grid-list-xl>
-      <v-layout row justify-space-around>
-        <div v-if="$store.state.isLoggedIn">
-          <equipment />
-          <student />
-          <equipment />
-        </div>
-        <div v-else>
-          <no-auth />
-        </div>
-      </v-layout>
-    </v-container>
+    <div v-if="$store.state.isLoggedIn">
+      <v-container fluid grid-list-xl>
+        <v-layout row justify-space-around>
+            <equipment class="ml-2 mr-2" />
+            <student class="ml-2 mr-2" />
+        </v-layout>
+      </v-container>
+    </div>
+    <div v-else>
+      <no-auth />
+    </div>
   </div>
 </template>
 <script>
