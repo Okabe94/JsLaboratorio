@@ -5,6 +5,6 @@ export default {
     return Api().get('indexHome')
   },
   indexDetails (Carnet) {
-    return Api().get(`indexDetails/${Carnet}`)
+    return Api().post('indexDetails', Carnet)
   }
 }
