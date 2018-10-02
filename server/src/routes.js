@@ -18,6 +18,6 @@ module.exports = (app) => {
   app.get('/indexEquip', EquipController.index)
 
   // Home
-  app.get('/indexHome', HomeController.index)
-  app.get('/indexDetail/:Carnet', HomeController.indexDetail)
+  app.get('/indexHome', HomeController.indexHome)
+  app.post('/indexDetails', HomeController.indexDetail)
 }
