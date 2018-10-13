@@ -3,6 +3,7 @@ const AuthenticationControllerPolicy = require('./policies/AuthenticationControl
 const StudentController = require('./controllers/StudentControllers')
 const EquipController = require('./controllers/EquipControllers')
 const HomeController = require('./controllers/HomeControllers')
+const pruebaController = require('./controllers/pruebaControllers')
 
 module.exports = (app) => {
   // User
@@ -20,4 +21,6 @@ module.exports = (app) => {
   // Home
   app.get('/indexHome', HomeController.indexHome)
   app.post('/indexDetails', HomeController.indexDetail)
+
+  app.get('/prueba', pruebaController.get)
 }
