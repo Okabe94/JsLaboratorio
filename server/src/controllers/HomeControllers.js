@@ -3,11 +3,11 @@ const { Prestamo } = require('../models')
 const { Resumen } = require('../models')
 
 module.exports = {
-  async index (req, res) {
+  async indexHome (req, res) {
     const query =
       `SELECT
       count(idEstudiante) as "Préstamos",
-      e.Nombre as "Estudiante", e.Carnet as "Carnet", e.planAcademico as "Plan Academico",
+      e.Nombre as "Estudiante", e.Carnet as "Carnet", e.planAcademico as "PlanAcademico",
       s.Bloque, s.Numero as "Salon", 
       m.Numero as "Modulo", 
       n.Nombre as "Monitor"
@@ -37,9 +37,11 @@ module.exports = {
     FROM Resumen r
     INNER JOIN Equipo e ON FKEquipo = idEquipo
     INNER JOIN Estudiante ON FKEstudiante = idEstudiante
-    WHERE Carnet = ${req.params.Carnet};`
+    WHERE Carnet = ${req.body.Carnet};`
+    console.log('query: ', query)
     try {
       const homeInfoDetail = await Resumen.sequelize.query(query, { type: sequelize.QueryTypes.SELECT })
+      console.log('homeInfoDetail: ', homeInfoDetail)
       res.send({
         homeInfoDetail
       })

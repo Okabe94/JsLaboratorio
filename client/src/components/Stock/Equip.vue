@@ -1,17 +1,17 @@
 <template>
   <div>
     <panel title="Equipos">
-      <v-card>
-        <v-card-title>
-          <v-text-field
-            v-model="search"
-            label="Buscar"
-            single-line
-            hide-details
-          ></v-text-field>
-          <v-spacer></v-spacer>
-          <v-spacer></v-spacer>
-        </v-card-title>
+    <v-card>
+      <v-card-title>
+        <v-text-field
+          v-model="search"
+          label="Buscar"
+          single-line
+          hide-details
+        ></v-text-field>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+      </v-card-title>
 
         <v-data-table
           :headers="headers"
