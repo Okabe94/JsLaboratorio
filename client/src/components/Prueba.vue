@@ -1,69 +1,73 @@
 <template>
   <div>
-    <v-container fluid grid-list-xl>
-      <v-layout row justify-space-around>
-        <panel title="Estudiante">
-          <div class="pl-4 pr-4 pt-2 pb-2">
-            <v-autocomplete
-              v-model="select"
-              :hint="`${select.Nombre}, ${select.Carnet}`"
-              :items="items"
-              item-text="Carnet"
-              item-value="Nombre"
-              label="Estudiante"
-              return-object
-              single-line
-              persistent-hint
-            ></v-autocomplete>
-            <v-text-field
-              label="Nombre"
-            ></v-text-field>
-            <v-text-field
-              label="Nombre"
-            ></v-text-field>
-          </div>
-        </panel>
-        <panel title="Equipos">
-          <div class="pl-4 pr-4 pt-2 pb-2">
-            <v-text-field
-              label="Nombre"
-            ></v-text-field>
-            <v-text-field
-              label="Nombre"
-            ></v-text-field>
-            <v-text-field
-              label="Nombre"
-            ></v-text-field>
-          </div>
-        </panel>
-      </v-layout>
-    </v-container>
-    <v-btn
-      @click="add">
-      Añadir
-    </v-btn>
-    <tr>
-      <td><strong>Equipo</strong></td>
-      <td><strong>Cantidad</strong></td>
-      <td></td>
-    </tr>
-      <tr
-        v-for="(row, index) in rows"
-        :key="index">
-        <td><v-text-field type="text" v-model="row.equipo" /></td>
-        <td><v-text-field type="number" min="0" v-model="row.cantidad" /></td>
-        <td>
+    <panel title="Registrar Préstamo">
+      <v-card>
+        <v-card-title>
+          <v-autocomplete
+          v-model="select"
+          :hint="`${select.Nombre}, ${select.Carnet}`"
+          :items="students"
+          item-text="Carnet"
+          item-value="Nombre"
+          label="Estudiante"
+          return-object
+          single-line
+          persistent-hint>
+          </v-autocomplete>
           <v-btn
-            v-on:click="removeElement(index)" style="cursor: pointer"
-            >Eliminar
+            color="orange lighten-1"
+            dark
+            class="font-weight-bold"
+            @click="addEquip">
+            Adicionar
           </v-btn>
-        </td>
-      </tr>
+          <v-btn
+            color="green darken-1"
+            dark
+            class="font-weight-bold"
+            @click="register">
+            Registrar
+          </v-btn>
+        </v-card-title>
+
+        <v-data-table
+        hide-actions
+        :items="rows">
+
+          <template slot="headers" slot-scope="props">
+            <tr>
+              <th><strong>Equipo</strong></th>
+              <th><strong>Cantidad</strong></th>
+              <th><strong>Acción</strong></th>
+            </tr>
+          </template>
+
+          <template slot="items" slot-scope="props">
+            <tr>
+              <td><v-autocomplete type="text" placeholder="Equipo" :items="equipo" v-model="props.item.equipo"></v-autocomplete></td>
+              <td><v-text-field type="number" min="0" placeholder="Cantidad" v-model="props.item.cantidad"></v-text-field></td>
+              <td>
+                <v-tooltip bottom>
+                  <i
+                  slot="activator"
+                  class="material-icons"
+                  v-on:click="removeElement(props.item)" style="cursor: pointer"
+                  tooltip="Eliminar"
+                  >close
+                  </i>
+                  <span>Eliminar</span>
+                </v-tooltip>
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+      </v-card>
+    </panel>
   </div>
 </template>
 
 <script>
-import PruebaService from '@/services/PruebaService'
+import EquipmentService from '@/services/EquipmentService'
 import StudentService from '@/services/StudentService'
 
 import Panel from '@/components/Panel'
@@ -72,32 +76,37 @@ export default {
   data () {
     return {
       equipo: [],
-      rows: [],
-      select: { Nombre: '', Carnet: '' },
-      items: []
+      rows: [
+        { equipo: '', cantidad: 0 }
+      ],
+      students: [],
+      select: { Nombre: 'Nombre', Carnet: 'Carnet' }
     }
   },
   methods: {
-    add () {
-      document.createElement('tr')
+    addEquip () {
       this.rows.push({
-        equipo: 'hey',
-        cantidad: 0
+        equipo: '',
+        cantidad: ''
       })
     },
-    removeElement (index) {
-      this.rows.splice(index, 1)
+    removeElement (item) {
+      const index = this.rows.indexOf(item)
+      confirm('¿Seguro que desea eliminar el equipo?') && this.rows.splice(index, 1)
+    },
+    register () {
+      console.log('hola')
     }
   },
   async mounted () {
-    const PruebaPrestamos = (await PruebaService.indexPrueba()).data
-    for (let i = 0; i < PruebaPrestamos.prestamo.length; i++) {
-      this.equipo.push(PruebaPrestamos.prestamo[i].Comentario)
+    const equipData = (await EquipmentService.indexEquip()).data
+    for (let i = 0; i < equipData.equipInfo.length; i++) {
+      this.equipo.push(equipData.equipInfo[i].Nombre)
     }
     const PruebaEstudiantes = (await StudentService.indexStudent()).data
     for (let i = 0; i < PruebaEstudiantes.studentInfo.length; i++) {
       let { Nombre, Carnet } = PruebaEstudiantes.studentInfo[i]
-      this.items.push({ Nombre, Carnet })
+      this.students.push({ Nombre, Carnet })
     }
   },
   components: {
