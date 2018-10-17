@@ -13,7 +13,7 @@ const studentModel = mongoose.model('studentModel', student)
 module.exports = {
   async get (req, res) {
     try {
-      const data = await studentModel.find({})
+      const data = await studentModel.find()
       console.log(data)
       res.status(201).send(data)
     } catch (err) {
