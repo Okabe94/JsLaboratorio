@@ -7,7 +7,7 @@
           required
           :rules="[required]"
           label="Carnet"
-          v-model="Carnet"
+          v-model="carnet"
           autofocus
           type="Number"
           min="0"
@@ -17,7 +17,7 @@
           required
           :rules="[required]"
           label="Contraseña"
-          v-model="Pass"
+          v-model="password"
           type="password"
         ></v-text-field>
         <br>
@@ -47,8 +47,8 @@ import Panel from '@/components/Panel'
 export default {
   data () {
     return {
-      Carnet: '',
-      Pass: '',
+      carnet: '',
+      password: '',
       error: null,
       required: (value) => !!value || 'Requerido.'
     }
@@ -57,15 +57,15 @@ export default {
     async login () {
       try {
         const response = await MonitorService.login({
-          Carnet: this.Carnet,
-          Pass: this.Pass
+          carnet: this.carnet,
+          password: this.password
         })
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setIdentity', {
-          Nombre: response.data.monitor.Nombre,
-          Carnet: response.data.monitor.Carnet
+          nombre: response.data.monitor.nombre,
+          carnet: response.data.monitor.carnet
         })
-        this.$store.dispatch('setRango', response.data.monitor.FKRango)
+        this.$store.dispatch('setRango', response.data.monitor.rango)
         this.error = null
         this.$router.push({ name: 'home' })
       } catch (error) {
