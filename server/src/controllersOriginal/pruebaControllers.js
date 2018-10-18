@@ -1,5 +1,4 @@
 const studentModel = require('../models/Estudiante')
-
 module.exports = {
   async get (req, res) {
     try {

@@ -7,7 +7,8 @@ const student = new Schema({
   planAcademico: String
 },
 {
-  collection: 'Estudiante'
+  collection: 'Estudiante',
+  versionKey: false
 })
-const studentModel = mongoose.model('studentModel', student)
-module.exports = studentModel
+const StudentModel = mongoose.model('StudentModel', student)
+module.exports = StudentModel

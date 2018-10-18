@@ -1,11 +1,13 @@
-const EquipModel = require('../models/Equipo')
+const sequelize = require('sequelize')
+const { Equipo } = require('../models')
+const Op = sequelize.Op
 
 module.exports = {
   async index (req, res) {
     try {
-      const index = await EquipModel.find({})
+      const equipInfo = await Equipo.sequelize.query('SELECT * FROM Equipo', { type: sequelize.QueryTypes.SELECT })
       res.send({
-        index
+        equipInfo
       })
     } catch (err) {
       res.status(400).send({
@@ -15,18 +17,23 @@ module.exports = {
   },
   async register (req, res) {
     try {
-      const codBarras = req.body.codBarras
-      const equip = await EquipModel.findOne({
-        $and: [
-          { codBarras: codBarras }, { codBarras: { $ne: 0 } }
-        ]
+      const cod = req.body.CodBarras
+      const equipo = await Equipo.findOne({
+        where: {
+          CodBarras: {
+            [Op.and]: {
+              [Op.eq]: cod,
+              [Op.ne]: 0
+            }
+          }
+        }
       })
-      if (equip) {
+      if (equipo) {
         return res.status(403).send({
           error: 'Este equipo ya existe'
         })
       } else {
-        EquipModel.create(req.body)
+        Equipo.create(req.body)
         res.send({
           register: true
         })

@@ -1,19 +1,21 @@
-const StudentModel = require('../models/Estudiante')
+const { Estudiante } = require('../models')
 
 module.exports = {
   async register (req, res) {
     try {
-      const carnet = req.body.carnet
-      const student = await StudentModel.findOne({
-        carnet: carnet
+      const carnet = req.body.Carnet
+      const estudiante = await Estudiante.findOne({
+        where: {
+          Carnet: carnet
+        }
       })
-      if (student) {
+      if (estudiante) {
         return res.status(403).send({
           error: 'Este estudiante ya existe'
         })
       } else {
-        const newStudent = await new StudentModel(req.body)
-        await newStudent.save()
+        console.log(req.body)
+        Estudiante.create(req.body)
         res.send({
           register: true
         })
@@ -26,9 +28,9 @@ module.exports = {
   },
   async index (req, res) {
     try {
-      const index = await StudentModel.find({})
+      const studentInfo = await Estudiante.findAll()
       res.send({
-        index
+        studentInfo
       })
     } catch (err) {
       res.status(400).send({
