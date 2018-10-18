@@ -23,7 +23,7 @@ module.exports = {
       newMonitor.save()
       res.send({ register: true })
     } catch (err) {
-      res.status(400).send({ error: 'Ha ocurrido algo mientras se creaba el monitor' })
+      res.status(400).send({ error: 'Ha ocurrido un error al crear el monitor' })
     }
   },
   async login (req, res) {
@@ -35,16 +35,17 @@ module.exports = {
       if (!monitor) {
         return res.status(403).send({ error: 'La información de ingreso es incorrecta' })
       }
-      console.log(password)
-      const isPasswordValid = await MonitorModel.comparePassword(password)
-      console.log(isPasswordValid)
-      if (!isPasswordValid) {
-        return res.status(403).send({ error: 'La información de ingreso es incorrecta' })
-      }
-      const monitorJson = monitor.toJSON()
-      res.send({
-        monitor: monitorJson,
-        token: jwtSignMonitor(monitorJson)
+      monitor.comparePassword(password, function (err, isMatch) {
+        if (err) {
+          return res.status(403).send({ error: 'La información de ingreso es incorrecta' })
+        }
+        if (isMatch) {
+          const monitorJson = monitor.toJSON()
+          res.send({
+            monitor: monitorJson,
+            token: jwtSignMonitor(monitorJson)
+          })
+        }
       })
     } catch (err) {
       res.status(500).send({ error: 'Un error ha ocurrido al intentar iniciar sesión' })
