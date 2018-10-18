@@ -12,8 +12,7 @@ module.exports = {
           error: 'Este estudiante ya existe'
         })
       } else {
-        const newStudent = await new StudentModel(req.body)
-        await newStudent.save()
+        StudentModel.create(req.body)
         res.send({
           register: true
         })

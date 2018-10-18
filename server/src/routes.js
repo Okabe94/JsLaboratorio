@@ -1,20 +1,20 @@
-// const UserController = require('./controllers/UserControllers')
-// const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
+const MonitorController = require('./controllers/MonitorController')
+const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
 const StudentController = require('./controllers/StudentControllers')
 const EquipController = require('./controllers/EquipControllers')
 // const HomeController = require('./controllers/HomeControllers')
 const pruebaController = require('./controllers/pruebaControllers')
 module.exports = (app) => {
   // User
-  // app.post('/login', UserController.login)
-  // app.post('/register-User', AuthenticationControllerPolicy.register, UserController.register)
+  app.post('/login', MonitorController.login)
+  app.post('/registerMonitor', AuthenticationControllerPolicy.register, MonitorController.register)
 
   // // Student
-  app.post('/register-Student', StudentController.register)
+  app.post('/registerStudent', StudentController.register)
   app.get('/indexStudent', StudentController.index)
 
   // // Equip
-  app.post('/register-Equip', EquipController.register)
+  app.post('/registerEquip', EquipController.register)
   app.get('/indexEquip', EquipController.index)
 
   // // Home

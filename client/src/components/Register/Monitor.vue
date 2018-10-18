@@ -61,7 +61,7 @@
 
 <script>
 import Panel from '@/components/Panel'
-import UserService from '@/services/UserService'
+import MonitorService from '@/services/MonitorService'
 
 export default {
   data () {
@@ -88,7 +88,7 @@ export default {
       this.monitor.Nombre = this.monitor.Nombre.trim()
       this.monitor.Nombre = this.monitor.Nombre.charAt(0).toUpperCase() + this.monitor.Nombre.slice(1)
       try {
-        const resp = await UserService.registerUser(this.monitor)
+        const resp = await Monitor.registerMonitor(this.monitor)
         this.error = null
         if (resp.data.register) {
           this.success = 'Usuario creado exitosamente'

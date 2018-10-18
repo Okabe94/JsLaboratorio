@@ -1,4 +1,4 @@
-const { Monitor } = require('../models')
+const MonitorModel = require('../models/Monitor')
 const jwt = require('jsonwebtoken')
 const config = require('../config/config')
 
@@ -12,30 +12,41 @@ function jwtSignMonitor (monitor) {
 module.exports = {
   async register (req, res) {
     try {
-      await Monitor.create(req.body)
+      const carnet = req.body.carnet
+      const monitor = await MonitorModel.findOne({
+        carnet: carnet
+      })
+      if (monitor) {
+        return res.status(400).send({
+          error: 'Este monitor ya existe'
+        })
+      }
+      MonitorModel.create(req.body)
       res.send({
         register: true
       })
     } catch (err) {
       res.status(400).send({
-        error: 'Este monitor ya existe'
+        error: 'Ha ocurrido algo mientras se creaba el monitor'
       })
     }
   },
   async login (req, res) {
     try {
-      const { Carnet, Pass } = req.body
-      const monitor = await Monitor.findOne({
-        where: {
-          Carnet: Carnet
-        }
+      const { carnet, password } = req.body
+      console.log('hola')
+      console.log(carnet)
+      const monitor = await MonitorModel.findOne({
+        carnet: carnet
       })
+      console.log(monitor)
       if (!monitor) {
         return res.status(403).send({
           error: 'La información de ingreso es incorrecta'
         })
       }
-      const isPasswordValid = await monitor.comparePassword(Pass)
+      console.log(password)
+      const isPasswordValid = await MonitorModel.comparePassword(password)
       if (!isPasswordValid) {
         return res.status(403).send({
           error: 'La información de ingreso es incorrecta'
