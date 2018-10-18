@@ -30,9 +30,9 @@
 
         <template slot="items" slot-scope="props">
           <tr>
-            <td>{{ props.item.Nombre }}</td>
-            <td>{{ props.item.Carnet }}</td>
-            <td>{{ props.item.PlanAcademico }}</td>
+            <td>{{ props.item.nombre }}</td>
+            <td>{{ props.item.carnet }}</td>
+            <td>{{ props.item.planAcademico }}</td>
           </tr>
         </template>
 
@@ -67,8 +67,8 @@ export default {
   },
   async mounted () {
     const data = (await StudentService.indexStudent()).data
-    for (let i = 0; i < data.studentInfo.length; i++) {
-      this.items.push(data.studentInfo[i])
+    for (let i = 0; i < data.index.length; i++) {
+      this.items.push(data.index[i])
     }
   },
   components: {

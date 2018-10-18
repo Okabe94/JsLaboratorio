@@ -14,7 +14,7 @@
   </div>
 </template>
 <script>
-import Equipment from '@/components/Stock/Equip'
+import Equipment from '@/components/Stock/Equipment'
 import Student from '@/components/Stock/Student'
 import noAuth from '@/components/Auth'
 

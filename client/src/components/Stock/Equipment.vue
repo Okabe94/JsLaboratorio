@@ -1,17 +1,17 @@
 <template>
   <div>
     <panel title="Equipos">
-      <v-card>
-        <v-card-title>
-          <v-text-field
-            v-model="search"
-            label="Buscar"
-            single-line
-            hide-details
-          ></v-text-field>
-          <v-spacer></v-spacer>
-          <v-spacer></v-spacer>
-        </v-card-title>
+    <v-card>
+      <v-card-title>
+        <v-text-field
+          v-model="search"
+          label="Buscar"
+          single-line
+          hide-details
+        ></v-text-field>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+      </v-card-title>
 
         <v-data-table
           :headers="headers"
@@ -30,8 +30,9 @@
 
           <template slot="items" slot-scope="props">
             <tr>
-              <td>{{ props.item.CodBarras }}</td>
-              <td>{{ props.item.Nombre }}</td>
+              <td>{{ props.item.codBarras }}</td>
+              <td>{{ props.item.nombre }}</td>
+              <td>{{ props.item.disponible }}</td>
             </tr>
           </template>
 
@@ -54,15 +55,22 @@ export default {
       items: [],
       search: '',
       headers: [
-        { text: 'Código de Barras', value: 'CodBarras' },
-        { text: 'Nombre', value: 'Nombre' }
+        { text: 'Código de Barras', value: 'codBarras' },
+        { text: 'Nombre', value: 'nombre' },
+        { text: 'Disponible', value: 'disponible' }
       ]
     }
   },
   async mounted () {
     const data = (await EquipmentService.indexEquip()).data
-    for (let i = 0; i < data.equipInfo.length; i++) {
-      this.items.push(data.equipInfo[i])
+    for (let i = 0; i < data.index.length; i++) {
+      const current = data.index[i]
+      if (current.disponible) {
+        current.disponible = 'Si'
+      } else {
+        current.disponible = 'No'
+      }
+      this.items.push(current)
     }
   },
   components: {
