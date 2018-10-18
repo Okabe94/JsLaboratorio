@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import UserService from '@/services/UserService'
+import MonitorService from '@/services/MonitorService'
 import Panel from '@/components/Panel'
 
 export default {
@@ -56,7 +56,7 @@ export default {
   methods: {
     async login () {
       try {
-        const response = await UserService.login({
+        const response = await MonitorService.login({
           Carnet: this.Carnet,
           Pass: this.Pass
         })

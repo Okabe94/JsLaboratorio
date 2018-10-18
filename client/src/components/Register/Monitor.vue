@@ -88,7 +88,7 @@ export default {
       this.monitor.Nombre = this.monitor.Nombre.trim()
       this.monitor.Nombre = this.monitor.Nombre.charAt(0).toUpperCase() + this.monitor.Nombre.slice(1)
       try {
-        const resp = await Monitor.registerMonitor(this.monitor)
+        const resp = await MonitorService.registerMonitor(this.monitor)
         this.error = null
         if (resp.data.register) {
           this.success = 'Usuario creado exitosamente'
