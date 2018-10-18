@@ -16,6 +16,7 @@ mongoose.connect('mongodb://localhost:27017/Laboratorio', { useNewUrlParser: tru
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', function () {
-  app.listen(config.port)
-  console.log('Servidor funcionando en puerto: ', config.port)
+  console.log('Connection stablished successfully')
 })
+app.listen(config.port)
+console.log('Servidor funcionando en puerto: ', config.port)

@@ -12,7 +12,7 @@ function jwtSignMonitor (monitor) {
 module.exports = {
   async register (req, res) {
     try {
-      await Monitor.create(req.body)
+      await Monitor.save(req.body)
       res.send({
         register: true
       })

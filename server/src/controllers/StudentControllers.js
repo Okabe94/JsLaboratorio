@@ -8,31 +8,21 @@ module.exports = {
         carnet: carnet
       })
       if (student) {
-        return res.status(403).send({
-          error: 'Este estudiante ya existe'
-        })
+        return res.status(403).send({ error: 'Este estudiante ya existe' })
       } else {
-        StudentModel.create(req.body)
-        res.send({
-          register: true
-        })
+        new StudentModel(req.body).save()
+        res.send({ register: true })
       }
     } catch (err) {
-      res.status(400).send({
-        error: 'Ha ocurrido un error al crear el estudiante'
-      })
+      res.status(400).send({ error: 'Ha ocurrido un error al crear el estudiante' })
     }
   },
   async index (req, res) {
     try {
       const index = await StudentModel.find({})
-      res.send({
-        index
-      })
+      res.send({ index })
     } catch (err) {
-      res.status(400).send({
-        error: 'Ha ocurrido un error al obtener la información'
-      })
+      res.status(400).send({ error: 'Ha ocurrido un error al obtener la información' })
     }
   }
 }

@@ -17,40 +17,29 @@ module.exports = {
         carnet: carnet
       })
       if (monitor) {
-        return res.status(400).send({
-          error: 'Este monitor ya existe'
-        })
+        return res.status(400).send({ error: 'Este monitor ya existe' })
       }
-      MonitorModel.create(req.body)
-      res.send({
-        register: true
-      })
+      const newMonitor = new MonitorModel(req.body)
+      newMonitor.save()
+      res.send({ register: true })
     } catch (err) {
-      res.status(400).send({
-        error: 'Ha ocurrido algo mientras se creaba el monitor'
-      })
+      res.status(400).send({ error: 'Ha ocurrido algo mientras se creaba el monitor' })
     }
   },
   async login (req, res) {
     try {
       const { carnet, password } = req.body
-      console.log('hola')
-      console.log(carnet)
       const monitor = await MonitorModel.findOne({
         carnet: carnet
       })
-      console.log(monitor)
       if (!monitor) {
-        return res.status(403).send({
-          error: 'La información de ingreso es incorrecta'
-        })
+        return res.status(403).send({ error: 'La información de ingreso es incorrecta' })
       }
       console.log(password)
       const isPasswordValid = await MonitorModel.comparePassword(password)
+      console.log(isPasswordValid)
       if (!isPasswordValid) {
-        return res.status(403).send({
-          error: 'La información de ingreso es incorrecta'
-        })
+        return res.status(403).send({ error: 'La información de ingreso es incorrecta' })
       }
       const monitorJson = monitor.toJSON()
       res.send({
@@ -58,9 +47,7 @@ module.exports = {
         token: jwtSignMonitor(monitorJson)
       })
     } catch (err) {
-      res.status(500).send({
-        error: 'Un error ha ocurrido al intentar iniciar sesión'
-      })
+      res.status(500).send({ error: 'Un error ha ocurrido al intentar iniciar sesión' })
     }
   }
 }

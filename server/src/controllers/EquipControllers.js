@@ -4,13 +4,9 @@ module.exports = {
   async index (req, res) {
     try {
       const index = await EquipModel.find({})
-      res.send({
-        index
-      })
+      res.send({ index })
     } catch (err) {
-      res.status(400).send({
-        error: 'Ha ocurrido un error al obtener la información'
-      })
+      res.status(400).send({ error: 'Ha ocurrido un error al obtener la información' })
     }
   },
   async register (req, res) {
@@ -22,19 +18,13 @@ module.exports = {
         ]
       })
       if (equip) {
-        return res.status(403).send({
-          error: 'Este equipo ya existe'
-        })
+        return res.status(403).send({ error: 'Este equipo ya existe' })
       } else {
-        EquipModel.create(req.body)
-        res.send({
-          register: true
-        })
+        new EquipModel(req.body).save()
+        res.send({ register: true })
       }
     } catch (err) {
-      res.status(400).send({
-        error: 'Ha ocurrido un error al crear el equipo'
-      })
+      res.status(400).send({ error: 'Ha ocurrido un error al crear el equipo' })
     }
   }
 }
