@@ -2,7 +2,7 @@ const MonitorController = require('./controllers/MonitorController')
 const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
 const StudentController = require('./controllers/StudentControllers')
 const EquipController = require('./controllers/EquipControllers')
-// const HomeController = require('./controllers/HomeControllers')
+const HomeController = require('./controllers/HomeControllers')
 const pruebaController = require('./controllers/pruebaControllers')
 module.exports = (app) => {
   // User
@@ -18,7 +18,7 @@ module.exports = (app) => {
   app.get('/indexEquip', EquipController.index)
 
   // // Home
-  // app.get('/indexHome', HomeController.indexHome)
+  app.get('/indexHome', HomeController.index)
   // app.post('/indexDetails', HomeController.indexDetail)
 
   app.get('/prueba', pruebaController.get)

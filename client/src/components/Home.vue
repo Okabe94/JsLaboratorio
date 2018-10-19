@@ -38,14 +38,12 @@
 
         <template slot="items" slot-scope="props">
           <tr @click="details (props, props.item.Carnet)">
-            <td>{{ props.item.Préstamos }}</td>
-            <td>{{ props.item.Estudiante }}</td>
-            <td>{{ props.item.Carnet }}</td>
-            <td>{{ props.item.PlanAcademico }}</td>
-            <td>{{ props.item.Bloque }}</td>
-            <td>{{ props.item.Salon }}</td>
-            <td>{{ props.item.Modulo }}</td>
-            <td>{{ props.item.Monitor }}</td>
+            <td>{{ props.item.items }}</td>
+            <td>{{ props.item.estudiante }}</td>
+            <td>{{ props.item.carnet }}</td>
+            <td>{{ props.item.salon }}</td>
+            <td>{{ props.item.modulo }}</td>
+            <td>{{ props.item.monitor }}</td>
           </tr>
         </template>
 
@@ -98,14 +96,12 @@ export default {
     return {
       search: '',
       headers: [
-        { text: 'Préstamos', value: 'Préstamos', align: 'left' },
-        { text: 'Estudiante', value: 'Estudiante' },
-        { text: 'Carnet', value: 'Carnet' },
-        { text: 'Plan Academico', value: 'PlanAcademico' },
-        { text: 'Bloque', value: 'Bloque' },
-        { text: 'Salon', value: 'Salon' },
-        { text: 'Modulo', value: 'Modulo' },
-        { text: 'Monitor', value: 'Monitor' }
+        { text: 'Préstamos', value: 'items', align: 'left' },
+        { text: 'Estudiante', value: 'estudiante' },
+        { text: 'Carnet', value: 'carnet' },
+        { text: 'Salon', value: 'salon' },
+        { text: 'Modulo', value: 'modulo' },
+        { text: 'Monitor', value: 'monitor' }
       ],
       detailHeaders: [
         { text: 'Equipo', value: 'equipo' },
@@ -120,8 +116,9 @@ export default {
   },
   async mounted () {
     const data = (await HomeTableService.indexHome()).data
-    for (let i = 0; i < data.homeInfo.length; i++) {
-      this.items.push(data.homeInfo[i])
+    console.log(data)
+    for (let i = 0; i < data.index.length; i++) {
+      this.items.push(data.index[i])
     }
   },
   methods: {
