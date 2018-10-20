@@ -7,8 +7,14 @@ const monitor = new Schema({
   nombre: String,
   carnet: Number,
   password: String,
-  rango: Number,
-  cargo: String
+  rango: {
+    type: Number,
+    default: 2
+  },
+  cargo: {
+    type: String,
+    default: 'Monitor'
+  }
 },
 {
   collection: 'Monitor',

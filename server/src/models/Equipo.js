@@ -5,7 +5,10 @@ const Equip = new Schema({
   codBarras: Number,
   nombre: String,
   descripcion: String,
-  disponible: Boolean
+  disponible: {
+    type: Boolean,
+    default: true
+  }
 },
 {
   collection: 'Equipo',

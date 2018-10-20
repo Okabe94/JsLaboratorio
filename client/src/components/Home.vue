@@ -43,6 +43,7 @@
               <td>{{ props.item.modulo.salon }}</td>
               <td>{{ props.item.modulo.numero }}</td>
               <td>{{ props.item.monitor.nombre }}</td>
+              <td>{{ props.item.fechaPrestamo }}</td>
             </tr>
           </template>
 
@@ -96,11 +97,12 @@ export default {
     return {
       search: '',
       headers: [
-        { text: 'Estudiante', value: 'estudiante' },
-        { text: 'Carnet', value: 'carnet' },
-        { text: 'Salon', value: 'salon' },
-        { text: 'Modulo', value: 'modulo' },
-        { text: 'Monitor', value: 'monitor' }
+        { text: 'Estudiante', value: 'estudiante.nombre' },
+        { text: 'Carnet', value: 'estudiante.carnet' },
+        { text: 'Salon', value: 'modulo.salon' },
+        { text: 'Modulo', value: 'modulo.numero' },
+        { text: 'Monitor', value: 'monitor.nombre' },
+        { text: 'Fecha', value: 'fechaPrestamo' }
       ],
       detailHeaders: [
         { text: 'Equipo', value: 'equipo' },

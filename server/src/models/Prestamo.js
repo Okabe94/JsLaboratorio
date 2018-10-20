@@ -22,9 +22,15 @@ const prestamo = new Schema({
     carnet: Number
   },
   comentario: String,
-  fechaPrestamo: Date,
   fechaEntrega: Date,
-  entregado: Boolean
+  fechaPrestamo: {
+    type: Date,
+    default: Date.now
+  },
+  entregado: {
+    type: Boolean,
+    default: false
+  }
 },
 {
   collection: 'Prestamo',
