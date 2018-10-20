@@ -1,8 +1,9 @@
 const studentModel = require('../models/Estudiante')
 
 module.exports = {
-  async get (req, res) {
+  async post (req, res) {
     try {
+      // añadir prestamo
       const data = await studentModel.find()
       console.log(data)
       res.status(201).send(data)

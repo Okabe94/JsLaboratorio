@@ -5,10 +5,10 @@
         <v-card-title>
           <v-autocomplete
           v-model="select"
-          :hint="`${select.Nombre}, ${select.Carnet}`"
+          :hint="`${select.nombre}, ${select.carnet}`"
           :items="students"
-          item-text="Carnet"
-          item-value="Nombre"
+          item-text="carnet"
+          item-value="nombre"
           label="Estudiante"
           return-object
           single-line
@@ -36,6 +36,7 @@
 
           <template slot="headers" slot-scope="props">
             <tr>
+              <th><strong>Código de barras</strong></th>
               <th><strong>Equipo</strong></th>
               <th><strong>Cantidad</strong></th>
               <th><strong>Acción</strong></th>
@@ -44,16 +45,39 @@
 
           <template slot="items" slot-scope="props">
             <tr>
-              <td><v-autocomplete type="text" placeholder="Equipo" :items="equipo" v-model="props.item.equipo"></v-autocomplete></td>
-              <td><v-text-field type="number" min="0" placeholder="Cantidad" v-model="props.item.cantidad"></v-text-field></td>
+                <td>
+                <v-autocomplete
+                type="number"
+                placeholder="Código de barras"
+                :items="equipo"
+                v-model="props.item.codBarras">
+                </v-autocomplete>
+              </td>
+              <td>
+                <v-text-field
+                type="text"
+                placeholder="Equipo"
+                :items="equipo"
+                v-model="props.item.nombre">
+                </v-text-field>
+              </td>
+              <td>
+                <v-text-field
+                type="number"
+                min="0"
+                placeholder="Cantidad"
+                v-model="props.item.cantidad">
+                </v-text-field>
+              </td>
               <td>
                 <v-tooltip bottom>
                   <i
                   slot="activator"
                   class="material-icons"
-                  v-on:click="removeElement(props.item)" style="cursor: pointer"
+                  v-on:click="removeElement(props.item)"
+                  style="cursor: pointer"
                   tooltip="Eliminar"
-                  >close
+                  >delete
                   </i>
                   <span>Eliminar</span>
                 </v-tooltip>
@@ -77,17 +101,18 @@ export default {
     return {
       equipo: [],
       rows: [
-        { equipo: '', cantidad: 0 }
+        { nombre: '', codBarras: 0, cantidad: 0 }
       ],
       students: [],
-      select: { Nombre: 'Nombre', Carnet: 'Carnet' }
+      select: { nombre: 'nombre', carnet: 'carnet' }
     }
   },
   methods: {
     addEquip () {
       this.rows.push({
-        equipo: '',
-        cantidad: ''
+        nombre: '',
+        codBarras: 0,
+        cantidad: 0
       })
     },
     removeElement (item) {
@@ -100,13 +125,14 @@ export default {
   },
   async mounted () {
     const equipData = (await EquipmentService.indexEquip()).data
-    for (let i = 0; i < equipData.equipInfo.length; i++) {
-      this.equipo.push(equipData.equipInfo[i].Nombre)
+    for (let i = 0; i < equipData.index.length; i++) {
+      console.log(equipData)
+      this.equipo.push(equipData.index[i].codBarras)
     }
     const PruebaEstudiantes = (await StudentService.indexStudent()).data
-    for (let i = 0; i < PruebaEstudiantes.studentInfo.length; i++) {
-      let { Nombre, Carnet } = PruebaEstudiantes.studentInfo[i]
-      this.students.push({ Nombre, Carnet })
+    for (let i = 0; i < PruebaEstudiantes.index.length; i++) {
+      let { nombre, carnet } = PruebaEstudiantes.index[i]
+      this.students.push({ nombre, carnet })
     }
   },
   components: {

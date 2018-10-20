@@ -6,7 +6,7 @@ import Lend from '@/components/Create/Lend'
 import Stock from '@/components/Stock/MainViewStock'
 import Schedule from '@/components/Schedule'
 import Register from '@/components/Register/MainViewRegister'
-import Prueba from '@/components/Prueba'
+import Request from '@/components/Request'
 
 Vue.use(Router)
 
@@ -43,9 +43,9 @@ export default new Router({
       component: Register
     },
     {
-      path: '/prueba',
-      name: 'prueba',
-      component: Prueba
+      path: '/request',
+      name: 'request',
+      component: Request
     }
   ]
 })

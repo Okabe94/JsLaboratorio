@@ -3,7 +3,7 @@ const AuthenticationControllerPolicy = require('./policies/AuthenticationControl
 const StudentController = require('./controllers/StudentControllers')
 const EquipController = require('./controllers/EquipControllers')
 const HomeController = require('./controllers/HomeControllers')
-const pruebaController = require('./controllers/pruebaControllers')
+const RequestController = require('./controllers/RequestControllers')
 module.exports = (app) => {
   // User
   app.post('/login', MonitorController.login)
@@ -19,7 +19,7 @@ module.exports = (app) => {
 
   // // Home
   app.get('/indexHome', HomeController.index)
-  // app.post('/indexDetails', HomeController.indexDetail)
 
-  app.get('/prueba', pruebaController.get)
+  // Request
+  app.post('/request', RequestController.post)
 }
