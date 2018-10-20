@@ -4,8 +4,8 @@
       <v-card>
         <v-card-title>
           <v-autocomplete
-          v-model="select"
-          :hint="`${select.nombre}, ${select.carnet}`"
+          v-model="estudiante"
+          :hint="`${estudiante.nombre}, ${estudiante.carnet}`"
           :items="students"
           item-text="carnet"
           item-value="nombre"
@@ -36,8 +36,8 @@
 
           <template slot="headers" slot-scope="props">
             <tr>
-              <th><strong>Código de barras</strong></th>
               <th><strong>Equipo</strong></th>
+              <th><strong>Código de barras</strong></th>
               <th><strong>Cantidad</strong></th>
               <th><strong>Acción</strong></th>
             </tr>
@@ -45,20 +45,19 @@
 
           <template slot="items" slot-scope="props">
             <tr>
-                <td>
-                <v-autocomplete
-                type="number"
-                placeholder="Código de barras"
-                :items="equipo"
-                v-model="props.item.codBarras">
-                </v-autocomplete>
-              </td>
               <td>
-                <v-text-field
+                <v-autocomplete
                 type="text"
                 placeholder="Equipo"
                 :items="equipo"
                 v-model="props.item.nombre">
+                </v-autocomplete>
+              </td>
+              <td>
+                <v-text-field
+                type="number"
+                placeholder="Código de barras"
+                v-model="props.item.codBarras">
                 </v-text-field>
               </td>
               <td>
@@ -99,20 +98,28 @@ import Panel from '@/components/Panel'
 export default {
   data () {
     return {
+      request: {
+        estudiante,
+        equipos,
+        modulo,
+        monitorEntrega,
+        observacion,
+
+      },
       equipo: [],
       rows: [
-        { nombre: '', codBarras: 0, cantidad: 0 }
+        { nombre: '', codBarras: '', cantidad: '' }
       ],
       students: [],
-      select: { nombre: 'nombre', carnet: 'carnet' }
+      estudiante: { nombre: 'nombre', carnet: 'carnet' }
     }
   },
   methods: {
     addEquip () {
       this.rows.push({
         nombre: '',
-        codBarras: 0,
-        cantidad: 0
+        codBarras: '',
+        cantidad: ''
       })
     },
     removeElement (item) {
@@ -126,8 +133,7 @@ export default {
   async mounted () {
     const equipData = (await EquipmentService.indexEquip()).data
     for (let i = 0; i < equipData.index.length; i++) {
-      console.log(equipData)
-      this.equipo.push(equipData.index[i].codBarras)
+      this.equipo.push(equipData.index[i].nombre)
     }
     const PruebaEstudiantes = (await StudentService.indexStudent()).data
     for (let i = 0; i < PruebaEstudiantes.index.length; i++) {

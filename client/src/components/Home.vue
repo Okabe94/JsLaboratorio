@@ -13,7 +13,7 @@
           <v-spacer></v-spacer>
           <v-btn
           v-if="$store.state.isLoggedIn"
-          @click="navigateTo({ name: 'lend' })"
+          @click="navigateTo({ name: 'request' })"
           dark
           class="green darken-5 font-weight-bold">
             Nuevo Préstamo
@@ -42,7 +42,7 @@
               <td>{{ props.item.estudiante.carnet }}</td>
               <td>{{ props.item.modulo.salon }}</td>
               <td>{{ props.item.modulo.numero }}</td>
-              <td>{{ props.item.monitor.nombre }}</td>
+              <td>{{ props.item.monitorEntrega.nombre }}</td>
               <td>{{ props.item.fechaPrestamo }}</td>
             </tr>
           </template>
@@ -101,7 +101,7 @@ export default {
         { text: 'Carnet', value: 'estudiante.carnet' },
         { text: 'Salon', value: 'modulo.salon' },
         { text: 'Modulo', value: 'modulo.numero' },
-        { text: 'Monitor', value: 'monitor.nombre' },
+        { text: 'Monitor', value: 'monitorEntrega.nombre' },
         { text: 'Fecha', value: 'fechaPrestamo' }
       ],
       detailHeaders: [
