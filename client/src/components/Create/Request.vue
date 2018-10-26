@@ -125,8 +125,8 @@ export default {
           entregado: false
         },
         monitorEntrega: {
-          nombre: '',
-          carnet: ''
+          nombre: this.$store.state.nombre,
+          carnet: this.$store.state.carnet
         },
         observacion: ''
       },
