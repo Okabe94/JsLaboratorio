@@ -12,11 +12,11 @@ app.use(cors())
 
 require('./routes')(app)
 
-mongoose.connect('mongodb://localhost:27017/Laboratorio', { useNewUrlParser: true })
+mongoose.connect(config.db, { useNewUrlParser: true })
 const db = mongoose.connection
-db.on('error', console.error.bind(console, 'connection error:'))
+db.on('error', console.error.bind(console, 'Error en conexión: '))
 db.once('open', function () {
-  console.log('Connection stablished successfully')
+  console.log('Conexión establecida con éxito!')
 })
 app.listen(config.port)
 console.log('Servidor funcionando en puerto: ', config.port)

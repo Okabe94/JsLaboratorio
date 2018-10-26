@@ -3,31 +3,46 @@
     <panel title="Registrar Préstamo">
       <v-card>
         <v-card-title>
-          <v-autocomplete
-          v-model="estudiante"
-          :hint="`${estudiante.nombre}, ${estudiante.carnet}`"
-          :items="students"
-          item-text="carnet"
-          item-value="nombre"
-          label="Estudiante"
-          return-object
-          single-line
-          persistent-hint>
-          </v-autocomplete>
-          <v-btn
-            color="orange lighten-1"
-            dark
-            class="font-weight-bold"
-            @click="addEquip">
-            Adicionar
-          </v-btn>
-          <v-btn
-            color="green darken-1"
-            dark
-            class="font-weight-bold"
-            @click="register">
-            Registrar
-          </v-btn>
+            <v-autocomplete
+              v-model="estudiante"
+              :hint="`${estudiante.nombre}, ${estudiante.carnet}`"
+              :items="students"
+              item-text="carnet"
+              item-value="nombre"
+              label="Estudiante"
+              return-object
+              single-line
+              persistent-hint
+              class="ml-2 mr-2">
+            </v-autocomplete>
+            <v-text-field
+              type="number"
+              v-model="request.modulo.salon"
+              placeholder="Salon"
+              min="0"
+              class="ml-2 mr-2">
+            </v-text-field>
+            <v-text-field
+              type="number"
+              v-model="request.modulo.numero"
+              placeholder="Modulo"
+              min="0"
+              class="ml-2 mr-2">
+            </v-text-field>
+            <v-btn
+              color="orange lighten-1"
+              dark
+              class="font-weight-bold"
+              @click="addEquip">
+              Adicionar Equipo
+            </v-btn>
+            <v-btn
+              color="green darken-1"
+              dark
+              class="font-weight-bold"
+              @click="register">
+              Confirmar
+            </v-btn>
         </v-card-title>
 
         <v-data-table
@@ -47,36 +62,36 @@
             <tr>
               <td>
                 <v-autocomplete
-                type="text"
-                placeholder="Equipo"
-                :items="equipo"
-                v-model="props.item.nombre">
+                  type="text"
+                  placeholder="Equipo"
+                  :items="equipo"
+                  v-model="props.item.nombre">
                 </v-autocomplete>
               </td>
               <td>
                 <v-text-field
-                type="number"
-                placeholder="Código de barras"
-                v-model="props.item.codBarras">
+                  type="number"
+                  placeholder="Código de barras"
+                  v-model="props.item.codBarras">
                 </v-text-field>
               </td>
               <td>
                 <v-text-field
-                type="number"
-                min="0"
-                placeholder="Cantidad"
-                v-model="props.item.cantidad">
+                  type="number"
+                  min="0"
+                  placeholder="Cantidad"
+                  v-model="props.item.cantidad">
                 </v-text-field>
               </td>
               <td>
                 <v-tooltip bottom>
                   <i
-                  slot="activator"
-                  class="material-icons"
-                  v-on:click="removeElement(props.item)"
-                  style="cursor: pointer"
-                  tooltip="Eliminar"
-                  >delete
+                    slot="activator"
+                    class="material-icons"
+                    v-on:click="removeElement(props.item)"
+                    style="cursor: pointer"
+                    tooltip="Eliminar">
+                    delete
                   </i>
                   <span>Eliminar</span>
                 </v-tooltip>
@@ -99,12 +114,21 @@ export default {
   data () {
     return {
       request: {
-        estudiante,
-        equipos,
-        modulo,
-        monitorEntrega,
-        observacion,
-
+        estudiante: {
+          nombre: '',
+          carnet: ''
+        },
+        equipos: [],
+        modulo: {
+          salon: '',
+          numero: '',
+          entregado: false
+        },
+        monitorEntrega: {
+          nombre: '',
+          carnet: ''
+        },
+        observacion: ''
       },
       equipo: [],
       rows: [
@@ -127,7 +151,11 @@ export default {
       confirm('¿Seguro que desea eliminar el equipo?') && this.rows.splice(index, 1)
     },
     register () {
-      console.log('hola')
+      this.request.estudiante = this.estudiante
+      for (let i = 0; i < this.rows.length; i++) {
+        this.request.equipos.push(this.rows[i])
+      }
+      console.log(this.request)
     }
   },
   async mounted () {

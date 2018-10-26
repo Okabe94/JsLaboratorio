@@ -23,7 +23,7 @@ const prestamo = new Schema({
     entregado: {
       type: Boolean,
       default: false
-    } 
+    }
   },
   monitorEntrega: {
     nombre: String,
