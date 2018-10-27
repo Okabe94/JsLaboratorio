@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const prestamo = new Schema({
+const copy = new Schema({
   estudiante: {
     nombre: String,
     carnet: Number
@@ -46,8 +46,8 @@ const prestamo = new Schema({
   }
 },
 {
-  collection: 'Prestamo',
+  collection: 'Copy',
   versionKey: false
 })
 
-module.exports = mongoose.model('PrestamoModel', prestamo)
+module.exports = mongoose.model('CopyModel', copy)

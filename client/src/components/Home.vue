@@ -79,7 +79,7 @@
           </v-alert>
 
           <template slot="pageText" slot-scope="props">
-            Lignes {{ props.pageStart }} - {{ props.pageStop }} de {{ props.itemsLength }}
+            Mostrando {{ props.pageStart }} - {{ props.pageStop }} de {{ props.itemsLength }}
           </template>
 
         </v-data-table>

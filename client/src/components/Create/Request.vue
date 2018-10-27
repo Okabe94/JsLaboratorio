@@ -103,6 +103,12 @@
             </template>
           </v-data-table>
         </v-card>
+        <v-textarea
+          v-model="request.observacion"
+          outline
+          placeholder="Observación"
+          rows="1">
+        </v-textarea>
       </v-form>
     </panel>
     <v-alert
@@ -140,8 +146,7 @@ export default {
         equipo: [],
         modulo: {
           salon: '',
-          numero: '',
-          entregado: false
+          numero: ''
         },
         monitorEntrega: {
           nombre: this.$store.state.nombre,
@@ -181,7 +186,7 @@ export default {
         await RequestService.registerRequest(this.request)
         this.success = 'Equipo creado exitosamente'
         this.error = null
-        // this.$refs.request.reset()
+        // reset ()
       } catch (error) {
         this.error = error.response.data.error
         this.success = null

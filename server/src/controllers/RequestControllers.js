@@ -1,14 +1,18 @@
 const RequestModel = require('../models/Prestamo')
+const CopyModel = require('../models/Copy')
+
 const moment = require('moment')
 module.exports = {
   async register (req, res) {
     try {
-      const d = moment().format('YYYY/MM/DD - HH:mm:ss')
-      req.body.fechaPrestamo = d
-      console.log(req.body)
-      RequestModel.create(req.body)
-      // req.body.fechaEntrega
-      // const data = await studentModel.find()
+      const today = moment().format('YYYY/MM/DD - HH:mm:ss')
+      req.body.fechaPrestamo = today
+      const request = req.body
+      if (request.modulo.salon === '' || request.modulo.numero === '') {
+        delete request['modulo']
+      }
+      RequestModel.create(request)
+      CopyModel.create(request)
       res.status(201).send({
         register: true
       })
