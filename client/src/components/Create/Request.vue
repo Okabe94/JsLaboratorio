@@ -1,124 +1,143 @@
 <template>
   <div>
     <panel title="Registrar Préstamo">
-      <v-card>
-        <v-card-title>
-            <v-autocomplete
-              v-model="estudiante"
-              :hint="`${estudiante.nombre}, ${estudiante.carnet}`"
-              :items="students"
-              item-text="carnet"
-              item-value="nombre"
-              label="Estudiante"
-              return-object
-              single-line
-              persistent-hint
-              class="ml-2 mr-2">
-            </v-autocomplete>
-            <v-text-field
-              type="number"
-              v-model="request.modulo.salon"
-              placeholder="Salon"
-              min="0"
-              class="ml-2 mr-2">
-            </v-text-field>
-            <v-text-field
-              type="number"
-              v-model="request.modulo.numero"
-              placeholder="Modulo"
-              min="0"
-              class="ml-2 mr-2">
-            </v-text-field>
-            <v-btn
-              color="orange lighten-1"
-              dark
-              class="font-weight-bold"
-              @click="addEquip">
-              Adicionar Equipo
-            </v-btn>
-            <v-btn
-              color="green darken-1"
-              dark
-              class="font-weight-bold"
-              @click="register">
-              Confirmar
-            </v-btn>
-        </v-card-title>
+      <v-form ref="request">
+        <v-card>
+          <v-card-title>
+              <v-autocomplete
+                required
+                :rules="[required]"
+                v-model="estudiante"
+                :hint="`${estudiante.nombre}, ${estudiante.carnet}`"
+                :items="students"
+                item-text="carnet"
+                item-value="nombre"
+                label="Estudiante"
+                return-object
+                single-line
+                persistent-hint
+                class="ml-2 mr-2">
+              </v-autocomplete>
+              <v-text-field
+                type="number"
+                v-model="request.modulo.salon"
+                placeholder="Salon"
+                min="0"
+                class="ml-2 mr-2">
+              </v-text-field>
+              <v-text-field
+                type="number"
+                v-model="request.modulo.numero"
+                placeholder="Modulo"
+                min="0"
+                class="ml-2 mr-2">
+              </v-text-field>
+              <v-btn
+                color="orange lighten-1"
+                dark
+                class="font-weight-bold"
+                @click="addEquip">
+                Adicionar Equipo
+              </v-btn>
+              <v-btn
+                color="green darken-1"
+                dark
+                class="font-weight-bold"
+                @click="register">
+                Confirmar
+              </v-btn>
+          </v-card-title>
 
-        <v-data-table
-        hide-actions
-        :items="rows">
+          <v-data-table
+          hide-actions
+          :items="rows">
 
-          <template slot="headers" slot-scope="props">
-            <tr>
-              <th><strong>Equipo</strong></th>
-              <th><strong>Código de barras</strong></th>
-              <th><strong>Cantidad</strong></th>
-              <th><strong>Acción</strong></th>
-            </tr>
-          </template>
+            <template slot="headers" slot-scope="props">
+              <tr>
+                <th><strong>Equipo</strong></th>
+                <th><strong>Código de barras</strong></th>
+                <th><strong>Cantidad</strong></th>
+                <th><strong>Acción</strong></th>
+              </tr>
+            </template>
 
-          <template slot="items" slot-scope="props">
-            <tr>
-              <td>
-                <v-autocomplete
-                  type="text"
-                  placeholder="Equipo"
-                  :items="equipo"
-                  v-model="props.item.nombre">
-                </v-autocomplete>
-              </td>
-              <td>
-                <v-text-field
-                  type="number"
-                  placeholder="Código de barras"
-                  v-model="props.item.codBarras">
-                </v-text-field>
-              </td>
-              <td>
-                <v-text-field
-                  type="number"
-                  min="0"
-                  placeholder="Cantidad"
-                  v-model="props.item.cantidad">
-                </v-text-field>
-              </td>
-              <td>
-                <v-tooltip bottom>
-                  <i
-                    slot="activator"
-                    class="material-icons"
-                    v-on:click="removeElement(props.item)"
-                    style="cursor: pointer"
-                    tooltip="Eliminar">
-                    delete
-                  </i>
-                  <span>Eliminar</span>
-                </v-tooltip>
-              </td>
-            </tr>
-          </template>
-        </v-data-table>
-      </v-card>
+            <template slot="items" slot-scope="props">
+              <tr>
+                <td>
+                  <v-autocomplete
+                    type="text"
+                    placeholder="Equipo"
+                    :items="equipo"
+                    v-model="props.item.nombre">
+                  </v-autocomplete>
+                </td>
+                <td>
+                  <v-text-field
+                    type="number"
+                    placeholder="Código de barras"
+                    v-model="props.item.codBarras">
+                  </v-text-field>
+                </td>
+                <td>
+                  <v-text-field
+                    type="number"
+                    min="0"
+                    placeholder="Cantidad"
+                    v-model="props.item.cantidad">
+                  </v-text-field>
+                </td>
+                <td>
+                  <v-tooltip bottom>
+                    <i
+                      slot="activator"
+                      class="material-icons"
+                      v-on:click="removeElement(props.item)"
+                      style="cursor: pointer"
+                      tooltip="Eliminar">
+                      delete
+                    </i>
+                    <span>Eliminar</span>
+                  </v-tooltip>
+                </td>
+              </tr>
+            </template>
+          </v-data-table>
+        </v-card>
+      </v-form>
     </panel>
+    <v-alert
+      :value="error"
+      type="error"
+      transition="scale-transition"
+      time=0.2>
+        {{ error }}
+    </v-alert>
+    <v-alert
+      :value="success"
+      type="success"
+      transition="scale-transition"
+      time=0.2>
+        {{ success }}
+    </v-alert>
   </div>
 </template>
 
 <script>
 import EquipmentService from '@/services/EquipmentService'
 import StudentService from '@/services/StudentService'
-
+import RequestService from '@/services/RequestService'
 import Panel from '@/components/Panel'
 
 export default {
   data () {
     return {
+      required: (value) => !!value || 'Requerido.',
       request: {
         estudiante: {
           nombre: '',
           carnet: ''
         },
-        equipos: [],
+        equipo: [],
         modulo: {
           salon: '',
           numero: '',
@@ -131,11 +150,11 @@ export default {
         observacion: ''
       },
       equipo: [],
-      rows: [
-        { nombre: '', codBarras: '', cantidad: '' }
-      ],
+      rows: [],
       students: [],
-      estudiante: { nombre: 'nombre', carnet: 'carnet' }
+      estudiante: { nombre: 'nombre', carnet: 'carnet' },
+      error: '',
+      success: ''
     }
   },
   methods: {
@@ -150,12 +169,42 @@ export default {
       const index = this.rows.indexOf(item)
       confirm('¿Seguro que desea eliminar el equipo?') && this.rows.splice(index, 1)
     },
-    register () {
+    async register () {
       this.request.estudiante = this.estudiante
       for (let i = 0; i < this.rows.length; i++) {
-        this.request.equipos.push(this.rows[i])
+        this.request.equipo.push(this.rows[i])
       }
-      console.log(this.request)
+      if (!this.checkFields(this.request)) {
+        return
+      }
+      try {
+        await RequestService.registerRequest(this.request)
+        this.success = 'Equipo creado exitosamente'
+        this.error = null
+        // this.$refs.request.reset()
+      } catch (error) {
+        this.error = error.response.data.error
+        this.success = null
+      }
+    },
+    checkFields (jsonObject) {
+      // Validar si el estudiante esta en el form
+      const studentGoodToGo = jsonObject.estudiante.nombre !== 'nombre'
+      // Validar si se tiene un equipo y, de ser así, que posea un nombre como mínimo
+      const equipGoodToGo = (jsonObject.equipo.length >= 1 && jsonObject.equipo[0].nombre !== '')
+      // Validar si se tiene un modulo con salon
+      const moduloGoodToGo = (jsonObject.modulo.numero !== '' || jsonObject.modulo.salon !== '')
+      if (!studentGoodToGo) {
+        this.error = 'Por favor ingrese el carnet del estudiante'
+        return false
+      }
+      // Debe existir o un equipo o un modulo para ser válido
+      if (!(equipGoodToGo || moduloGoodToGo)) {
+        this.error = 'Ingrese valores para un modulo o un equipo a prestar'
+        return false
+      }
+      // Si se cumple lo todo lo anterior, se procede
+      return true
     }
   },
   async mounted () {

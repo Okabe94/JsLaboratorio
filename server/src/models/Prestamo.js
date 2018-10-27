@@ -10,20 +10,12 @@ const prestamo = new Schema({
     {
       nombre: String,
       cantidad: Number,
-      codBarras: Number,
-      entregado: {
-        type: Boolean,
-        default: false
-      }
+      codBarras: Number
     }
   ],
   modulo: {
     salon: Number,
-    numero: Number,
-    entregado: {
-      type: Boolean,
-      default: false
-    }
+    numero: Number
   },
   monitorEntrega: {
     nombre: String,
@@ -35,11 +27,11 @@ const prestamo = new Schema({
   },
   observacion: String,
   fechaEntrega: {
-    type: Date,
+    type: String,
     default: ''
   },
   fechaPrestamo: {
-    type: Date,
+    type: String,
     default: Date.now
   },
   entregado: {

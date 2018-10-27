@@ -21,5 +21,5 @@ module.exports = (app) => {
   app.get('/indexHome', HomeController.index)
 
   // Request
-  app.post('/request', RequestController.post)
+  app.post('/request', RequestController.register)
 }

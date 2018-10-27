@@ -1,12 +1,17 @@
-const studentModel = require('../models/Estudiante')
-
+const RequestModel = require('../models/Prestamo')
+const moment = require('moment')
 module.exports = {
-  async post (req, res) {
+  async register (req, res) {
     try {
-      // añadir prestamo
-      const data = await studentModel.find()
-      console.log(data)
-      res.status(201).send(data)
+      const d = moment().format('YYYY/MM/DD - HH:mm:ss')
+      req.body.fechaPrestamo = d
+      console.log(req.body)
+      RequestModel.create(req.body)
+      // req.body.fechaEntrega
+      // const data = await studentModel.find()
+      res.status(201).send({
+        register: true
+      })
     } catch (err) {
       res.status(400).send({
         error: 'Ha ocurrido un error'

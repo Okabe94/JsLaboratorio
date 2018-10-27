@@ -49,7 +49,7 @@
       transition="scale-transition"
       time=0.2>
         {{ success }}
-  </v-alert>
+    </v-alert>
   </div>
 </template>
 
