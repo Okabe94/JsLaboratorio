@@ -49,9 +49,9 @@
 
           <template slot="expand" slot-scope="props">
             <v-data-table
-            hide-actions
-            :headers="detailHeaders"
-            :items="detailItems">
+              hide-actions
+              :headers="detailHeaders"
+              :items="detailItems">
 
               <template slot="headers" slot-scope="props">
                 <tr>
@@ -85,6 +85,7 @@
         </v-data-table>
       </v-card>
     </panel>
+    <v-btn @click="hola()">hola</v-btn>
   </div>
 </template>
 
@@ -122,6 +123,11 @@ export default {
     }
   },
   methods: {
+    hola () {
+      for (let i = 0; i < this.items.length; i++) {
+        console.log(this.items[i])
+      }
+    },
     navigateTo (route) {
       this.$router.push(route)
     },

@@ -22,4 +22,5 @@ module.exports = (app) => {
 
   // Request
   app.post('/request', RequestController.register)
+  app.post('/update', RequestController.addEquip)
 }

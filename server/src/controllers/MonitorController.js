@@ -37,6 +37,9 @@ module.exports = {
       }
       monitor.comparePassword(password, function (err, isMatch) {
         if (err) {
+          return res.status(403).send({ error: 'Un error ha ocurrido al intentar iniciar sesión' })
+        }
+        if (!isMatch) {
           return res.status(403).send({ error: 'La información de ingreso es incorrecta' })
         }
         if (isMatch) {

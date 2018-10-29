@@ -1,5 +1,6 @@
 const RequestModel = require('../models/Prestamo')
 const CopyModel = require('../models/Copy')
+// const mongoose = require('mongoose')
 
 const moment = require('moment')
 module.exports = {
@@ -20,6 +21,18 @@ module.exports = {
       res.status(400).send({
         error: 'Ha ocurrido un error'
       })
+    }
+  },
+  async addEquip (req, res) {
+    const id = req.body._id
+    const equipo = req.body.equipo
+    try {
+      await RequestModel.findByIdAndUpdate(id, { $push: { equipo: equipo } })
+      res.status(201).send({
+        updated: true
+      })
+    } catch (err) {
+      res.status(500).send({ error: 'Ha ocurrido un error añadiendo el equipo' })
     }
   }
 }
