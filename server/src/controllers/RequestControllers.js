@@ -26,11 +26,11 @@ module.exports = {
     }
   },
   async addEquip (req, res) {
-    const id = req.body._id
+    const id = req.body.id
     var flag = true
     const body = req.body.equipo
     for (let i = 0; i < body.length; i++) {
-      const equipo = body[i]
+      var equipo = body[i]
       try {
         await RequestModel.findOneAndUpdate({ _id: id }, { $push: { equipo: equipo } })
       } catch (err) {
@@ -43,6 +43,18 @@ module.exports = {
       res.status(201).send({
         updated: true
       })
+    }
+  },
+  async addModule (req, res) {
+    try {
+      const id = req.body.id
+      const { salon, numero } = req.body
+      await RequestModel.findOneAndUpdate({ _id: id }, { $set: { modulo: { salon, numero } } })
+      res.status(201).send({
+        updated: true
+      })
+    } catch (err) {
+      res.status(500).send({ error: 'Ha ocurrido un error añadiendo el equipo' })
     }
   }
 }

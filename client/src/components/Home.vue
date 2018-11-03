@@ -48,9 +48,16 @@
                 <i
                   slot="activator"
                   class="material-icons"
+                  v-on:click="addEquip(props.item)"
+                  style="cursor: pointer">
+                  add_box
+                </i>
+                <i
+                  slot="activator"
+                  class="material-icons"
                   v-on:click="returnRequest(props.item)"
                   style="cursor: pointer">
-                  check
+                  assignment_returned
                 </i>
               </td>
             </tr>
@@ -109,79 +116,6 @@
       Entrega realizada
       <v-btn flat color="pink" @click="snackbar = false">Cerrar</v-btn>
     </v-snackbar>
-
-    <v-dialog
-      v-model="dialogAdd"
-      max-width="290"
-      persistent
-      return-value>
-      <v-card>
-        <v-card-title class="headline">¿Qué se Añadirá?</v-card-title>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="green darken-1"
-            flat="flat"
-            @click="dialogAddModule = true">
-            Modulo
-          </v-btn>
-          <v-btn
-            color="green darken-1"
-            flat="flat"
-            @click="dialogAddEquip = true">
-            Equipo
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <v-dialog
-      v-model="dialogAddModule"
-      max-width="290"
-      persistent>
-      <v-card>
-        <v-card-title class="headline">Llene los Campos</v-card-title>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="green darken-1"
-            flat="flat"
-            @click="dialogAddModule = false">
-            Cancelar
-          </v-btn>
-          <v-btn
-            color="green darken-1"
-            flat="flat"
-            @click="updateModule(props.item._id)">
-            Confirmar
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <v-dialog
-      v-model="dialogAddEquip"
-      max-width="290"
-      persistent>
-      <v-card>
-        <v-card-title class="headline">Llene los Campos</v-card-title>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="green darken-1"
-            flat="flat"
-            @click="dialogAddEquip = false">
-            Cancelar
-          </v-btn>
-          <v-btn
-            color="green darken-1"
-            flat="flat"
-            @click="updateEquip(props.item_id)">
-            Confirmar
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </div>
 </template>
 
@@ -192,11 +126,6 @@ import HomeService from '@/services/HomeService'
 export default {
   data () {
     return {
-      dialogAdd: false,
-      dialogReturn: false,
-      dialogReturnItem: false,
-      dialogAddEquip: false,
-      dialogAddModule: false,
       timeout: 3000,
       snackbar: false,
       search: '',
@@ -249,6 +178,9 @@ export default {
         }
       } return []
     },
+    addEquip (item) {
+      this.navigateTo({ name: 'addItem', params: { id: item._id } })
+    },
     returnRequest (item) {
       const index = this.items.indexOf(item)
       confirm('Confirmar entrega de préstamo') && this.items.splice(index, 1)
@@ -259,12 +191,7 @@ export default {
       const index = this.detailItems.indexOf(item)
       confirm('Confirmar entrega de equipo') && this.detailItems.splice(index, 1)
       this.snackbar = true
-    },
-    updateModule (id) {
-      console.log('updateModule')
-    },
-    updateEquip (id) {
-      console.log('updateEquip')
+      // eliminar del array del item en la coleccion prestamo
     }
   }
 }
