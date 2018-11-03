@@ -12,10 +12,10 @@
           <v-spacer></v-spacer>
           <v-spacer></v-spacer>
           <v-btn
-          v-if="$store.state.isLoggedIn"
-          @click="navigateTo({ name: 'request' })"
-          dark
-          class="green darken-5 font-weight-bold">
+            v-if="$store.state.isLoggedIn"
+            @click="navigateTo({ name: 'request' })"
+            dark
+            class="green darken-5 font-weight-bold">
             Nuevo Préstamo
           </v-btn>
         </v-card-title>
@@ -44,6 +44,15 @@
               <td>{{ props.item.modulo.numero }}</td>
               <td>{{ props.item.monitorEntrega.nombre }}</td>
               <td>{{ props.item.fechaPrestamo }}</td>
+              <td v-if="$store.state.isLoggedIn">
+                <i
+                  slot="activator"
+                  class="material-icons"
+                  v-on:click="returnRequest(props.item)"
+                  style="cursor: pointer">
+                  check
+                </i>
+              </td>
             </tr>
           </template>
 
@@ -68,6 +77,15 @@
                   <td>{{ props.item.nombre }}</td>
                   <td>{{ props.item.codBarras }}</td>
                   <td>{{ props.item.cantidad }}</td>
+                  <td>
+                    <i
+                      slot="activator"
+                      class="material-icons"
+                      v-on:click="returnItem(props.item)"
+                      style="cursor: pointer">
+                      check
+                    </i>
+                  </td>
                 </tr>
               </template>
 
@@ -85,7 +103,85 @@
         </v-data-table>
       </v-card>
     </panel>
-    <v-btn @click="hola()">hola</v-btn>
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="timeout">
+      Entrega realizada
+      <v-btn flat color="pink" @click="snackbar = false">Cerrar</v-btn>
+    </v-snackbar>
+
+    <v-dialog
+      v-model="dialogAdd"
+      max-width="290"
+      persistent
+      return-value>
+      <v-card>
+        <v-card-title class="headline">¿Qué se Añadirá?</v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="green darken-1"
+            flat="flat"
+            @click="dialogAddModule = true">
+            Modulo
+          </v-btn>
+          <v-btn
+            color="green darken-1"
+            flat="flat"
+            @click="dialogAddEquip = true">
+            Equipo
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog
+      v-model="dialogAddModule"
+      max-width="290"
+      persistent>
+      <v-card>
+        <v-card-title class="headline">Llene los Campos</v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="green darken-1"
+            flat="flat"
+            @click="dialogAddModule = false">
+            Cancelar
+          </v-btn>
+          <v-btn
+            color="green darken-1"
+            flat="flat"
+            @click="updateModule(props.item._id)">
+            Confirmar
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog
+      v-model="dialogAddEquip"
+      max-width="290"
+      persistent>
+      <v-card>
+        <v-card-title class="headline">Llene los Campos</v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="green darken-1"
+            flat="flat"
+            @click="dialogAddEquip = false">
+            Cancelar
+          </v-btn>
+          <v-btn
+            color="green darken-1"
+            flat="flat"
+            @click="updateEquip(props.item_id)">
+            Confirmar
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -96,6 +192,13 @@ import HomeService from '@/services/HomeService'
 export default {
   data () {
     return {
+      dialogAdd: false,
+      dialogReturn: false,
+      dialogReturnItem: false,
+      dialogAddEquip: false,
+      dialogAddModule: false,
+      timeout: 3000,
+      snackbar: false,
       search: '',
       headers: [
         { text: 'Estudiante', value: 'estudiante.nombre' },
@@ -103,14 +206,17 @@ export default {
         { text: 'Salon', value: 'modulo.salon' },
         { text: 'Modulo', value: 'modulo.numero' },
         { text: 'Monitor', value: 'monitorEntrega.nombre' },
-        { text: 'Fecha', value: 'fechaPrestamo' }
+        { text: 'Fecha', value: 'fechaPrestamo' },
+        { text: 'Acción', value: 'accion' }
       ],
       detailHeaders: [
         { text: 'Equipo', value: 'equipo' },
         { text: 'Código de barras', value: 'codBarras' },
-        { text: 'Cantidad', value: 'cantidad' }
+        { text: 'Cantidad', value: 'cantidad' },
+        { text: 'Acción', value: 'accion' }
       ],
-      items: []
+      items: [],
+      detailItems: []
     }
   },
   components: {
@@ -123,11 +229,6 @@ export default {
     }
   },
   methods: {
-    hola () {
-      for (let i = 0; i < this.items.length; i++) {
-        console.log(this.items[i])
-      }
-    },
     navigateTo (route) {
       this.$router.push(route)
     },
@@ -147,6 +248,23 @@ export default {
           return this.items[i].equipo
         }
       } return []
+    },
+    returnRequest (item) {
+      const index = this.items.indexOf(item)
+      confirm('Confirmar entrega de préstamo') && this.items.splice(index, 1)
+      this.snackbar = true
+      // añadir a copy, modificar el monitor y fecha, eliminar de request
+    },
+    returnItem (item) {
+      const index = this.detailItems.indexOf(item)
+      confirm('Confirmar entrega de equipo') && this.detailItems.splice(index, 1)
+      this.snackbar = true
+    },
+    updateModule (id) {
+      console.log('updateModule')
+    },
+    updateEquip (id) {
+      console.log('updateEquip')
     }
   }
 }

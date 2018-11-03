@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const copy = new Schema({
+  reference: Schema.Types.ObjectId,
   estudiante: {
     nombre: String,
     carnet: Number
