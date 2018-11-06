@@ -59,9 +59,9 @@ export default {
       items: [],
       search: '',
       headers: [
-        { text: 'Nombre', value: 'Nombre' },
-        { text: 'Carnet', value: 'Carnet' },
-        { text: 'Plan Academico', value: 'PlanAcademico' }
+        { text: 'Nombre', value: 'nombre' },
+        { text: 'Carnet', value: 'carnet' },
+        { text: 'Plan Academico', value: 'planAcademico' }
       ]
     }
   },

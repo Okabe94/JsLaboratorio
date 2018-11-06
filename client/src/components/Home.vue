@@ -45,20 +45,35 @@
               <td>{{ props.item.monitorEntrega.nombre }}</td>
               <td>{{ props.item.fechaPrestamo }}</td>
               <td v-if="$store.state.isLoggedIn">
-                <i
-                  slot="activator"
-                  class="material-icons"
-                  v-on:click="addEquip(props.item)"
-                  style="cursor: pointer">
-                  add_box
-                </i>
-                <i
-                  slot="activator"
-                  class="material-icons"
-                  v-on:click="returnRequest(props.item)"
-                  style="cursor: pointer">
-                  assignment_returned
-                </i>
+                <v-tooltip bottom>
+                  <i
+                    slot="activator"
+                    class="material-icons"
+                    v-on:click="addEquip(props.item)"
+                    style="cursor: pointer">
+                    add_box
+                  </i>
+                  <span>Añadir</span>
+                </v-tooltip>
+                <v-tooltip bottom>
+                  <i
+                    slot="activator"
+                    class="material-icons"
+                    style="cursor: pointer">
+                    notes
+                  </i>
+                  <span>{{ props.item.observacion }}</span>
+                </v-tooltip>
+                <v-tooltip bottom>
+                  <i
+                    slot="activator"
+                    class="material-icons"
+                    v-on:click="returnRequest(props.item)"
+                    style="cursor: pointer">
+                    assignment_returned
+                  </i>
+                  <span>Entregar Préstamo</span>
+                </v-tooltip>
               </td>
             </tr>
           </template>
@@ -85,13 +100,16 @@
                   <td>{{ props.item.codBarras }}</td>
                   <td>{{ props.item.cantidad }}</td>
                   <td>
-                    <i
-                      slot="activator"
-                      class="material-icons"
-                      v-on:click="returnItem(props.item)"
-                      style="cursor: pointer">
-                      check
-                    </i>
+                    <v-tooltip bottom>
+                      <i
+                        slot="activator"
+                        class="material-icons"
+                        v-on:click="returnItem(props.item)"
+                        style="cursor: pointer">
+                        assignment_returned
+                      </i>
+                      <span>Entregar</span>
+                    </v-tooltip>
                   </td>
                 </tr>
               </template>

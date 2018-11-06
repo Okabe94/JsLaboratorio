@@ -22,6 +22,6 @@ module.exports = (app) => {
 
   // Request
   app.post('/request', RequestController.register)
-  app.post('/updateEquip', RequestController.addEquip)
-  app.post('/updateMod', RequestController.addModule)
+  app.post('/updateEquip', RequestController.updateEquip)
+  app.post('/updateMod', RequestController.updateMod)
 }

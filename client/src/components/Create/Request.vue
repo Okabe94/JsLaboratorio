@@ -176,6 +176,7 @@ export default {
     },
     async register () {
       this.request.estudiante = this.estudiante
+      this.request.equipo = []
       for (let i = 0; i < this.rows.length; i++) {
         this.request.equipo.push(this.rows[i])
       }
@@ -183,10 +184,11 @@ export default {
         return
       }
       try {
+        console.log(this.request)
         await RequestService.registerRequest(this.request)
         this.success = 'Equipo creado exitosamente'
         this.error = null
-        // reset ()
+        this.clearFields()
       } catch (error) {
         this.error = error.response.data.error
         this.success = null
@@ -195,21 +197,47 @@ export default {
     checkFields (jsonObject) {
       // Validar si el estudiante esta en el form
       const studentGoodToGo = jsonObject.estudiante.nombre !== 'nombre'
-      // Validar si se tiene un equipo y, de ser así, que posea un nombre como mínimo
-      const equipGoodToGo = (jsonObject.equipo.length >= 1 && jsonObject.equipo[0].nombre !== '')
+      // Validar si se tiene un equipo
+      if (jsonObject.equipo.length >= 1) {
+        var equipGoodToGo = true
+        for (let i = 0; i < jsonObject.equipo.length; i++) {
+          if (jsonObject.equipo[i].nombre === '') {
+            equipGoodToGo = false
+            break
+          }
+          if (jsonObject.equipo[i].codBarras === '') {
+            equipGoodToGo = false
+            break
+          }
+          if (jsonObject.equipo[i].cantidad === '') {
+            equipGoodToGo = false
+            break
+          }
+        }
+      } else {
+        equipGoodToGo = false
+      }
       // Validar si se tiene un modulo con salon
-      const moduloGoodToGo = (jsonObject.modulo.numero !== '' || jsonObject.modulo.salon !== '')
+      const moduloGoodToGo = (jsonObject.modulo.numero !== '' && jsonObject.modulo.salon !== '')
       if (!studentGoodToGo) {
         this.error = 'Por favor ingrese el carnet del estudiante'
+        this.success = null
         return false
       }
       // Debe existir o un equipo o un modulo para ser válido
       if (!(equipGoodToGo || moduloGoodToGo)) {
-        this.error = 'Ingrese valores para un modulo o un equipo a prestar'
+        this.error = 'Ingrese valores para un módulo o un equipo a prestar'
+        this.success = null
         return false
       }
       // Si se cumple lo todo lo anterior, se procede
       return true
+    },
+    clearFields () {
+      this.estudiante = { nombre: 'nombre', carnet: 'carnet' }
+      this.rows = []
+      this.request.modulo.salon = ''
+      this.request.modulo.numero = ''
     }
   },
   async mounted () {

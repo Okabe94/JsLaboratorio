@@ -83,13 +83,11 @@ export default {
   },
   methods: {
     async registerUser () {
-      console.log('Antes: ', this.monitor)
       if (this.monitor.rango === 1) {
         this.monitor.cargo = 'Administrador'
       } else {
         this.monitor.cargo = 'Monitor'
       }
-      console.log('Despues: ', this.monitor)
       if (!this.checkFields(this.monitor)) {
         return
       }
