@@ -51,7 +51,7 @@
 </template>
 <script>
 import StudentService from '@/services/StudentService'
-import Panel from '@/components/Panel'
+import Panel from '@/components/reusable/Panel'
 
 export default {
   data () {

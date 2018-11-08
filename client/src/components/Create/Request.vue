@@ -132,7 +132,7 @@
 import EquipmentService from '@/services/EquipmentService'
 import StudentService from '@/services/StudentService'
 import RequestService from '@/services/RequestService'
-import Panel from '@/components/Panel'
+import Panel from '@/components/reusable/Panel'
 
 export default {
   data () {

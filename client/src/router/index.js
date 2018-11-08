@@ -6,7 +6,7 @@ import Stock from '@/components/Stock/MainViewStock'
 import Schedule from '@/components/Schedule'
 import Register from '@/components/Register/MainViewRegister'
 import Request from '@/components/Create/Request'
-import AddItem from '@/components/AddItem'
+import AddItem from '@/components/Create/AddItem'
 
 Vue.use(Router)
 

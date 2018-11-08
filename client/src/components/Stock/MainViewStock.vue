@@ -16,7 +16,7 @@
 <script>
 import Equipment from '@/components/Stock/Equipment'
 import Student from '@/components/Stock/Student'
-import noAuth from '@/components/Auth'
+import noAuth from '@/components/reusable/Auth'
 
 export default {
   components: {

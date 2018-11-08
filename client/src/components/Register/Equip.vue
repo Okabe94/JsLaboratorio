@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import Panel from '@/components/Panel'
+import Panel from '@/components/reusable/Panel'
 import EquipmentService from '@/services/EquipmentService'
 
 export default {

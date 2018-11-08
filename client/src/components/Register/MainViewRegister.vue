@@ -15,7 +15,7 @@
 import Equip from '@/components/Register/Equip'
 import Monitor from '@/components/Register/Monitor'
 import Student from '@/components/Register/Student'
-import noAuth from '@/components/Auth'
+import noAuth from '@/components/reusable/Auth'
 
 export default {
   components: {

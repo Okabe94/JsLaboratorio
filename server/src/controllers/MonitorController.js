@@ -13,25 +13,21 @@ module.exports = {
   async register (req, res) {
     try {
       const carnet = req.body.carnet
-      const monitor = await MonitorModel.findOne({
-        carnet: carnet
-      })
+      const monitor = await MonitorModel.findOne({ carnet: carnet })
       if (monitor) {
         return res.status(400).send({ error: 'Este monitor ya existe' })
       }
       const newMonitor = new MonitorModel(req.body)
       newMonitor.save()
       res.send({ register: true })
-    } catch (err) {
+    } catch (err) { 
       res.status(400).send({ error: 'Ha ocurrido un error al crear el monitor' })
     }
   },
   async login (req, res) {
     try {
       const { carnet, password } = req.body
-      const monitor = await MonitorModel.findOne({
-        carnet: carnet
-      })
+      const monitor = await MonitorModel.findOne({ carnet: carnet })
       if (!monitor) {
         return res.status(403).send({ error: 'La información de ingreso es incorrecta' })
       }
@@ -44,10 +40,7 @@ module.exports = {
         }
         if (isMatch) {
           const monitorJson = monitor.toJSON()
-          res.send({
-            monitor: monitorJson,
-            token: jwtSignMonitor(monitorJson)
-          })
+          res.send({ monitor: monitorJson, token: jwtSignMonitor(monitorJson) })
         }
       })
     } catch (err) {

@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import Panel from '@/components/Panel'
+import Panel from '@/components/reusable/Panel'
 import MonitorService from '@/services/MonitorService'
 
 export default {

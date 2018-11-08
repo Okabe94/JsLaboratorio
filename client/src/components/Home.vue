@@ -138,7 +138,7 @@
 </template>
 
 <script>
-import Panel from '@/components/Panel'
+import Panel from '@/components/reusable/Panel'
 import HomeService from '@/services/HomeService'
 import RequestService from '@/services/RequestService'
 

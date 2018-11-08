@@ -20,7 +20,7 @@ module.exports = {
       if (equip) {
         return res.status(403).send({ error: 'Este equipo ya existe' })
       } else {
-        new EquipModel(req.body).save()
+        await EquipModel.create(req.body)
         res.send({ register: true })
       }
     } catch (err) {

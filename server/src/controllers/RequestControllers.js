@@ -14,7 +14,7 @@ module.exports = {
         delete request['modulo']
       }
       RequestModel.create(request)
-      var query = await RequestModel.find({}).limit(1).sort({ fechaPrestamo: -1 })
+      const query = await RequestModel.find({}).limit(1).sort({ fechaPrestamo: -1 })
       request.reference = query[0]._id
       CopyModel.create(request)
       res.status(201).send({ register: true })

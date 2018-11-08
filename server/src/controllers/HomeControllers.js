@@ -5,9 +5,7 @@ module.exports = {
       const index = await PrestamoModel.find({})
       res.send({ index })
     } catch (err) {
-      res.status(400).send({
-        error: 'Ha ocurrido un error al obtener la información'
-      })
+      res.status(400).send({ error: 'Ha ocurrido un error al obtener la información' })
     }
   }
 }

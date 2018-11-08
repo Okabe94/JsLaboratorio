@@ -42,7 +42,7 @@
 
 <script>
 import MonitorService from '@/services/MonitorService'
-import Panel from '@/components/Panel'
+import Panel from '@/components/reusable/Panel'
 
 export default {
   data () {
