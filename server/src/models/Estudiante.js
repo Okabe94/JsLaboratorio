@@ -1,24 +1,14 @@
-module.exports = (sequelize, DataTypes) =>
-  sequelize.define('Estudiante', {
-    idEstudiante: {
-      primaryKey: true,
-      type: DataTypes.INTEGER,
-      unique: true
-    },
-    Nombre: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    Carnet: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    PlanAcademico: {
-      type: DataTypes.STRING,
-      allowNull: false
-    }
-  },
-  {
-    tableName: 'Estudiante',
-    timestamps: false
-  })
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+
+const student = new Schema({
+  nombre: String,
+  carnet: Number,
+  planAcademico: String
+},
+{
+  collection: 'Estudiante',
+  versionKey: false
+})
+const StudentModel = mongoose.model('StudentModel', student)
+module.exports = StudentModel

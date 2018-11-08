@@ -13,7 +13,7 @@
       <v-toolbar-items>
         <v-btn flat
         v-if="$store.state.isLoggedIn"
-        @click="navigateTo({name: 'lend'})">
+        @click="navigateTo({name: 'home'})">
           Préstamos
         </v-btn>
         <v-divider vertical></v-divider>
@@ -70,7 +70,6 @@ export default {
     return {
       items: [
         { title: 'Cambiar de Usuario', value: { name: 'login' } },
-        { title: 'Cambiar Contraseña', value: { name: 'lend' } },
         { title: 'Cerrar Sesión', value: { name: 'home' } }
       ]
     }

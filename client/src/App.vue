@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import PageHeader from '@/components/Header'
+import PageHeader from '@/components/reusable/Header'
 export default {
   name: 'App',
   components: {

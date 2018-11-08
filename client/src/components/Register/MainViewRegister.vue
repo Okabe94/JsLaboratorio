@@ -3,7 +3,7 @@
     <v-container fluid grid-list-xl>
       <v-layout row justify-space-around>
         <student v-if="$store.state.isLoggedIn" />
-        <user v-if="$store.state.isAdmin" />
+        <monitor v-if="$store.state.isAdmin" />
         <equip v-if="$store.state.isAdmin" />
       </v-layout>
     </v-container>
@@ -13,15 +13,15 @@
 
 <script>
 import Equip from '@/components/Register/Equip'
-import User from '@/components/Register/User'
+import Monitor from '@/components/Register/Monitor'
 import Student from '@/components/Register/Student'
-import noAuth from '@/components/Auth'
+import noAuth from '@/components/reusable/Auth'
 
 export default {
   components: {
     noAuth,
     Equip,
-    User,
+    Monitor,
     Student
   }
 }

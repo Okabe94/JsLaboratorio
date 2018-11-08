@@ -7,17 +7,25 @@
             required
             :rules="[required]"
             label="Nombre"
-            v-model="equipo.Nombre"
+            v-model="equipo.nombre"
           ></v-text-field>
           <br>
           <v-text-field
             required
             :rules="[required]"
             label="Código de Barras"
-            v-model="equipo.CodBarras"
+            v-model="equipo.codBarras"
             type="number"
             min="0"
           ></v-text-field>
+          <v-textarea
+            required
+            :rules="[required]"
+            label="Descripción"
+            v-model="equipo.descripcion"
+            type="number"
+            min="0"
+          ></v-textarea>
           <br>
           <v-btn
             class="green darken-1"
@@ -41,20 +49,22 @@
       transition="scale-transition"
       time=0.2>
         {{ success }}
-  </v-alert>
+    </v-alert>
   </div>
 </template>
 
 <script>
-import Panel from '@/components/Panel'
+import Panel from '@/components/reusable/Panel'
 import EquipmentService from '@/services/EquipmentService'
 
 export default {
   data () {
     return {
       equipo: {
-        Nombre: '',
-        CodBarras: ''
+        nombre: '',
+        codBarras: '',
+        descripcion: '',
+        disponible: true
       },
       error: null,
       success: null,
@@ -66,8 +76,8 @@ export default {
       if (!this.checkFields(this.equipo)) {
         return
       }
-      this.equipo.Nombre = this.equipo.Nombre.trim()
-      this.equipo.Nombre = this.equipo.Nombre.charAt(0).toUpperCase() + this.equipo.Nombre.slice(1)
+      this.equipo.nombre = this.equipo.nombre.trim()
+      this.equipo.nombre = this.equipo.nombre.charAt(0).toUpperCase() + this.equipo.nombre.slice(1)
       try {
         await EquipmentService.registerEquip(this.equipo)
         this.error = null

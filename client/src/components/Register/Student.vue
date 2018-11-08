@@ -7,14 +7,14 @@
             required
             :rules="[required]"
             label="Nombre"
-            v-model="estudiante.Nombre"
+            v-model="estudiante.nombre"
           ></v-text-field>
           <br>
           <v-text-field
             required
             :rules="[required]"
             label="Carnet"
-            v-model="estudiante.Carnet"
+            v-model="estudiante.carnet"
             type="number"
             min="0"
           ></v-text-field>
@@ -24,7 +24,7 @@
             :rules="[required]"
             :items="items"
             label="Plan Academico"
-            v-model="estudiante.PlanAcademico"
+            v-model="estudiante.planAcademico"
           ></v-autocomplete>
           <br>
           <v-btn
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import Panel from '@/components/Panel'
+import Panel from '@/components/reusable/Panel'
 import StudentService from '@/services/StudentService'
 
 export default {
@@ -76,9 +76,9 @@ export default {
         'Psicología'
       ],
       estudiante: {
-        Nombre: '',
-        Carnet: '',
-        PlanAcademico: ''
+        nombre: '',
+        carnet: '',
+        planAcademico: ''
       },
       error: null,
       success: null,
@@ -90,8 +90,8 @@ export default {
       if (!this.checkFields(this.estudiante)) {
         return
       }
-      this.estudiante.Nombre = this.estudiante.Nombre.trim()
-      this.estudiante.Nombre = this.estudiante.Nombre.charAt(0).toUpperCase() + this.estudiante.Nombre.slice(1)
+      this.estudiante.nombre = this.estudiante.nombre.trim()
+      this.estudiante.nombre = this.estudiante.nombre.charAt(0).toUpperCase() + this.estudiante.nombre.slice(1)
       try {
         const resp = await StudentService.registerStudent(this.estudiante)
         this.error = null

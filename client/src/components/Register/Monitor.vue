@@ -1,20 +1,20 @@
 <template>
   <div>
     <panel title='Registrar Monitor'>
-      <v-form ref="user">
+      <v-form ref="monitor">
         <div class="pl-4 pr-4 pt-2 pb-2">
           <v-text-field
             required
             :rules="[required]"
             label="Nombre"
-            v-model="monitor.Nombre"
+            v-model="monitor.nombre"
           ></v-text-field>
           <br>
           <v-text-field
             required
             :rules="[required]"
             label="Carnet"
-            v-model="monitor.Carnet"
+            v-model="monitor.carnet"
             type="number"
             min="0"
           ></v-text-field>
@@ -23,12 +23,12 @@
             required
             :rules="[required]"
             label="Contraseña"
-            v-model="monitor.Pass"
+            v-model="monitor.password"
             type="password"
           ></v-text-field>
           <br>
           <v-select
-            v-model="monitor.FKRango"
+            v-model="monitor.rango"
             :items="items"
             label="Cargo"
           ></v-select>
@@ -60,17 +60,18 @@
 </template>
 
 <script>
-import Panel from '@/components/Panel'
-import UserService from '@/services/UserService'
+import Panel from '@/components/reusable/Panel'
+import MonitorService from '@/services/MonitorService'
 
 export default {
   data () {
     return {
       monitor: {
-        Nombre: '',
-        Carnet: '',
-        Pass: '',
-        FKRango: ''
+        nombre: '',
+        carnet: '',
+        password: '',
+        rango: 0,
+        cargo: ''
       },
       error: null,
       success: null,
@@ -82,17 +83,22 @@ export default {
   },
   methods: {
     async registerUser () {
+      if (this.monitor.rango === 1) {
+        this.monitor.cargo = 'Administrador'
+      } else {
+        this.monitor.cargo = 'Monitor'
+      }
       if (!this.checkFields(this.monitor)) {
         return
       }
-      this.monitor.Nombre = this.monitor.Nombre.trim()
-      this.monitor.Nombre = this.monitor.Nombre.charAt(0).toUpperCase() + this.monitor.Nombre.slice(1)
+      this.monitor.nombre = this.monitor.nombre.trim()
+      this.monitor.nombre = this.monitor.nombre.charAt(0).toUpperCase() + this.monitor.nombre.slice(1)
       try {
-        const resp = await UserService.registerUser(this.monitor)
+        const resp = await MonitorService.registerMonitor(this.monitor)
         this.error = null
         if (resp.data.register) {
           this.success = 'Usuario creado exitosamente'
-          this.$refs.user.reset()
+          this.$refs.monitor.reset()
         }
       } catch (error) {
         this.error = error.response.data.error

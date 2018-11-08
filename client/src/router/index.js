@@ -2,11 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
 import Home from '@/components/Home'
-import Lend from '@/components/Create/Lend'
 import Stock from '@/components/Stock/MainViewStock'
 import Schedule from '@/components/Schedule'
 import Register from '@/components/Register/MainViewRegister'
-import Prueba from '@/components/Prueba'
+import Request from '@/components/Create/Request'
+import AddItem from '@/components/Create/AddItem'
 
 Vue.use(Router)
 
@@ -21,11 +21,6 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
-    },
-    {
-      path: '/lend',
-      name: 'lend',
-      component: Lend
     },
     {
       path: '/stock',
@@ -43,9 +38,14 @@ export default new Router({
       component: Register
     },
     {
-      path: '/prueba',
-      name: 'prueba',
-      component: Prueba
+      path: '/request',
+      name: 'request',
+      component: Request
+    },
+    {
+      path: '/addItem',
+      name: 'addItem',
+      component: AddItem
     }
   ]
 })

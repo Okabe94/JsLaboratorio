@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
 const config = require('./config/config')
-const { sequelize } = require('./models')
+const mongoose = require('mongoose')
 const app = express()
 
 app.use(morgan('combined'))
@@ -12,8 +12,11 @@ app.use(cors())
 
 require('./routes')(app)
 
-sequelize.sync()
-  .then(() => {
-    app.listen(config.port)
-    console.log('Server started on port', config.port)
-  })
+mongoose.connect(config.db, { useNewUrlParser: true })
+const db = mongoose.connection
+db.on('error', console.error.bind(console, 'Error en conexión: '))
+db.once('open', function () {
+  console.log('Conexión establecida con éxito!')
+})
+app.listen(config.port)
+console.log('Servidor funcionando en puerto: ', config.port)

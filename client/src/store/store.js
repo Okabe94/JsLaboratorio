@@ -23,8 +23,8 @@ export default new Vuex.Store({
       }
     },
     setIdentity (state, credentials) {
-      state.carnet = credentials.Carnet
-      state.nombre = credentials.Nombre
+      state.carnet = credentials.carnet
+      state.nombre = credentials.nombre
     },
     setRango (state, rango) {
       state.rango = rango

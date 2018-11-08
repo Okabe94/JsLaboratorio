@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const prestamo = new Schema({
+const copy = new Schema({
+  reference: Schema.Types.ObjectId,
   estudiante: {
     nombre: String,
     carnet: Number
@@ -28,14 +29,8 @@ const prestamo = new Schema({
     carnet: Number
   },
   monitorRecibe: {
-    nombre: {
-      type: String,
-      default: ''
-    },
-    carnet: {
-      type: Number,
-      default: 0
-    }
+    nombre: String,
+    carnet: Number
   },
   observacion: String,
   fechaEntrega: {
@@ -52,8 +47,8 @@ const prestamo = new Schema({
   }
 },
 {
-  collection: 'Prestamo',
+  collection: 'Copy',
   versionKey: false
 })
 
-module.exports = mongoose.model('PrestamoModel', prestamo)
+module.exports = mongoose.model('CopyModel', copy)
