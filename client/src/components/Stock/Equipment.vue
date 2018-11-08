@@ -32,6 +32,7 @@
             <tr>
               <td>{{ props.item.codBarras }}</td>
               <td>{{ props.item.nombre }}</td>
+              <td>{{ props.item.descripcion }}</td>
               <td>{{ props.item.disponible }}</td>
             </tr>
           </template>
@@ -57,6 +58,7 @@ export default {
       headers: [
         { text: 'Código de Barras', value: 'codBarras' },
         { text: 'Nombre', value: 'nombre' },
+        { text: 'Descripción', value: 'descripcion' },
         { text: 'Disponible', value: 'disponible' }
       ]
     }

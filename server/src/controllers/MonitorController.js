@@ -20,7 +20,7 @@ module.exports = {
       const newMonitor = new MonitorModel(req.body)
       newMonitor.save()
       res.send({ register: true })
-    } catch (err) { 
+    } catch (err) {
       res.status(400).send({ error: 'Ha ocurrido un error al crear el monitor' })
     }
   },
