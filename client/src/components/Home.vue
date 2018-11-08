@@ -62,7 +62,7 @@
                     style="cursor: pointer">
                     notes
                   </i>
-                  <span>{{ props.item.observacion }}</span>
+                  <span>Comentario: {{ props.item.observacion }}</span>
                 </v-tooltip>
                 <v-tooltip bottom>
                   <i
@@ -131,7 +131,7 @@
     <v-snackbar
       v-model="snackbar"
       :timeout="timeout">
-      Entrega realizada
+      {{ snackbarText }}
       <v-btn flat color="pink" @click="snackbar = false">Cerrar</v-btn>
     </v-snackbar>
   </div>
@@ -140,12 +140,14 @@
 <script>
 import Panel from '@/components/Panel'
 import HomeService from '@/services/HomeService'
+import RequestService from '@/services/RequestService'
 
 export default {
   data () {
     return {
       timeout: 3000,
       snackbar: false,
+      snackbarText: 'Entrega realizada',
       search: '',
       headers: [
         { text: 'Estudiante', value: 'estudiante.nombre' },
@@ -163,7 +165,9 @@ export default {
         { text: 'Acción', value: 'accion' }
       ],
       items: [],
-      detailItems: []
+      detailItems: [],
+      monitorNombre: this.$store.state.nombre,
+      monitorCarnet: this.$store.state.carnet
     }
   },
   components: {
@@ -199,17 +203,52 @@ export default {
     addEquip (item) {
       this.navigateTo({ name: 'addItem', params: { id: item._id } })
     },
-    returnRequest (item) {
+    async returnRequest (item) {
       const index = this.items.indexOf(item)
-      confirm('Confirmar entrega de préstamo') && this.items.splice(index, 1)
-      this.snackbar = true
-      // añadir a copy, modificar el monitor y fecha, eliminar de request
+      if (confirm('Confirmar entrega de préstamo')) {
+        const returnCredentials = {
+          id: item._id,
+          nombre: this.monitorNombre,
+          carnet: this.monitorCarnet
+        }
+        try {
+          await RequestService.deleteRequest(returnCredentials)
+          this.snackbarText = 'Entrega realizada'
+          this.snackbar = true
+          this.items.splice(index, 1)
+        } catch (err) {
+          this.snackbarText = 'Ha sucedido un error. Intente de nuevo'
+          this.snackbar = true
+        }
+      }
     },
-    returnItem (item) {
+    async returnItem (item) {
       const index = this.detailItems.indexOf(item)
-      confirm('Confirmar entrega de equipo') && this.detailItems.splice(index, 1)
       this.snackbar = true
-      // eliminar del array del item en la coleccion prestamo
+      const requestId = this.equipIdFinder(item)
+      if (confirm('Confirmar entrega de equipo')) {
+        const cred = { requestId: requestId, equipId: item._id }
+        try {
+          await RequestService.deleteItem(cred)
+          this.snackbarText = 'Entrega realizada'
+          this.snackbar = true
+          this.detailItems.splice(index, 1)
+        } catch (err) {
+          this.snackbarText = 'Ha sucedido un error. Intente de nuevo'
+          this.snackbar = true
+        }
+      }
+    },
+    equipIdFinder (item) {
+      for (let i = 0; i < this.items.length; i++) {
+        var equipos = this.items[i].equipo
+        for (let j = 0; j < equipos.length; j++) {
+          if (equipos[j]._id === item._id) {
+            return this.items[i]._id
+          }
+        }
+      }
+      return null
     }
   }
 }

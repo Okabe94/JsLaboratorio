@@ -28,8 +28,14 @@ const prestamo = new Schema({
     carnet: Number
   },
   monitorRecibe: {
-    nombre: String,
-    carnet: Number
+    nombre: {
+      type: String,
+      default: ''
+    },
+    carnet: {
+      type: Number,
+      default: 0
+    }
   },
   observacion: String,
   fechaEntrega: {

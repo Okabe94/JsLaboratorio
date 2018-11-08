@@ -9,5 +9,11 @@ export default {
   },
   updateModule (credentials) {
     return Api().post('updateMod', credentials)
+  },
+  deleteItem (credentials) {
+    return Api().post('deleteItem', credentials)
+  },
+  deleteRequest (credentials) {
+    return Api().post('deleteRequest', credentials)
   }
 }

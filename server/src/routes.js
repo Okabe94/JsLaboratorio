@@ -24,4 +24,6 @@ module.exports = (app) => {
   app.post('/request', RequestController.register)
   app.post('/updateEquip', RequestController.updateEquip)
   app.post('/updateMod', RequestController.updateMod)
+  app.post('/deleteItem', RequestController.deleteItem)
+  app.post('/deleteRequest', RequestController.deleteRequest)
 }

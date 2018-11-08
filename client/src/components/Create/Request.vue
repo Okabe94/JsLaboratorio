@@ -184,7 +184,6 @@ export default {
         return
       }
       try {
-        console.log(this.request)
         await RequestService.registerRequest(this.request)
         this.success = 'Equipo creado exitosamente'
         this.error = null
