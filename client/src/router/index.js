@@ -8,6 +8,7 @@ import Register from '@/components/register/MainViewRegister'
 import Request from '@/components/create/Request'
 import AddItem from '@/components/create/AddItem'
 import DeleteMonitor from '@/components/admin/DeleteMonitor'
+import RequestHistory from '@/components/admin/RequestHistory'
 
 Vue.use(Router)
 
@@ -47,6 +48,11 @@ export default new Router({
       path: '/deleteMonitor',
       name: 'deleteMonitor',
       component: DeleteMonitor
+    },
+    {
+      path: '/history',
+      name: 'history',
+      component: RequestHistory
     },
     {
       path: '/addItem',

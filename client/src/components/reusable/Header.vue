@@ -82,6 +82,7 @@ export default {
     return {
       snackbar: false,
       adminItems: [
+        { title: 'Historial de Préstamos', value: { name: 'history' } },
         { title: 'Cambiar de Usuario', value: { name: 'login' } },
         { title: 'Eliminar Monitor', value: { name: 'deleteMonitor' } },
         { title: 'Cerrar Sesión', value: { name: 'home' } }
