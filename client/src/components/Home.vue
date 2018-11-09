@@ -201,7 +201,7 @@ export default {
       } return []
     },
     addEquip (item) {
-      this.navigateTo({ name: 'addItem', params: { id: item._id } })
+      this.navigateTo({ name: 'addItem', params: { id: item._id, nombre: item.nombre } })
     },
     async returnRequest (item) {
       const index = this.items.indexOf(item)
@@ -213,13 +213,13 @@ export default {
         }
         try {
           await RequestService.deleteRequest(returnCredentials)
-          this.snackbarText = 'Entrega realizada'
-          this.snackbar = true
+          this.popUpSnackbar('Entrega realizada')
           this.items.splice(index, 1)
         } catch (err) {
-          this.snackbarText = 'Ha sucedido un error. Intente de nuevo'
-          this.snackbar = true
+          this.popUpSnackbar('Ha sucedido un error. Intente de nuevo')
         }
+      } else {
+        this.popUpSnackbar('Proceso cancelado')
       }
     },
     async returnItem (item) {
@@ -230,13 +230,13 @@ export default {
         const cred = { requestId: requestId, equipId: item._id }
         try {
           await RequestService.deleteItem(cred)
-          this.snackbarText = 'Entrega realizada'
-          this.snackbar = true
+          this.popUpSnackbar('Entrega realizada')
           this.detailItems.splice(index, 1)
         } catch (err) {
-          this.snackbarText = 'Ha sucedido un error. Intente de nuevo'
-          this.snackbar = true
+          this.popUpSnackbar('Ha sucedido un error. Intente de nuevo')
         }
+      } else {
+        this.popUpSnackbar('Proceso cancelado')
       }
     },
     equipIdFinder (item) {
@@ -249,6 +249,10 @@ export default {
         }
       }
       return null
+    },
+    popUpSnackbar (text) {
+      this.snackbarText = text
+      this.snackbar = true
     }
   }
 }

@@ -2,7 +2,7 @@
   <div>
     <v-container fluid grid-list-xl>
       <v-layout row justify-space-around>
-        <panel title="Añadir Equipos">
+        <panel title="Adicionar Equipos">
           <v-form ref="adition">
             <v-card>
               <v-card-title>
