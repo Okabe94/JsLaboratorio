@@ -8,6 +8,8 @@ module.exports = (app) => {
   // User
   app.post('/login', MonitorController.login)
   app.post('/registerMonitor', AuthenticationControllerPolicy.register, MonitorController.register)
+  app.get('/indexMonitor', MonitorController.index)
+  app.post('/deleteMonitor', MonitorController.delete)
 
   // // Student
   app.post('/registerStudent', StudentController.register)

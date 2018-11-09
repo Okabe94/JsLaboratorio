@@ -14,8 +14,8 @@
   </div>
 </template>
 <script>
-import Equipment from '@/components/Stock/Equipment'
-import Student from '@/components/Stock/Student'
+import Equipment from '@/components/stock/Equipment'
+import Student from '@/components/stock/Student'
 import noAuth from '@/components/reusable/Auth'
 
 export default {
