@@ -24,7 +24,7 @@
         </v-btn>
         <v-divider vertical></v-divider>
         <v-btn flat
-        @click="navigateTo({name: 'schedule'})">
+        @click="snackbar = true">
           Horarios
         </v-btn>
         <v-divider vertical></v-divider>
@@ -67,6 +67,12 @@
         </v-list>
       </v-menu>
     </v-toolbar>
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="3000">
+      Página en desarrollo
+      <v-btn flat color="pink" @click="snackbar = false">Cerrar</v-btn>
+    </v-snackbar>
   </div>
 </template>
 
@@ -74,6 +80,7 @@
 export default {
   data () {
     return {
+      snackbar: false,
       adminItems: [
         { title: 'Cambiar de Usuario', value: { name: 'login' } },
         { title: 'Eliminar Monitor', value: { name: 'deleteMonitor' } },

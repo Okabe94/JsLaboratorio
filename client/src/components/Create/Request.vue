@@ -185,51 +185,52 @@ export default {
       }
       try {
         await RequestService.registerRequest(this.request)
-        this.success = 'Equipo creado exitosamente'
-        this.error = null
+        this.setSuccess('Equipo creado exitosamente')
         this.clearFields()
       } catch (error) {
-        this.error = error.response.data.error
-        this.success = null
+        this.setError(error.response.data.error)
       }
     },
-    checkFields (jsonObject) {
+    checkFields (request) {
       // Validar si el estudiante esta en el form
-      const studentGoodToGo = jsonObject.estudiante.nombre !== 'nombre'
+      const studentGoodToGo = request.estudiante.nombre !== 'nombre'
+
       // Validar si se tiene un equipo
-      if (jsonObject.equipo.length >= 1) {
-        var equipGoodToGo = true
-        for (let i = 0; i < jsonObject.equipo.length; i++) {
-          if (jsonObject.equipo[i].nombre === '') {
-            equipGoodToGo = false
-            break
-          }
-          if (jsonObject.equipo[i].codBarras === '') {
-            equipGoodToGo = false
-            break
-          }
-          if (jsonObject.equipo[i].cantidad === '') {
-            equipGoodToGo = false
-            break
-          }
-        }
+      if (request.equipo.length >= 1) {
+        // Validar que estén los campos llenos
+        var equipGoodToGo = this.checkEquip(request)
       } else {
         equipGoodToGo = false
       }
       // Validar si se tiene un modulo con salon
-      const moduloGoodToGo = (jsonObject.modulo.numero !== '' && jsonObject.modulo.salon !== '')
+      const moduloGoodToGo = (request.modulo.numero !== '' && request.modulo.salon !== '')
+
       if (!studentGoodToGo) {
-        this.error = 'Por favor ingrese el carnet del estudiante'
-        this.success = null
+        this.setError('Por favor ingrese el carnet del estudiante')
         return false
       }
+
       // Debe existir o un equipo o un modulo para ser válido
       if (!(equipGoodToGo || moduloGoodToGo)) {
-        this.error = 'Ingrese valores para un módulo o un equipo a prestar'
-        this.success = null
+        this.setError('Ingrese valores para un módulo o un equipo a prestar')
         return false
       }
+
       // Si se cumple lo todo lo anterior, se procede
+      return true
+    },
+    checkEquip (request) {
+      for (let i = 0; i < request.equipo.length; i++) {
+        if (request.equipo[i].nombre === '') {
+          return false
+        }
+        if (request.equipo[i].codBarras === '') {
+          return false
+        }
+        if (request.equipo[i].cantidad === '') {
+          return false
+        }
+      }
       return true
     },
     clearFields () {
@@ -237,6 +238,14 @@ export default {
       this.rows = []
       this.request.modulo.salon = ''
       this.request.modulo.numero = ''
+    },
+    setError (text) {
+      this.error = text
+      this.success = null
+    },
+    setSuccess (text) {
+      this.success = text
+      this.error = null
     }
   },
   async mounted () {
