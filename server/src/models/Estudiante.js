@@ -4,6 +4,7 @@ const Schema = mongoose.Schema
 const student = new Schema({
   nombre: String,
   carnet: Number,
+  tipoDoc: String,
   planAcademico: String
 },
 {

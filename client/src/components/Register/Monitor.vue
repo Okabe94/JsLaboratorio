@@ -22,6 +22,21 @@
           <v-text-field
             required
             :rules="[required]"
+            label="Documento"
+            v-model="monitor.documento"
+            type="number"
+            min="0"
+          ></v-text-field>
+          <br>
+          <v-select
+            v-model="monitor.tipoDoc"
+            :items="documento"
+            label="Tipo Documento"
+          ></v-select>
+          <br>
+          <v-text-field
+            required
+            :rules="[required]"
             label="Contraseña"
             v-model="monitor.password"
             type="password"
@@ -69,6 +84,8 @@ export default {
       monitor: {
         nombre: '',
         carnet: '',
+        documento: '',
+        tipoDoc: '',
         password: '',
         rango: 0,
         cargo: ''
@@ -78,6 +95,10 @@ export default {
       items: [
         { text: 'Monitor', value: 2 },
         { text: 'Administrador', value: 1 }],
+      documento: [
+        { text: 'CC', value: 'CC' },
+        { text: 'TI', value: 'TI' },
+        { text: 'CE', value: 'CE' }],
       required: (value) => !!value || 'Requerido.'
     }
   },

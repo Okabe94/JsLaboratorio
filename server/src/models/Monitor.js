@@ -6,6 +6,8 @@ const SALT_WORK_FACTOR = 10
 const monitor = new Schema({
   nombre: String,
   carnet: Number,
+  documento: Number,
+  tipoDoc: String,
   password: String,
   rango: {
     type: Number,

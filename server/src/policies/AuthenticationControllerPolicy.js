@@ -5,6 +5,8 @@ module.exports = {
     const schema = {
       nombre: Joi.string().max(100),
       carnet: Joi.number().integer(),
+      documento: Joi.number().integer(),
+      tipoDoc: Joi.string().max(5),
       password: Joi.string().regex(
         new RegExp('^[a-zA-Z0-9]{8,32}$')
       ),
@@ -22,6 +24,16 @@ module.exports = {
         case 'carnet':
           res.status(400).send({
             error: 'El carnet tener mínimo 10 numeros'
+          })
+          break
+        case 'documento':
+          res.status(400).send({
+            error: 'Verifique el número de documento'
+          })
+          break
+        case 'tipoDoc':
+          res.status(400).send({
+            error: 'Verifique el tipo de documento'
           })
           break
         case 'password':

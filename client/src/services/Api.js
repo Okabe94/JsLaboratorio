@@ -1,7 +1,8 @@
 import axios from 'axios'
+var ip = require('ip')
 
 export default () => {
   return axios.create({
-    baseURL: 'http://localhost:8081/'
+    baseURL: 'http://' + ip.address() + ':8081/'
   })
 }
