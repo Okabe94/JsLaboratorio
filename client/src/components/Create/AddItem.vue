@@ -151,7 +151,7 @@ export default {
       })
     },
     async updateModule () {
-      this.mod.id = this.$store.state.route.params.id
+      this.mod.reference = this.$store.state.route.params.reference
       const goodToGo = this.checkMod()
       if (goodToGo) {
         try {
@@ -168,7 +168,7 @@ export default {
     },
     async updateEquip () {
       this.request.equipo = []
-      this.request.id = this.$store.state.route.params.id
+      this.request.reference = this.$store.state.route.params.reference
       if (this.rows.length >= 1) {
         for (let i = 0; i < this.rows.length; i++) {
           if (this.checkEquip(this.rows[i])) {

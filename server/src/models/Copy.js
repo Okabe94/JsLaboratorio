@@ -2,10 +2,12 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const copy = new Schema({
-  reference: Schema.Types.ObjectId,
+  reference: String,
   estudiante: {
     nombre: String,
-    carnet: Number
+    carnet: Number,
+    documento: Number,
+    tipoDoc: String
   },
   equipo: [
     {

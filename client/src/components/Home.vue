@@ -68,7 +68,7 @@
                   <i
                     slot="activator"
                     class="material-icons"
-                    v-on:click="returnRequest(props.item)"
+                    v-on:click="returnRequest(props.item, props.index)"
                     style="cursor: pointer">
                     assignment_returned
                   </i>
@@ -145,6 +145,7 @@ import RequestService from '@/services/RequestService'
 export default {
   data () {
     return {
+      globalId: '',
       timeout: 3000,
       snackbar: false,
       snackbarText: 'Entrega realizada',
@@ -196,12 +197,13 @@ export default {
     find (id) {
       for (let i = 0; i < this.items.length; i++) {
         if (this.items[i]._id === id) {
+          this.globalId = id
           return this.items[i].equipo
         }
       } return []
     },
     addEquip (item) {
-      this.navigateTo({ name: 'addItem', params: { id: item._id, nombre: item.nombre } })
+      this.navigateTo({ name: 'addItem', params: { reference: item.reference, nombre: item.nombre } })
     },
     async returnRequest (item) {
       const index = this.items.indexOf(item)
@@ -222,16 +224,18 @@ export default {
         this.popUpSnackbar('Proceso cancelado')
       }
     },
-    async returnItem (item) {
-      const index = this.detailItems.indexOf(item)
-      this.snackbar = true
-      const requestId = this.equipIdFinder(item)
+    async returnItem (item, index) {
       if (confirm('Confirmar entrega de equipo')) {
+        this.detailItems.splice(index, 1)
+        this.snackbar = true
+        const requestId = this.globalId
         const cred = { requestId: requestId, equipId: item._id }
         try {
           await RequestService.deleteItem(cred)
+          debugger
           this.popUpSnackbar('Entrega realizada')
           this.detailItems.splice(index, 1)
+          this.returnItemMaster(item)
         } catch (err) {
           this.popUpSnackbar('Ha sucedido un error. Intente de nuevo')
         }
@@ -239,16 +243,12 @@ export default {
         this.popUpSnackbar('Proceso cancelado')
       }
     },
-    equipIdFinder (item) {
+    returnItemMaster (item) {
       for (let i = 0; i < this.items.length; i++) {
-        var equipos = this.items[i].equipo
-        for (let j = 0; j < equipos.length; j++) {
-          if (equipos[j]._id === item._id) {
-            return this.items[i]._id
-          }
+        if (item._id === this.item[i]._id) {
+          this.items.splice(i, 1)
         }
       }
-      return null
     },
     popUpSnackbar (text) {
       this.snackbarText = text

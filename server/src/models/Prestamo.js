@@ -4,7 +4,8 @@ const Schema = mongoose.Schema
 const prestamo = new Schema({
   estudiante: {
     nombre: String,
-    carnet: Number
+    carnet: Number,
+    documento: Number
   },
   equipo: [
     {
@@ -49,6 +50,10 @@ const prestamo = new Schema({
   entregado: {
     type: Boolean,
     default: false
+  },
+  reference: {
+    type: String,
+    default: ''
   }
 },
 {

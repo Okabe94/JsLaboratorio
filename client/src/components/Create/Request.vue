@@ -238,6 +238,7 @@ export default {
       this.rows = []
       this.request.modulo.salon = ''
       this.request.modulo.numero = ''
+      this.request.observacion = ''
     },
     setError (text) {
       this.error = text
