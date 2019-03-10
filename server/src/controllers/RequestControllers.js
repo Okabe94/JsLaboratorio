@@ -64,12 +64,15 @@ module.exports = {
   },
   async deleteRequest (req, res) {
     const id = req.body.id
+    const reference = req.body.reference
     const nombre = req.body.nombre
     const carnet = req.body.carnet
     const fechaEntrega = getTime()
+    console.log(reference)
+    console.log(req.body)
     try {
       await CopyModel.findOneAndUpdate({
-        reference: id
+        reference: reference
       },
       {
         $set: {

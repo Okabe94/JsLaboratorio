@@ -99,12 +99,12 @@
                   <td>{{ props.item.nombre }}</td>
                   <td>{{ props.item.codBarras }}</td>
                   <td>{{ props.item.cantidad }}</td>
-                  <td>
+                  <td v-if="$store.state.isLoggedIn">
                     <v-tooltip bottom>
                       <i
                         slot="activator"
                         class="material-icons"
-                        v-on:click="returnItem(props.item)"
+                        v-on:click="returnItem(props.item, props.index)"
                         style="cursor: pointer">
                         assignment_returned
                       </i>
@@ -205,14 +205,15 @@ export default {
     addEquip (item) {
       this.navigateTo({ name: 'addItem', params: { reference: item.reference, nombre: item.nombre } })
     },
-    async returnRequest (item) {
-      const index = this.items.indexOf(item)
+    async returnRequest (item, index) {
       if (confirm('Confirmar entrega de préstamo')) {
         const returnCredentials = {
           id: item._id,
           nombre: this.monitorNombre,
-          carnet: this.monitorCarnet
+          carnet: this.monitorCarnet,
+          reference: item.reference
         }
+        debugger
         try {
           await RequestService.deleteRequest(returnCredentials)
           this.popUpSnackbar('Entrega realizada')
@@ -226,16 +227,14 @@ export default {
     },
     async returnItem (item, index) {
       if (confirm('Confirmar entrega de equipo')) {
-        this.detailItems.splice(index, 1)
         this.snackbar = true
         const requestId = this.globalId
         const cred = { requestId: requestId, equipId: item._id }
         try {
-          await RequestService.deleteItem(cred)
-          debugger
-          this.popUpSnackbar('Entrega realizada')
-          this.detailItems.splice(index, 1)
           this.returnItemMaster(item)
+          this.detailItems.splice(index, 1)
+          await RequestService.deleteItem(cred)
+          this.popUpSnackbar('Entrega realizada')
         } catch (err) {
           this.popUpSnackbar('Ha sucedido un error. Intente de nuevo')
         }
@@ -245,8 +244,12 @@ export default {
     },
     returnItemMaster (item) {
       for (let i = 0; i < this.items.length; i++) {
-        if (item._id === this.item[i]._id) {
-          this.items.splice(i, 1)
+        let equipo = this.items[i].equipo
+        for (let j = 0; j < equipo.length; j++) {
+          if (item._id === equipo[j]._id) {
+            equipo.splice(j, 1)
+            break
+          }
         }
       }
     },

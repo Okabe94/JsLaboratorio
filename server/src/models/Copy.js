@@ -5,9 +5,7 @@ const copy = new Schema({
   reference: String,
   estudiante: {
     nombre: String,
-    carnet: Number,
-    documento: Number,
-    tipoDoc: String
+    carnet: Number
   },
   equipo: [
     {

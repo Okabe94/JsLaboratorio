@@ -31,8 +31,6 @@
             <tr @click="details(props, props.item._id)">
               <td>{{ props.item.estudiante.nombre }}</td>
               <td>{{ props.item.estudiante.carnet }}</td>
-              <td>{{ props.item.estudiante.documento }}</td>
-              <td>{{ props.item.estudiante.tipoDoc }}</td>
               <td>{{ props.item.modulo.salon }}</td>
               <td>{{ props.item.modulo.numero }}</td>
               <td>{{ props.item.monitorEntrega.nombre }}</td>
@@ -102,8 +100,6 @@ export default {
       headers: [
         { text: 'Estudiante', value: 'estudiante.nombre' },
         { text: 'Carnet', value: 'estudiante.carnet' },
-        { text: 'Documento', value: 'estudiante.documento' },
-        { text: 'Tipo', value: 'estudiante.tipoDoc' },
         { text: 'Salon', value: 'modulo.salon' },
         { text: 'Modulo', value: 'modulo.numero' },
         { text: 'Monitor Entrega', value: 'monitorEntrega.nombre' },

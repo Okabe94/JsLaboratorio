@@ -4,8 +4,7 @@ const Schema = mongoose.Schema
 const prestamo = new Schema({
   estudiante: {
     nombre: String,
-    carnet: Number,
-    documento: Number
+    carnet: Number
   },
   equipo: [
     {
