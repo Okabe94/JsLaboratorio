@@ -33,6 +33,7 @@
             <td>{{ props.item.nombre }}</td>
             <td>{{ props.item.carnet }}</td>
             <td>{{ props.item.planAcademico }}</td>
+            <td><Dialog /></td>
           </tr>
         </template>
 
@@ -50,8 +51,9 @@
   </div>
 </template>
 <script>
-import StudentService from '@/services/StudentService'
 import Panel from '@/components/reusable/Panel'
+import StudentService from '@/services/StudentService'
+import Dialog from '@/components/reusable/EditStudentDialog'
 
 export default {
   data () {
@@ -61,7 +63,8 @@ export default {
       headers: [
         { text: 'Nombre', value: 'nombre' },
         { text: 'Carnet', value: 'carnet' },
-        { text: 'Plan Academico', value: 'planAcademico' }
+        { text: 'Plan Academico', value: 'planAcademico' },
+        { text: 'Acción', value: 'accion' }
       ]
     }
   },
@@ -72,7 +75,8 @@ export default {
     }
   },
   components: {
-    Panel
+    Panel,
+    Dialog
   }
 }
 

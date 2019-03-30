@@ -213,7 +213,6 @@ export default {
           carnet: this.monitorCarnet,
           reference: item.reference
         }
-        debugger
         try {
           await RequestService.deleteRequest(returnCredentials)
           this.popUpSnackbar('Entrega realizada')

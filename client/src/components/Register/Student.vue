@@ -38,7 +38,7 @@
             required
             :rules="[required]"
             :items="items"
-            label="Plan Academico"
+            label="Plan Académico"
             v-model="estudiante.planAcademico"
           ></v-autocomplete>
           <br>

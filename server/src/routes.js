@@ -1,10 +1,11 @@
-const MonitorController = require('./controllers/MonitorController')
-const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
-const StudentController = require('./controllers/StudentControllers')
-const EquipController = require('./controllers/EquipControllers')
 const HomeController = require('./controllers/HomeControllers')
-const RequestController = require('./controllers/RequestControllers')
 const CopyController = require('./controllers/CopyControllers')
+const EquipController = require('./controllers/EquipControllers')
+const MonitorController = require('./controllers/MonitorController')
+const RequestController = require('./controllers/RequestControllers')
+const StudentController = require('./controllers/StudentControllers')
+const ReusableController = require('./controllers/ReusableController')
+const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
 
 module.exports = (app) => {
   // User
@@ -33,4 +34,9 @@ module.exports = (app) => {
   app.post('/updateMod', RequestController.updateMod)
   app.post('/deleteItem', RequestController.deleteItem)
   app.post('/deleteRequest', RequestController.deleteRequest)
+
+  // Reusable
+  app.get('/indexCarreras', ReusableController.indexCarrers)
+  app.get('/indexDocumentos', ReusableController.indexDocuments)
+  app.get('/indexReusable', ReusableController.index)
 }

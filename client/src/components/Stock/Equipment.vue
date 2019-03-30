@@ -34,6 +34,18 @@
               <td>{{ props.item.nombre }}</td>
               <td>{{ props.item.descripcion }}</td>
               <td>{{ props.item.disponible }}</td>
+                <td v-if="$store.state.isAdmin">
+                  <v-tooltip bottom>
+                    <i
+                      slot="activator"
+                      class="material-icons"
+                      v-on:click="editEquip(props.item, props.index)"
+                      style="cursor: pointer">
+                      edit
+                    </i>
+                    <span>Editar</span>
+                  </v-tooltip>
+                </td>
             </tr>
           </template>
 
@@ -59,7 +71,8 @@ export default {
         { text: 'Código de Barras', value: 'codBarras' },
         { text: 'Nombre', value: 'nombre' },
         { text: 'Descripción', value: 'descripcion' },
-        { text: 'Disponible', value: 'disponible' }
+        { text: 'Disponible', value: 'disponible' },
+        { text: 'Acción', value: 'accion' }
       ]
     }
   },
@@ -73,6 +86,10 @@ export default {
         current.disponible = 'No'
       }
       this.items.push(current)
+    }
+  },
+  methods: {
+    editEquip (item, index) {
     }
   },
   components: {
