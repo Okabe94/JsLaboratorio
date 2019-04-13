@@ -68,8 +68,6 @@ module.exports = {
     const nombre = req.body.nombre
     const carnet = req.body.carnet
     const fechaEntrega = getTime()
-    console.log(reference)
-    console.log(req.body)
     try {
       await CopyModel.findOneAndUpdate({
         reference: reference

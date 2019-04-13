@@ -6,8 +6,8 @@
         <v-text-field
           v-model="search"
           label="Buscar"
+          append-icon="search"
           single-line
-          hide-details
         ></v-text-field>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
@@ -52,7 +52,9 @@
           <v-alert slot="no-results" :value="true" color="error">
             La busqueda de "{{ search }}" no entregó resultados.
           </v-alert>
-
+          <template slot="pageText" slot-scope="props">
+            Mostrando {{ props.pageStart }} - {{ props.pageStop }} de {{ props.itemsLength }}
+          </template>
         </v-data-table>
       </v-card>
     </panel>

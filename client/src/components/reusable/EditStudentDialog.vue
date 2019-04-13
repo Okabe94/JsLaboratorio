@@ -1,11 +1,12 @@
 <template>
-  <v-dialog max-width="290">
-    <i
-      slot="activator"
-      class="material-icons"
-      style="cursor: pointer">
-      edit
-    </i>
+  <v-dialog max-width="290" v-model="dialog">
+      <i
+        slot="activator"
+        class="material-icons"
+        style="cursor: pointer"
+        v-on:click="show()">
+        edit
+      </i>
     <v-card>
       <v-card-title class="headline">Editar Estudiante</v-card-title>
       <v-card-text>
@@ -56,3 +57,25 @@
     </v-card>
   </v-dialog>
 </template>
+<script>
+export default {
+  data () {
+    return {
+      carreras: [],
+      documentos: [],
+      dialog: false,
+      tipoDoc: '',
+      nombre: '',
+      carnet: '',
+      documento: '',
+      planAcademico: ''
+
+    }
+  },
+  methods: {
+    show () {
+      console.log('Hola')
+    }
+  }
+}
+</script>

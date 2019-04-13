@@ -3,8 +3,8 @@ const Schema = mongoose.Schema
 
 const student = new Schema({
   nombre: String,
-  carnet: Number,
-  documento: Number,
+  carnet: String,
+  documento: String,
   tipoDoc: String,
   planAcademico: String
 },

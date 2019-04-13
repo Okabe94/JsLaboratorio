@@ -17,6 +17,7 @@ module.exports = (app) => {
   // Student
   app.post('/registerStudent', StudentController.register)
   app.get('/indexStudent', StudentController.index)
+  app.post('/updateStudent', StudentController.update)
 
   // Equip
   app.post('/registerEquip', EquipController.register)
@@ -36,7 +37,7 @@ module.exports = (app) => {
   app.post('/deleteRequest', RequestController.deleteRequest)
 
   // Reusable
-  app.get('/indexCarreras', ReusableController.indexCarrers)
+  app.get('/indexCarrers', ReusableController.indexCarrers)
   app.get('/indexDocumentos', ReusableController.indexDocuments)
   app.get('/indexReusable', ReusableController.index)
 }

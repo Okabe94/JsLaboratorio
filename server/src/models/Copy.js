@@ -35,7 +35,7 @@ const copy = new Schema({
     },
     carnet: {
       type: Number,
-      default: ''
+      default: 0
     }
   },
   observacion: String,

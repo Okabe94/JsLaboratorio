@@ -20,7 +20,7 @@
         <v-btn flat
         v-if="$store.state.isLoggedIn"
         @click="navigateTo({name: 'stock'})">
-          Inventario
+          Listado
         </v-btn>
         <v-divider vertical></v-divider>
         <v-btn flat
