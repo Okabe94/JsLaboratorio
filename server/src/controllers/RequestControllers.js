@@ -47,8 +47,9 @@ module.exports = {
       const { salon, numero } = req.body
       await RequestModel.findOneAndUpdate({ reference: reference }, { $set: { modulo: { salon, numero } } })
       await CopyModel.findOneAndUpdate({ reference: reference }, { $set: { modulo: { salon, numero } } })
-      res.status(201).send({ updated: true })
+      res.status(200).send({ updated: true })
     } catch (err) {
+      console.log(err)
       res.status(500).send({ error: 'Ha ocurrido un error añadiendo el módulo' })
     }
   },
@@ -57,7 +58,7 @@ module.exports = {
     const equipId = req.body.equipId
     try {
       await RequestModel.findOneAndUpdate({ _id: requestId }, { $pull: { equipo: { _id: equipId } } })
-      res.status(201).send({ eliminated: true })
+      res.status(200).send({ eliminated: true })
     } catch (err) {
       res.status(500).send({ error: 'Ha ocurrido un error eliminando el equipo' })
     }

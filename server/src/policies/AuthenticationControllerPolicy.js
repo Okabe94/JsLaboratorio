@@ -3,9 +3,9 @@ const Joi = require('joi')
 module.exports = {
   register (req, res, next) {
     const schema = {
-      nombre: Joi.string().max(100),
-      carnet: Joi.number().integer(),
-      documento: Joi.number().integer(),
+      nombre: Joi.string().max(80),
+      carnet: Joi.string().max(15),
+      documento: Joi.string().max(15),
       tipoDoc: Joi.string().max(5),
       password: Joi.string().regex(
         new RegExp('^[a-zA-Z0-9]{8,32}$')
@@ -18,12 +18,12 @@ module.exports = {
       switch (error.details[0].context.key) {
         case 'nombre':
           res.status(400).send({
-            error: 'Nombres de máximo 100 caracteres'
+            error: 'Nombres de máximo 80 caracteres'
           })
           break
         case 'carnet':
           res.status(400).send({
-            error: 'El carnet tener mínimo 10 numeros'
+            error: 'El carnet tener máximo 15 numeros'
           })
           break
         case 'documento':
@@ -38,7 +38,7 @@ module.exports = {
           break
         case 'password':
           res.status(400).send({
-            error: `Se aceptan contraseñas de letras y numeros entre 8 y 32 caracteres`
+            error: `Contraseñas con mínimo 8 y máximo 32 caracteres`
           })
           break
         case 'rango':

@@ -5,13 +5,13 @@ const copy = new Schema({
   reference: String,
   estudiante: {
     nombre: String,
-    carnet: Number
+    carnet: String
   },
   equipo: [
     {
       nombre: String,
       cantidad: Number,
-      codBarras: Number
+      codBarras: String
     }
   ],
   modulo: {
@@ -26,7 +26,7 @@ const copy = new Schema({
   },
   monitorEntrega: {
     nombre: String,
-    carnet: Number
+    carnet: String
   },
   monitorRecibe: {
     nombre: {
@@ -34,7 +34,7 @@ const copy = new Schema({
       default: ''
     },
     carnet: {
-      type: Number,
+      type: String,
       default: 0
     }
   },

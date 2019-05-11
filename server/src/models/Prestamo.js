@@ -4,13 +4,13 @@ const Schema = mongoose.Schema
 const prestamo = new Schema({
   estudiante: {
     nombre: String,
-    carnet: Number
+    carnet: String
   },
   equipo: [
     {
       nombre: String,
       cantidad: Number,
-      codBarras: Number
+      codBarras: String
     }
   ],
   modulo: {
@@ -25,7 +25,7 @@ const prestamo = new Schema({
   },
   monitorEntrega: {
     nombre: String,
-    carnet: Number
+    carnet: String
   },
   monitorRecibe: {
     nombre: {
@@ -33,7 +33,7 @@ const prestamo = new Schema({
       default: ''
     },
     carnet: {
-      type: Number,
+      type: String,
       default: 0
     }
   },

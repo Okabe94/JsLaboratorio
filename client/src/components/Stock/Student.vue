@@ -53,6 +53,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
     <panel title="Estudiantes">
     <v-card>
       <v-card-title>
@@ -92,7 +93,7 @@
               <v-icon
                 small
                 class="mr-2"
-                @click="editItem(props.item)">
+                @click="editItem(props.item, props.index)">
                 edit
               </v-icon>
             </td>
@@ -121,17 +122,19 @@ import Dialog from '@/components/reusable/EditStudentDialog'
 export default {
   data () {
     return {
+      index: 0,
       dialog: false,
+      items: [],
+      carreras: [],
+      documentos: [],
+      search: '',
+      ogCarnet: '',
       studentId: '',
       editNombre: '',
       editCarnet: '',
+      editTipoDoc: '',
       editDocumento: '',
       editPlanAcademico: '',
-      editTipoDoc: '',
-      carreras: [],
-      documentos: [],
-      items: [],
-      search: '',
       headers: [
         { text: 'Nombre', value: 'nombre' },
         { text: 'Carnet', value: 'carnet' },
@@ -143,31 +146,39 @@ export default {
   },
   methods: {
     clearDialog () {
-      this.editTipoDoc = ''
-      this.editPlanAcademico = ''
-      this.editDocumento = ''
-      this.editNombre = ''
-      this.editCarnet = ''
       this.studentId = ''
+      this.editCarnet = ''
+      this.editNombre = ''
+      this.editTipoDoc = ''
+      this.editDocumento = ''
+      this.editPlanAcademico = ''
       this.dialog = false
     },
     async updateStudent () {
+      const selected = this.items[this.index]
+      selected.carnet = this.editCarnet
+      selected.nombre = this.editNombre
+      selected.documento = this.editDocumento
+      selected.planAcademico = this.editPlanAcademico
       const update = {
-        tipoDoc: this.editTipoDoc,
-        planAcademico: this.editPlanAcademico,
-        documento: this.editDocumento,
+        carnet: this.editCarnet,
         nombre: this.editNombre,
-        carnet: this.editCarnet
+        tipoDoc: this.editTipoDoc,
+        documento: this.editDocumento,
+        originalCarnet: this.ogCarnet,
+        planAcademico: this.editPlanAcademico
       }
       await StudentService.updateStudent(update)
       this.clearDialog()
     },
-    editItem (item) {
-      this.editTipoDoc = item.tipoDoc
-      this.editPlanAcademico = item.planAcademico
-      this.editDocumento = item.documento
+    editItem (item, index) {
+      this.index = index
+      this.ogCarnet = item.carnet
       this.editNombre = item.nombre
       this.editCarnet = item.carnet
+      this.editTipoDoc = item.tipoDoc
+      this.editDocumento = item.documento
+      this.editPlanAcademico = item.planAcademico
       this.fillAutocomplete(item.tipoDoc, this.documentos)
       this.fillAutocomplete(item.planAcademico, this.carreras)
       this.dialog = true

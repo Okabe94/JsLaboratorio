@@ -27,7 +27,7 @@ module.exports = {
     const body = req.body
     console.log(req.body)
     try {
-      StudentModel.findOneAndUpdate({ carnet: body.carnet }, {
+      await StudentModel.findOneAndUpdate({ carnet: body.originalCarnet }, {
         $set: {
           nombre: body.nombre,
           carnet: body.carnet,
