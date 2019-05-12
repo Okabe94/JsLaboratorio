@@ -19,8 +19,14 @@
         <v-divider vertical></v-divider>
         <v-btn flat
         v-if="$store.state.isLoggedIn"
+        @click="navigateTo({name: 'students'})">
+          Estudiantes
+        </v-btn>
+        <v-divider vertical></v-divider>
+        <v-btn flat
+        v-if="$store.state.isLoggedIn"
         @click="navigateTo({name: 'stock'})">
-          Listado
+          Equipos
         </v-btn>
         <v-divider vertical></v-divider>
         <v-btn flat

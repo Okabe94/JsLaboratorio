@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '@/components/Login'
 import Home from '@/components/Home'
-import Stock from '@/components/stock/MainViewStock'
+import Login from '@/components/Login'
 import Schedule from '@/components/Schedule'
-import Register from '@/components/register/MainViewRegister'
 import Request from '@/components/create/Request'
 import AddItem from '@/components/create/AddItem'
+import Stock from '@/components/stock/MainViewStock'
+import Students from '@/components/students/MainViewStudents'
 import DeleteMonitor from '@/components/admin/DeleteMonitor'
+import Register from '@/components/register/MainViewRegister'
 import RequestHistory from '@/components/admin/RequestHistory'
 
 Vue.use(Router)
@@ -15,48 +16,53 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
       name: 'home',
+      path: '/',
       component: Home
     },
     {
-      path: '/login',
       name: 'login',
+      path: '/login',
       component: Login
     },
     {
-      path: '/stock',
       name: 'stock',
+      path: '/stock',
       component: Stock
     },
     {
-      path: '/schedule',
+      name: 'students',
+      path: '/students',
+      component: Students
+    },
+    {
       name: 'schedule',
+      path: '/schedule',
       component: Schedule
     },
     {
-      path: '/register',
       name: 'register',
+      path: '/register',
       component: Register
     },
     {
-      path: '/request',
       name: 'request',
+      path: '/request',
       component: Request
     },
     {
-      path: '/deleteMonitor',
       name: 'deleteMonitor',
+      path: '/deleteMonitor',
       component: DeleteMonitor
     },
     {
-      path: '/history',
       name: 'history',
+      path: '/history',
       component: RequestHistory
     },
     {
-      path: '/addItem',
       name: 'addItem',
+      path: '/addItem',
       component: AddItem
     }
   ]
