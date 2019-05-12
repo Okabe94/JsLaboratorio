@@ -20,11 +20,11 @@
         <v-btn flat
         v-if="$store.state.isLoggedIn"
         @click="navigateTo({name: 'stock'})">
-          Inventario
+          Listado
         </v-btn>
         <v-divider vertical></v-divider>
         <v-btn flat
-        @click="navigateTo({name: 'schedule'})">
+        @click="snackbar = true">
           Horarios
         </v-btn>
         <v-divider vertical></v-divider>
@@ -49,18 +49,30 @@
         <v-toolbar-side-icon
           slot="activator">
         </v-toolbar-side-icon>
-        <v-list light>
+        <v-list light v-if="$store.state.isAdmin">
           <v-list-tile
-            v-for="(item, index) in items"
+            v-for="(item, index) in adminItems"
             :key="index"
-            @click="menu(item)"
-          >
+            @click="menu(item)">
+            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+        <v-list light v-else-if="$store.state.isLoggedIn">
+          <v-list-tile
+            v-for="(item, index) in monitorItems"
+            :key="index"
+            @click="menu(item)">
             <v-list-tile-title>{{ item.title }}</v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-menu>
-
     </v-toolbar>
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="3000">
+      Página en desarrollo
+      <v-btn flat color="pink" @click="snackbar = false">Cerrar</v-btn>
+    </v-snackbar>
   </div>
 </template>
 
@@ -68,7 +80,14 @@
 export default {
   data () {
     return {
-      items: [
+      snackbar: false,
+      adminItems: [
+        { title: 'Historial de Préstamos', value: { name: 'history' } },
+        { title: 'Cambiar de Usuario', value: { name: 'login' } },
+        { title: 'Eliminar Monitor', value: { name: 'deleteMonitor' } },
+        { title: 'Cerrar Sesión', value: { name: 'home' } }
+      ],
+      monitorItems: [
         { title: 'Cambiar de Usuario', value: { name: 'login' } },
         { title: 'Cerrar Sesión', value: { name: 'home' } }
       ]
@@ -85,10 +104,12 @@ export default {
       this.$router.push(route)
     },
     menu (item) {
-      if (item.title === 'Cerrar Sesión') {
-        this.logOut(item.value)
-      } else {
-        this.navigateTo(item.value)
+      switch (item.title) {
+        case 'Cerrar Sesión':
+          this.logOut(item.value)
+          break
+        default:
+          this.navigateTo(item.value)
       }
     }
   }

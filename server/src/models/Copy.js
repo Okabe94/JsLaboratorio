@@ -2,16 +2,16 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const copy = new Schema({
-  reference: Schema.Types.ObjectId,
+  reference: String,
   estudiante: {
     nombre: String,
-    carnet: Number
+    carnet: String
   },
   equipo: [
     {
       nombre: String,
       cantidad: Number,
-      codBarras: Number
+      codBarras: String
     }
   ],
   modulo: {
@@ -26,11 +26,17 @@ const copy = new Schema({
   },
   monitorEntrega: {
     nombre: String,
-    carnet: Number
+    carnet: String
   },
   monitorRecibe: {
-    nombre: String,
-    carnet: Number
+    nombre: {
+      type: String,
+      default: ''
+    },
+    carnet: {
+      type: String,
+      default: 0
+    }
   },
   observacion: String,
   fechaEntrega: {

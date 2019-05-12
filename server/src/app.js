@@ -13,6 +13,7 @@ app.use(cors())
 require('./routes')(app)
 
 mongoose.connect(config.db, { useNewUrlParser: true })
+mongoose.set('useFindAndModify', false)
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'Error en conexión: '))
 db.once('open', function () {

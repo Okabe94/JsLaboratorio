@@ -2,11 +2,13 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
 import Home from '@/components/Home'
-import Stock from '@/components/Stock/MainViewStock'
+import Stock from '@/components/stock/MainViewStock'
 import Schedule from '@/components/Schedule'
-import Register from '@/components/Register/MainViewRegister'
-import Request from '@/components/Create/Request'
-import AddItem from '@/components/Create/AddItem'
+import Register from '@/components/register/MainViewRegister'
+import Request from '@/components/create/Request'
+import AddItem from '@/components/create/AddItem'
+import DeleteMonitor from '@/components/admin/DeleteMonitor'
+import RequestHistory from '@/components/admin/RequestHistory'
 
 Vue.use(Router)
 
@@ -41,6 +43,16 @@ export default new Router({
       path: '/request',
       name: 'request',
       component: Request
+    },
+    {
+      path: '/deleteMonitor',
+      name: 'deleteMonitor',
+      component: DeleteMonitor
+    },
+    {
+      path: '/history',
+      name: 'history',
+      component: RequestHistory
     },
     {
       path: '/addItem',

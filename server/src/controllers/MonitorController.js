@@ -10,6 +10,14 @@ function jwtSignMonitor (monitor) {
 }
 
 module.exports = {
+  async index (req, res) {
+    try {
+      const index = await MonitorModel.find({})
+      res.send({ index })
+    } catch (err) {
+      res.status(400).send({ error: 'No se pudo obtener la información' })
+    }
+  },
   async register (req, res) {
     try {
       const carnet = req.body.carnet
@@ -45,6 +53,30 @@ module.exports = {
       })
     } catch (err) {
       res.status(500).send({ error: 'Un error ha ocurrido al intentar iniciar sesión' })
+    }
+  },
+  async delete (req, res) {
+    try {
+      await MonitorModel.findByIdAndDelete({ _id: req.body._id })
+      res.send({ deleted: true })
+    } catch (err) {
+      res.status(400).send({ error: 'Ha ocurrido un error eliminando el monitor' })
+    }
+  },
+  async update (req, res) {
+    const body = req.body
+    try {
+      await MonitorModel.findOneAndUpdate({ carnet: body.originalCarnet }, {
+        $set: {
+          nombre: body.nombre,
+          carnet: body.carnet,
+          tipoDoc: body.tipoDoc,
+          documento: body.documento
+        }
+      })
+      res.status(200).send({ success: true })
+    } catch (err) {
+      res.status(500).send({ error: 'Ha ocurrido un error actualizando el monitor' })
     }
   }
 }

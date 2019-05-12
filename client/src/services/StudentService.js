@@ -6,5 +6,8 @@ export default {
   },
   indexStudent () {
     return Api().get('indexStudent')
+  },
+  updateStudent (update) {
+    return Api().post('updateStudent', update)
   }
 }

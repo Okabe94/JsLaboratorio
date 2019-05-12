@@ -22,5 +22,22 @@ module.exports = {
     } catch (err) {
       res.status(400).send({ error: 'Ha ocurrido un error al obtener la información' })
     }
+  },
+  async update (req, res) {
+    const body = req.body
+    try {
+      await StudentModel.findOneAndUpdate({ carnet: body.originalCarnet }, {
+        $set: {
+          nombre: body.nombre,
+          carnet: body.carnet,
+          documento: body.documento,
+          tipoDoc: body.tipoDoc,
+          planAcademico: body.planAcademico
+        }
+      })
+      res.status(200).send({ success: true })
+    } catch (err) {
+      res.status(401).send({ error: 'Ha ocurrido un error al actualizar la información' })
+    }
   }
 }

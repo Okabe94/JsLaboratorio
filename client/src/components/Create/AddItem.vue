@@ -2,7 +2,7 @@
   <div>
     <v-container fluid grid-list-xl>
       <v-layout row justify-space-around>
-        <panel title="Añadir Equipos">
+        <panel title="Adicionar Equipos">
           <v-form ref="adition">
             <v-card>
               <v-card-title>
@@ -110,21 +110,22 @@
     <v-snackbar
       v-model="snackbar"
       :timeout="timeout">
-      Actualización realizada
+      {{ snackbarText }}
       <v-btn flat color="pink" @click="snackbar = false">Cerrar</v-btn>
     </v-snackbar>
   </div>
 </template>
 <script>
 import Panel from '@/components/reusable/Panel'
-import EquipmentService from '@/services/EquipmentService'
 import RequestService from '@/services/RequestService'
+import EquipmentService from '@/services/EquipmentService'
 
 export default {
   data () {
     return {
       snackbar: false,
       timeout: 3000,
+      snackbarText: '',
       rows: [],
       equipo: [],
       request: {
@@ -150,26 +151,73 @@ export default {
       })
     },
     async updateModule () {
-      this.mod.id = this.$store.state.route.params.id
-      await RequestService.updateModule(this.mod)
-      this.snackbar = true
-      this.mod.salon = ''
-      this.mod.numero = ''
+      this.mod.reference = this.$store.state.route.params.reference
+      const goodToGo = this.checkMod()
+      if (goodToGo) {
+        try {
+          await RequestService.updateModule(this.mod)
+          this.popUpSnackbar('Actualización realizada')
+          this.mod.salon = ''
+          this.mod.numero = ''
+        } catch (err) {
+          this.popUpSnackbar('Ha ocurrido un error. Intente de nuevo')
+        }
+      } else {
+        this.popUpSnackbar('Por favor llenar todos los campos del modulo')
+      }
     },
     async updateEquip () {
       this.request.equipo = []
-      this.request.id = this.$store.state.route.params.id
-      for (let i = 0; i < this.rows.length; i++) {
-        this.request.equipo.push(this.rows[i])
+      this.request.reference = this.$store.state.route.params.reference
+      if (this.rows.length >= 1) {
+        for (let i = 0; i < this.rows.length; i++) {
+          if (this.checkEquip(this.rows[i])) {
+            this.request.equipo.push(this.rows[i])
+          } else {
+            this.popUpSnackbar('Por favor llene todos los campos de los equipos')
+            return
+          }
+        }
+        try {
+          await RequestService.updateRequest(this.request)
+          this.popUpSnackbar('Actualización realizada')
+          this.request.equipo = []
+          this.rows = []
+        } catch (err) {
+          this.popUpSnackbar('Ha ocurrido un error. Intente de nuevo')
+        }
+      } else {
+        this.popUpSnackbar('Ingrese al menos un equipo')
       }
-      await RequestService.updateRequest(this.request)
-      this.snackbar = true
-      this.request.equipo = []
-      this.rows = []
     },
     removeElement (item) {
       const index = this.rows.indexOf(item)
       confirm('¿Seguro que desea eliminar el equipo?') && this.rows.splice(index, 1)
+    },
+    checkEquip (row) {
+      if (row.nombre === '' || (typeof row.nombre === 'undefined')) {
+        return false
+      }
+      if (row.codBarras === '' || (typeof row.codBarras === 'undefined')) {
+        return false
+      }
+      if (row.cantidad === '' || (typeof row.cantidad === 'undefined')) {
+        return false
+      }
+      return true
+    },
+    checkMod () {
+      if (this.mod.numero === '') {
+        return false
+      }
+      if (this.mod.salon === '') {
+        return false
+      }
+      return true
+    },
+    popUpSnackbar (text) {
+      this.snackbar = true
+      this.snackbarText = text
     }
   },
   async mounted () {

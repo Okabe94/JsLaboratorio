@@ -6,5 +6,11 @@ export default {
   },
   registerMonitor (credentials) {
     return Api().post('registerMonitor', credentials)
+  },
+  indexMonitor () {
+    return Api().get('indexMonitor')
+  },
+  deleteMonitor (credentials) {
+    return Api().post('deleteMonitor', credentials)
   }
 }

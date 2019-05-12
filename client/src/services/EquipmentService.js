@@ -6,5 +6,8 @@ export default {
   },
   indexEquip () {
     return Api().get('indexEquip')
+  },
+  updateEquip (details) {
+    return Api().post('updateEquip', details)
   }
 }

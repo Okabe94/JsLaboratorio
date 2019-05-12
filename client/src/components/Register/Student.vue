@@ -19,11 +19,26 @@
             min="0"
           ></v-text-field>
           <br>
+          <v-text-field
+            required
+            :rules="[required]"
+            label="Documento"
+            v-model="estudiante.documento"
+            type="number"
+            min="0"
+          ></v-text-field>
+          <br>
+          <v-select
+            v-model="estudiante.tipoDoc"
+            :items="documento"
+            label="Tipo Documento"
+          ></v-select>
+          <br>
           <v-autocomplete
             required
             :rules="[required]"
             :items="items"
-            label="Plan Academico"
+            label="Plan Académico"
             v-model="estudiante.planAcademico"
           ></v-autocomplete>
           <br>
@@ -78,8 +93,14 @@ export default {
       estudiante: {
         nombre: '',
         carnet: '',
+        documento: '',
+        tipoDoc: '',
         planAcademico: ''
       },
+      documento: [
+        { text: 'CC', value: 'CC' },
+        { text: 'TI', value: 'TI' },
+        { text: 'CE', value: 'CE' }],
       error: null,
       success: null,
       required: (value) => !!value || 'Requerido.'

@@ -68,7 +68,7 @@
                   <i
                     slot="activator"
                     class="material-icons"
-                    v-on:click="returnRequest(props.item)"
+                    v-on:click="returnRequest(props.item, props.index)"
                     style="cursor: pointer">
                     assignment_returned
                   </i>
@@ -99,12 +99,12 @@
                   <td>{{ props.item.nombre }}</td>
                   <td>{{ props.item.codBarras }}</td>
                   <td>{{ props.item.cantidad }}</td>
-                  <td>
+                  <td v-if="$store.state.isLoggedIn">
                     <v-tooltip bottom>
                       <i
                         slot="activator"
                         class="material-icons"
-                        v-on:click="returnItem(props.item)"
+                        v-on:click="returnItem(props.item, props.index)"
                         style="cursor: pointer">
                         assignment_returned
                       </i>
@@ -145,6 +145,7 @@ import RequestService from '@/services/RequestService'
 export default {
   data () {
     return {
+      globalId: '',
       timeout: 3000,
       snackbar: false,
       snackbarText: 'Entrega realizada',
@@ -196,59 +197,64 @@ export default {
     find (id) {
       for (let i = 0; i < this.items.length; i++) {
         if (this.items[i]._id === id) {
+          this.globalId = id
           return this.items[i].equipo
         }
       } return []
     },
     addEquip (item) {
-      this.navigateTo({ name: 'addItem', params: { id: item._id } })
+      this.navigateTo({ name: 'addItem', params: { reference: item.reference, nombre: item.nombre } })
     },
-    async returnRequest (item) {
-      const index = this.items.indexOf(item)
+    async returnRequest (item, index) {
       if (confirm('Confirmar entrega de préstamo')) {
         const returnCredentials = {
           id: item._id,
           nombre: this.monitorNombre,
-          carnet: this.monitorCarnet
+          carnet: this.monitorCarnet,
+          reference: item.reference
         }
         try {
           await RequestService.deleteRequest(returnCredentials)
-          this.snackbarText = 'Entrega realizada'
-          this.snackbar = true
+          this.popUpSnackbar('Entrega realizada')
           this.items.splice(index, 1)
         } catch (err) {
-          this.snackbarText = 'Ha sucedido un error. Intente de nuevo'
-          this.snackbar = true
+          this.popUpSnackbar('Ha sucedido un error. Intente de nuevo')
         }
+      } else {
+        this.popUpSnackbar('Proceso cancelado')
       }
     },
-    async returnItem (item) {
-      const index = this.detailItems.indexOf(item)
-      this.snackbar = true
-      const requestId = this.equipIdFinder(item)
+    async returnItem (item, index) {
       if (confirm('Confirmar entrega de equipo')) {
+        this.snackbar = true
+        const requestId = this.globalId
         const cred = { requestId: requestId, equipId: item._id }
         try {
-          await RequestService.deleteItem(cred)
-          this.snackbarText = 'Entrega realizada'
-          this.snackbar = true
+          this.returnItemMaster(item)
           this.detailItems.splice(index, 1)
+          await RequestService.deleteItem(cred)
+          this.popUpSnackbar('Entrega realizada')
         } catch (err) {
-          this.snackbarText = 'Ha sucedido un error. Intente de nuevo'
-          this.snackbar = true
+          this.popUpSnackbar('Ha sucedido un error. Intente de nuevo')
         }
+      } else {
+        this.popUpSnackbar('Proceso cancelado')
       }
     },
-    equipIdFinder (item) {
+    returnItemMaster (item) {
       for (let i = 0; i < this.items.length; i++) {
-        var equipos = this.items[i].equipo
-        for (let j = 0; j < equipos.length; j++) {
-          if (equipos[j]._id === item._id) {
-            return this.items[i]._id
+        let equipo = this.items[i].equipo
+        for (let j = 0; j < equipo.length; j++) {
+          if (item._id === equipo[j]._id) {
+            equipo.splice(j, 1)
+            break
           }
         }
       }
-      return null
+    },
+    popUpSnackbar (text) {
+      this.snackbarText = text
+      this.snackbar = true
     }
   }
 }
