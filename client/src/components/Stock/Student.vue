@@ -146,6 +146,7 @@ export default {
   },
   methods: {
     clearDialog () {
+      // Limpiar campos usados para edición
       this.studentId = ''
       this.editCarnet = ''
       this.editNombre = ''
@@ -155,6 +156,7 @@ export default {
       this.dialog = false
     },
     async updateStudent () {
+      // Cambiar la vista y realizar petición
       const selected = this.items[this.index]
       selected.carnet = this.editCarnet
       selected.nombre = this.editNombre
@@ -172,6 +174,8 @@ export default {
       this.clearDialog()
     },
     editItem (item, index) {
+      // Obtener el item para editar
+      // Index para obtener el carnet original
       this.index = index
       this.ogCarnet = item.carnet
       this.editNombre = item.nombre

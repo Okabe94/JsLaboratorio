@@ -62,5 +62,21 @@ module.exports = {
     } catch (err) {
       res.status(400).send({ error: 'Ha ocurrido un error eliminando el monitor' })
     }
+  },
+  async update (req, res) {
+    const body = req.body
+    try {
+      await MonitorModel.findOneAndUpdate({ carnet: body.originalCarnet }, {
+        $set: {
+          nombre: body.nombre,
+          carnet: body.carnet,
+          tipoDoc: body.tipoDoc,
+          documento: body.documento
+        }
+      })
+      res.status(200).send({ success: true })
+    } catch (err) {
+      res.status(500).send({ error: 'Ha ocurrido un error actualizando el monitor' })
+    }
   }
 }

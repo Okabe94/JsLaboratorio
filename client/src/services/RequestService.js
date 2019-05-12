@@ -5,7 +5,7 @@ export default {
     return Api().post('request', credentials)
   },
   updateRequest (credentials) {
-    return Api().post('updateEquip', credentials)
+    return Api().post('updateRequest', credentials)
   },
   updateModule (credentials) {
     return Api().post('updateMod', credentials)

@@ -25,7 +25,6 @@ module.exports = {
   },
   async update (req, res) {
     const body = req.body
-    console.log(req.body)
     try {
       await StudentModel.findOneAndUpdate({ carnet: body.originalCarnet }, {
         $set: {

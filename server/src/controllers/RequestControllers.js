@@ -38,7 +38,7 @@ module.exports = {
       }
     }
     if (flag) {
-      res.status(201).send({ updated: true })
+      res.status(200).send({ updated: true })
     }
   },
   async updateMod (req, res) {

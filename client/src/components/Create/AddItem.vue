@@ -117,8 +117,8 @@
 </template>
 <script>
 import Panel from '@/components/reusable/Panel'
-import EquipmentService from '@/services/EquipmentService'
 import RequestService from '@/services/RequestService'
+import EquipmentService from '@/services/EquipmentService'
 
 export default {
   data () {
@@ -174,7 +174,7 @@ export default {
           if (this.checkEquip(this.rows[i])) {
             this.request.equipo.push(this.rows[i])
           } else {
-            this.popUpSnackbar('Por favor llenar todos los campos de los equipos')
+            this.popUpSnackbar('Por favor llene todos los campos de los equipos')
             return
           }
         }
@@ -187,7 +187,7 @@ export default {
           this.popUpSnackbar('Ha ocurrido un error. Intente de nuevo')
         }
       } else {
-        this.popUpSnackbar('Por favor ingrese al menos un equipo')
+        this.popUpSnackbar('Ingrese al menos un equipo')
       }
     },
     removeElement (item) {

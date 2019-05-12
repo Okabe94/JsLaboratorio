@@ -12,6 +12,7 @@ module.exports = (app) => {
   app.post('/login', MonitorController.login)
   app.get('/indexMonitor', MonitorController.index)
   app.post('/deleteMonitor', MonitorController.delete)
+  app.post('/updateMonitor', MonitorController.update)
   app.post('/registerMonitor', AuthenticationControllerPolicy.register, MonitorController.register)
 
   // Student
@@ -21,6 +22,7 @@ module.exports = (app) => {
 
   // Equip
   app.get('/indexEquip', EquipController.index)
+  app.post('/updateEquip', EquipController.update)
   app.post('/registerEquip', EquipController.register)
 
   // Home
@@ -33,7 +35,7 @@ module.exports = (app) => {
   app.post('/request', RequestController.register)
   app.post('/updateMod', RequestController.updateMod)
   app.post('/deleteItem', RequestController.deleteItem)
-  app.post('/updateEquip', RequestController.updateEquip)
+  app.post('/updateRequest', RequestController.updateEquip)
   app.post('/deleteRequest', RequestController.deleteRequest)
 
   // Reusable
