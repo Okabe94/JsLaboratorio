@@ -117,7 +117,6 @@
 import Panel from '@/components/reusable/Panel'
 import StudentService from '@/services/StudentService'
 import ReusableService from '@/services/ReusableService'
-import Dialog from '@/components/reusable/EditStudentDialog'
 
 export default {
   data () {
@@ -210,8 +209,7 @@ export default {
     }
   },
   components: {
-    Panel,
-    Dialog
+    Panel
   }
 }
 
