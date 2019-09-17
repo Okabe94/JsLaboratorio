@@ -50,7 +50,7 @@
 
       <v-menu
         offset-y
-        origin="center center"
+        origin="top right"
         transition="scale-transition">
         <v-toolbar-side-icon
           slot="activator">

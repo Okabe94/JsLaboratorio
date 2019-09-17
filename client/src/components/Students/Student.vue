@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-dialog max-width="290" v-model="dialog">
+    <v-dialog max-width="290" v-model="dialog" persistent>
       <v-card>
         <v-card-title class="headline">Editar Estudiante</v-card-title>
         <v-card-text>
@@ -89,11 +89,11 @@
             <td>{{ props.item.carnet }}</td>
             <td>{{ props.item.documento }}</td>
             <td>{{ props.item.planAcademico }}</td>
-            <td>
+            <td v-if="$store.state.isAdmin">
               <v-icon
                 small
                 class="mr-2"
-                @click="editItem(props.item, props.index)">
+                @click="editItem(props.item)">
                 edit
               </v-icon>
             </td>
@@ -172,10 +172,10 @@ export default {
       await StudentService.updateStudent(update)
       this.clearDialog()
     },
-    editItem (item, index) {
+    editItem (item) {
       // Obtener el item para editar
       // Index para obtener el carnet original
-      this.index = index
+      this.index = this.items.indexOf(item)
       this.ogCarnet = item.carnet
       this.editNombre = item.nombre
       this.editCarnet = item.carnet

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-dialog max-width="290" v-model="dialog">
+    <v-dialog max-width="290" v-model="dialog" persistent>
       <v-card>
         <v-card-title class="headline">Editar Equipo</v-card-title>
         <v-card-text>
@@ -77,7 +77,7 @@
                   <v-icon
                     small
                     class="mr-2"
-                    @click="editItem(props.item, props.index)">
+                    @click="editItem(props.item)">
                     edit
                   </v-icon>
                 </td>
@@ -142,8 +142,8 @@ export default {
       await EquipmentService.updateEquip(petition)
       this.clearDialog()
     },
-    editItem (item, index) {
-      this.index = index
+    editItem (item) {
+      this.index = this.items.indexOf(item)
       this.editNombre = item.nombre
       this.originalCod = item.codBarras
       this.editCodBarras = item.codBarras
